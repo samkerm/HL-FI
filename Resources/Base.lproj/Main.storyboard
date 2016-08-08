@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KFX-8z-Evg">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Login Page-->
+        <scene sceneID="TuJ-ie-uGa">
+            <objects>
+                <viewController id="KFX-8z-Evg" customClass="LoginPage" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sVA-dl-Mx4"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZwC-Z5-oPv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qea-In-1mN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appLogin" translatesAutoresizingMaskIntoConstraints="NO" id="1Aa-C5-l9o">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mhJ-5C-Gtc">
+                                <rect key="frame" x="180" y="76" width="241" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1KS-SW-bsC"/>
+                                    <constraint firstAttribute="width" constant="241" id="YWp-m8-SQQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Jq-io-T3L">
+                                <rect key="frame" x="180" y="114" width="241" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIf-hX-EUE" customClass="LoginButton" customModule="freezerinventoryscanner" customModuleProvider="target">
+                                <rect key="frame" x="245" y="173" width="100" height="50"/>
+                                <color key="backgroundColor" red="0.035294117649999998" green="0.47058823529999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="C0R-9Z-dTH"/>
+                                    <constraint firstAttribute="height" constant="50" id="Gh9-rx-Epe"/>
+                                </constraints>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="login:" destination="KFX-8z-Evg" eventType="touchUpInside" id="ela-nj-OKQ"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fHz-Et-v1T" customClass="AnimatedMaskLabel" customModule="freezerinventoryscanner" customModuleProvider="target">
+                                <rect key="frame" x="181" y="20" width="240" height="31"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="text" value="Hallam Lab"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Re-type Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zYE-0x-SeB">
+                                <rect key="frame" x="181" y="152" width="240" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="LIv-GR-KXv"/>
+                                    <constraint firstAttribute="height" constant="30" id="rTy-rs-vvC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                            </textField>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V5E-DT-dqs">
+                                <rect key="frame" x="181" y="190" width="240" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="Pvm-Vt-f5s"/>
+                                    <constraint firstAttribute="height" constant="30" id="WCm-6b-PoE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PAF-Sy-WmN">
+                                <rect key="frame" x="181" y="228" width="240" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="EgX-Uu-SpF"/>
+                                    <constraint firstAttribute="width" constant="240" id="NSa-A6-6fJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert" returnKeyType="join" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mhJ-5C-Gtc" firstAttribute="leading" secondItem="5Jq-io-T3L" secondAttribute="leading" id="1Tb-YQ-gcz"/>
+                            <constraint firstItem="mhJ-5C-Gtc" firstAttribute="top" secondItem="sVA-dl-Mx4" secondAttribute="bottom" constant="56" id="6iU-BC-bWy"/>
+                            <constraint firstItem="JIf-hX-EUE" firstAttribute="centerX" secondItem="5Jq-io-T3L" secondAttribute="centerX" constant="-5.5" id="AFY-p9-z9Z"/>
+                            <constraint firstItem="5Jq-io-T3L" firstAttribute="top" secondItem="mhJ-5C-Gtc" secondAttribute="bottom" constant="8" symbolic="YES" id="GNb-Rl-9mE"/>
+                            <constraint firstItem="V5E-DT-dqs" firstAttribute="centerX" secondItem="Qea-In-1mN" secondAttribute="centerX" constant="1" id="HDa-bk-q91"/>
+                            <constraint firstItem="zYE-0x-SeB" firstAttribute="top" secondItem="5Jq-io-T3L" secondAttribute="bottom" constant="8" id="LrV-Ov-0K7"/>
+                            <constraint firstItem="1Aa-C5-l9o" firstAttribute="leading" secondItem="Qea-In-1mN" secondAttribute="leading" id="OMm-4F-w6v"/>
+                            <constraint firstItem="mhJ-5C-Gtc" firstAttribute="trailing" secondItem="5Jq-io-T3L" secondAttribute="trailing" id="RH1-Zv-Mf8"/>
+                            <constraint firstItem="zYE-0x-SeB" firstAttribute="centerX" secondItem="Qea-In-1mN" secondAttribute="centerX" constant="1" id="UFg-fa-3ap"/>
+                            <constraint firstItem="fHz-Et-v1T" firstAttribute="centerX" secondItem="Qea-In-1mN" secondAttribute="centerX" id="Xst-cr-scm"/>
+                            <constraint firstItem="ZwC-Z5-oPv" firstAttribute="top" secondItem="1Aa-C5-l9o" secondAttribute="bottom" id="aJb-hW-pFT"/>
+                            <constraint firstItem="fHz-Et-v1T" firstAttribute="top" secondItem="sVA-dl-Mx4" secondAttribute="bottom" id="bme-DD-Jai"/>
+                            <constraint firstAttribute="trailing" secondItem="1Aa-C5-l9o" secondAttribute="trailing" id="ebD-g8-plR"/>
+                            <constraint firstItem="JIf-hX-EUE" firstAttribute="top" secondItem="5Jq-io-T3L" secondAttribute="bottom" constant="29" id="jIz-83-d4Q"/>
+                            <constraint firstItem="V5E-DT-dqs" firstAttribute="top" secondItem="zYE-0x-SeB" secondAttribute="bottom" constant="8" id="lx6-9R-iCw"/>
+                            <constraint firstItem="1Aa-C5-l9o" firstAttribute="top" secondItem="Qea-In-1mN" secondAttribute="top" id="ppv-cK-9db"/>
+                            <constraint firstItem="PAF-Sy-WmN" firstAttribute="centerX" secondItem="Qea-In-1mN" secondAttribute="centerX" id="rx2-5t-Tet"/>
+                            <constraint firstItem="mhJ-5C-Gtc" firstAttribute="centerX" secondItem="Qea-In-1mN" secondAttribute="centerX" id="urd-Xa-5Ne"/>
+                            <constraint firstItem="PAF-Sy-WmN" firstAttribute="top" secondItem="V5E-DT-dqs" secondAttribute="bottom" constant="8" id="wtH-sG-xA1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="firstNameTextField" destination="V5E-DT-dqs" id="vWK-68-aog"/>
+                        <outlet property="informationHeight" destination="6iU-BC-bWy" id="I67-74-48y"/>
+                        <outlet property="lastNameTextField" destination="PAF-Sy-WmN" id="Aub-Yl-1kC"/>
+                        <outlet property="loginButton" destination="JIf-hX-EUE" id="f8u-hO-ndo"/>
+                        <outlet property="loginButtonHeightConstraint" destination="jIz-83-d4Q" id="sCU-Ig-O6w"/>
+                        <outlet property="logo" destination="fHz-Et-v1T" id="g21-GY-iGc"/>
+                        <outlet property="passwordTextField" destination="5Jq-io-T3L" id="Xhf-NS-AQo"/>
+                        <outlet property="retypePasswordTextField" destination="zYE-0x-SeB" id="aXX-5Q-bD8"/>
+                        <outlet property="usernameTextField" destination="mhJ-5C-Gtc" id="BKs-lc-HUo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9IM-Ni-5Bt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-377" y="272"/>
+        </scene>
+        <!--Scanner View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ScannerViewController" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZw-PC-ssB">
+                                <rect key="frame" x="250" y="492" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="TzD-ci-hOK"/>
+                                    <constraint firstAttribute="height" constant="100" id="pbS-9n-HCR"/>
+                                </constraints>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dZw-PC-ssB" secondAttribute="bottom" constant="8" id="8We-Rf-wr9"/>
+                            <constraint firstItem="dZw-PC-ssB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WaK-II-aMk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="captureButton" destination="dZw-PC-ssB" id="Rad-vm-ps5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="appLogin" width="900" height="674"/>
+    </resources>
+</document>

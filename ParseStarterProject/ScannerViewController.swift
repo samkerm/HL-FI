@@ -45,6 +45,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         
         addPreviewLayer()
+        view.bringSubviewToFront(captureButton)        
         captureButton.layer.cornerRadius = captureButton.layer.frame.width/2
         captureButton.backgroundColor = .grayColor()
 //        captureButton.tintColor = .redColor()
@@ -52,6 +53,16 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         captureButton.addTarget(self, action: "touchDown", forControlEvents: UIControlEvents.TouchDown)
         captureButton.addTarget(self, action: "buttonReleased", forControlEvents: UIControlEvents.TouchUpInside)
 //        captureButton.setTitleColor(.redColor(), forState: .Selected)
+    }
+//    override func viewWillDisappear(animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        
+//        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+//        
+//    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
     func touchDown(){
         print("button pressed")
@@ -77,9 +88,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     func addPreviewLayer() {
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height/3)
+        previewLayer.frame = CGRect(x: 0, y: UIApplication.sharedApplication().statusBarFrame.size.height
+            , width: view.frame.width, height: view.frame.height)
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        previewLayer.position = CGPointMake(CGRectGetMidX(self.view.bounds), view.frame.height/6)
+        previewLayer.position = CGPointMake(self.view.bounds.width/2, view.frame.height/2 + 20)
         view.layer.addSublayer(previewLayer)
     }
     
@@ -109,12 +121,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        if (captureSession?.running == true) {
-            captureSession.stopRunning();
-        }
-    }
+
     
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
        

@@ -24,6 +24,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //--------------------------------------
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        //--------------------------------------
+        // MARK: - HomeStuff
+        //--------------------------------------
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let centerNav = storyboard.instantiateViewControllerWithIdentifier("CenterNav") as! UINavigationController
+        let menuVC = storyboard.instantiateViewControllerWithIdentifier("SideMenu") as! SideMenuViewController
+        menuVC.centerViewController = centerNav.viewControllers.first as! CenterViewController
+        
+        let containerVC = ContainerViewController(sideMenu: menuVC, center: centerNav)
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window!.rootViewController = containerVC
+        self.window!.backgroundColor = UIColor.blackColor()
+        self.window!.makeKeyAndVisible()
+        
+        //--------------------------------------
+        // MARK: - UIApplicationDelegate
+        //--------------------------------------
+        
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
         Parse.enableLocalDatastore()

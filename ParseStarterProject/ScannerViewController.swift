@@ -17,8 +17,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 //    var timer: NSTimer?
     let metadataOutput = AVCaptureMetadataOutput()
     let parseHandler = ParseBackendHandler()
-    @IBOutlet weak var captureButton: UIButton!
-
+//    @IBOutlet weak var captureButton: UIButton!
+    var captureButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,16 +43,15 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             return;
         }
         
-        
+        let buttonFrame = CGRect(x: view.bounds.width/2 - 50, y: view.bounds.height - 120, width: 100, height: 100)
+        captureButton = UIButton(frame: buttonFrame)
         addPreviewLayer()
-        view.bringSubviewToFront(captureButton)        
         captureButton.layer.cornerRadius = captureButton.layer.frame.width/2
         captureButton.backgroundColor = .grayColor()
-//        captureButton.tintColor = .redColor()
-        
-        captureButton.addTarget(self, action: "touchDown", forControlEvents: UIControlEvents.TouchDown)
-        captureButton.addTarget(self, action: "buttonReleased", forControlEvents: UIControlEvents.TouchUpInside)
-//        captureButton.setTitleColor(.redColor(), forState: .Selected)
+        view.addSubview(captureButton)
+        captureButton.addTarget(self, action: #selector(ScannerViewController.touchDown), forControlEvents: UIControlEvents.TouchDown)
+        captureButton.addTarget(self, action: #selector(ScannerViewController.buttonReleased), forControlEvents: UIControlEvents.TouchUpInside)
+        view.bringSubviewToFront(captureButton)
     }
 //    override func viewWillDisappear(animated: Bool) {
 //        super.viewWillDisappear(animated)

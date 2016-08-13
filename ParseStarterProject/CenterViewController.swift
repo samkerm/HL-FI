@@ -28,14 +28,13 @@ class CenterViewController: UIViewController {
   var menuItem: MenuItem! {
     didSet {
       title = menuItem.title
-      view.backgroundColor = menuItem.color
-      symbol.text = menuItem.symbol
-        let scannerView = ScannerViewController()
-        view.addSubview(scannerView.view)
+        navigationController?.navigationBar.barTintColor = menuItem.color
+        let sideMenue = SideMenuViewController()
+        sideMenue.tableView.dequeueReusableCellWithIdentifier("MenuCell")?.backgroundColor = menuItem.color
     }
   }
   
-  @IBOutlet var symbol: UILabel!
+//  @IBOutlet var symbol: UILabel!
   
   // MARK: ViewController
   
@@ -43,11 +42,15 @@ class CenterViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    let scannerView = ScannerViewController()
+    addChildViewController(scannerView)
+    view.addSubview(scannerView.view)
+    scannerView.didMoveToParentViewController(self)
     
     menuButton = MenuButton()
     menuButton.tapHandler = {
       if let containerVC = self.navigationController?.parentViewController as? ContainerViewController {
-        containerVC.toggleSideMenu()
+        containerVC.toggleSideMenu()        
       }
     }
     navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)

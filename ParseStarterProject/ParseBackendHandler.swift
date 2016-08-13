@@ -15,7 +15,7 @@ class ParseBackendHandler: NSObject {
     
     func searchBackendDataAnalysis(barcodeText:String)  {
         
-        var query = PFQuery(className:"Inventory")
+        let query = PFQuery(className:"Inventory")
         query.whereKey("Barcode", equalTo:"\(barcodeText)")
         query.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in

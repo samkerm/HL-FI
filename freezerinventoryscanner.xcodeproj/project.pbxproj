@@ -15,6 +15,7 @@
 		228F8F7D1D5DA70100314DB3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228F8F781D5DA70100314DB3 /* MenuButton.swift */; };
 		228F8F7E1D5DA70100314DB3 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228F8F791D5DA70100314DB3 /* MenuItem.swift */; };
 		228F8F7F1D5DA70100314DB3 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228F8F7A1D5DA70100314DB3 /* SideMenuViewController.swift */; };
+		228F8F831D5FCE8C00314DB3 /* MenuLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228F8F821D5FCE8C00314DB3 /* MenuLogo.swift */; };
 		22C4BCF11D56B28F00A1F4BD /* AnimatedMaskLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C4BCF01D56B28F00A1F4BD /* AnimatedMaskLabel.swift */; };
 		22C4BCF31D57DEC200A1F4BD /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C4BCF21D57DEC200A1F4BD /* LoginButton.swift */; };
 		814C3ACA1B69877600E307BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC61B69877600E307BB /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 		228F8F781D5DA70100314DB3 /* MenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		228F8F791D5DA70100314DB3 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		228F8F7A1D5DA70100314DB3 /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		228F8F821D5FCE8C00314DB3 /* MenuLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuLogo.swift; sourceTree = "<group>"; };
 		22C4BCF01D56B28F00A1F4BD /* AnimatedMaskLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedMaskLabel.swift; sourceTree = "<group>"; };
 		22C4BCF21D57DEC200A1F4BD /* LoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				226D28C51D55BA840004FBD5 /* LoginPage.swift */,
 				22C4BCF21D57DEC200A1F4BD /* LoginButton.swift */,
 				22C4BCF01D56B28F00A1F4BD /* AnimatedMaskLabel.swift */,
+				228F8F821D5FCE8C00314DB3 /* MenuLogo.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
 			);
 			path = ParseStarterProject;
@@ -233,6 +236,7 @@
 				228F8F7F1D5DA70100314DB3 /* SideMenuViewController.swift in Sources */,
 				228F8F7B1D5DA70100314DB3 /* CenterViewController.swift in Sources */,
 				228F8F7D1D5DA70100314DB3 /* MenuButton.swift in Sources */,
+				228F8F831D5FCE8C00314DB3 /* MenuLogo.swift in Sources */,
 				226D28C21D5599020004FBD5 /* ParseBackendHandler.swift in Sources */,
 				226D28C01D5594170004FBD5 /* ScannerViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,

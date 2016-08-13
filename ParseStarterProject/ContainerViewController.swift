@@ -134,7 +134,7 @@ class ContainerViewController: UIViewController {
     let centerVC = (centerViewController as! UINavigationController).viewControllers.first as? CenterViewController
     let slideMenuVC = menuViewController as? SideMenuViewController
     if let menuButton = slideMenuVC?.menuButton {
-        menuButton.imageView.layer.transform = slideMenueButtonTransformForPercent(percent)
+//        menuButton.imageView.layer.transform = slideMenueButtonTransformForPercent(percent)
     }
     if let menuButton = centerVC?.menuButton {
         menuButton.imageView.layer.transform = slideMenueButtonTransformForPercent(percent)

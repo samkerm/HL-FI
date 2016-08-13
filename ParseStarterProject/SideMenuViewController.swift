@@ -24,8 +24,8 @@ import UIKit
 
 class SideMenuViewController: UITableViewController {
   
+    @IBOutlet weak var menuLogo: MenuLogo!
   var centerViewController: CenterViewController!
-    var menuButton : MenuButton!
   
   // MARK: UITableViewDataSource
   
@@ -59,11 +59,8 @@ class SideMenuViewController: UITableViewController {
     }
 
   override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView  {
-    let headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell")!
-    menuButton = MenuButton()
-//    menuButton.frame.offsetInPlace(dx: 100, dy: 100)
-//    buttonViewContainer.addSubview(menuButton)
-    return headerCell
+    menuLogo = MenuLogo()
+    return menuLogo
   }
   
   // MARK: UITableViewDelegate

@@ -29,16 +29,24 @@ class CenterViewController: UIViewController {
     didSet {
       title = menuItem.title
         navigationController?.navigationBar.barTintColor = menuItem.color
-        if menuItem.symbol == "✺" && view.subviews.count != 0 {
-            let presentingViewController : UIViewController! = self.presentingViewController
-            self.dismissViewControllerAnimated(false) {
-                presentingViewController.dismissViewControllerAnimated(false, completion: {
-                    let settingsVC = SettingsViewController()
-                    self.addChildViewController(settingsVC)
-                    self.view.addSubview(settingsVC.view)
-                    settingsVC.didMoveToParentViewController(self)
-                })
-            }
+        if menuItem.symbol == "✺" {
+            let settingsViewController = SettingsViewController()
+//            let curentChildVC = self.presentedViewController
+//            print("------>", curentChildVC?.childViewControllers)
+            //            let containerVC = curentChildVC?.parentViewController
+            //            curentChildVC?.willMoveToParentViewController(nil)
+            //            containerVC?.transitionFromViewController(curentChildVC!, toViewController: settingsViewController, duration: 0.5, options: .TransitionCrossDissolve, animations: nil, completion: { (_) in
+            //                curentChildVC?.removeFromParentViewController()
+            //                settingsViewController.didMoveToParentViewController(containerVC)
+            //            })
+//            curentChildVC?.removeFromParentViewController()
+            addChildViewController(settingsViewController)
+            view.addSubview(settingsViewController.view)
+            settingsViewController.didMoveToParentViewController(self)
+            print("________", childViewControllers)
+            
+        } else {
+            addScanner()
         }
     }
   }
@@ -54,11 +62,6 @@ class CenterViewController: UIViewController {
     
     navigationController?.navigationBar.tintColor = .whiteColor()
     
-    let scannerView = ScannerViewController()
-    addChildViewController(scannerView)
-    view.addSubview(scannerView.view)
-    scannerView.didMoveToParentViewController(self)
-    
     menuButton = MenuButton()
     menuButton.tapHandler = {
       if let containerVC = self.navigationController?.parentViewController as? ContainerViewController {
@@ -68,6 +71,11 @@ class CenterViewController: UIViewController {
     navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
     menuItem = MenuItem.sharedItems.first!
   }
-    
+    func addScanner() {
+        let scannerView = ScannerViewController()
+        addChildViewController(scannerView)
+        view.addSubview(scannerView.view)
+        scannerView.didMoveToParentViewController(self)
+    }
   
 }

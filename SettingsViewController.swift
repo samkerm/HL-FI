@@ -10,9 +10,13 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+//    @IBOutlet weak var detailsView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let detailsView: UIView = UIView(frame: CGRect(x: 20, y: (navigationController?.navigationBar.bounds.height)! + 40, width: view.bounds.width - 40, height: view.bounds.height - (navigationController?.navigationBar.bounds.height)! - 60))
+        detailsView.layer.cornerRadius = 25
+        detailsView.layer.backgroundColor = UIColor(red: 89/255, green: 113/255, blue: 85/255, alpha: 1.0).CGColor
+        view.addSubview(detailsView)
         // Do any additional setup after loading the view.
     }
 

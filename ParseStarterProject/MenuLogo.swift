@@ -61,7 +61,7 @@ class MenuLogo: UIView {
         style.alignment = .Center
         
         return [
-            NSFontAttributeName:UIFont(name: "HelveticaNeue-Thin", size: 28.0)!,
+            NSFontAttributeName:UIFont(name: "HelveticaNeue-Thin", size: 45.0)!,
             NSParagraphStyleAttributeName:style
         ]
     }()

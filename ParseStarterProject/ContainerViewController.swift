@@ -132,12 +132,12 @@ class ContainerViewController: UIViewController {
     menuViewController.view.layer.transform = menuTransformForPercent(percent)
     menuViewController.view.alpha = CGFloat(max(0.2, percent))
     let centerVC = (centerViewController as! UINavigationController).viewControllers.first as? CenterViewController
-    let slideMenuVC = menuViewController as? SideMenuViewController
-    if let menuButton = slideMenuVC?.menuButton {
-//        menuButton.imageView.layer.transform = slideMenueButtonTransformForPercent(percent)
-    }
+//    let slideMenuVC = menuViewController as? SideMenuViewController
+//    if let menuButton = slideMenuVC?.menuButton {
+////        menuButton.imageView.layer.transform = slideMenueButtonTransformForPercent(percent)
+//    }
     if let menuButton = centerVC?.menuButton {
-        menuButton.imageView.layer.transform = slideMenueButtonTransformForPercent(percent)
+        menuButton.imageView.layer.transform = buttonTransformForPercent(percent)
     }
   }
   
@@ -166,13 +166,13 @@ class ContainerViewController: UIViewController {
         
         return rotationTransform
     }
-    func slideMenueButtonTransformForPercent(percent: CGFloat) -> CATransform3D {
-        var identity = CATransform3DIdentity
-        identity.m34 = -1.0/1000
-        
-        let angle = percent * CGFloat(M_PI)
-        let rotationTransform = CATransform3DRotate(identity, angle, 1.0, 1.0, 0.0)
-        
-        return rotationTransform
-    }
+//    func slideMenueButtonTransformForPercent(percent: CGFloat) -> CATransform3D {
+//        var identity = CATransform3DIdentity
+//        identity.m34 = -1.0/1000
+//        
+//        let angle = percent * CGFloat(M_PI)
+//        let rotationTransform = CATransform3DRotate(identity, angle, 1.0, 1.0, 0.0)
+//        
+//        return rotationTransform
+//    }
 }

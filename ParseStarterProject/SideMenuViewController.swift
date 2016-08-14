@@ -24,9 +24,13 @@ import UIKit
 
 class SideMenuViewController: UITableViewController {
   
-    @IBOutlet weak var menuLogo: MenuLogo!
+    var menuLogo: MenuLogo!
   var centerViewController: CenterViewController!
   
+    override func viewDidLoad() {
+        tableView.registerNib(UINib(nibName: "Header", bundle: nil), forCellReuseIdentifier: "HeaderCell")
+    }
+    
   // MARK: UITableViewDataSource
   
   override func tableView(tableView:UITableView, numberOfRowsInSection section:Int) -> Int {
@@ -34,9 +38,8 @@ class SideMenuViewController: UITableViewController {
   }
   
   override func tableView(tableView:UITableView, cellForRowAtIndexPath indexPath:NSIndexPath) -> UITableViewCell {
-    
     let cell = tableView.dequeueReusableCellWithIdentifier("MenuCell", forIndexPath:indexPath) as UITableViewCell
-//    let headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell")!
+    let headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell")!
     
     let menuItem = MenuItem.sharedItems[indexPath.row]
     cell.textLabel?.backgroundColor = UIColor.clearColor()
@@ -44,24 +47,13 @@ class SideMenuViewController: UITableViewController {
     cell.textLabel?.font = UIFont(name: "Helvetica", size: 36.0)
     cell.textLabel?.textAlignment = .Center
     cell.textLabel?.text = menuItem.symbol
-
     cell.contentView.backgroundColor = menuItem.color
-//    headerCell.contentView.backgroundColor = menuItem.color
-    
     return cell
   }
-    
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell")! as UITableViewCell
-        let menuItem = MenuItem.sharedItems[indexPath.row]
-        headerCell.contentView.backgroundColor = menuItem.color
-        view.layoutIfNeeded()
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView {
+        let headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell")!
+        return headerCell
     }
-
-  override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView  {
-    menuLogo = MenuLogo()
-    return menuLogo
-  }
   
   // MARK: UITableViewDelegate
   

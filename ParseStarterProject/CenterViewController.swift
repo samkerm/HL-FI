@@ -29,8 +29,17 @@ class CenterViewController: UIViewController {
     didSet {
       title = menuItem.title
         navigationController?.navigationBar.barTintColor = menuItem.color
-        let sideMenue = SideMenuViewController()
-        sideMenue.tableView.dequeueReusableCellWithIdentifier("MenuCell")?.backgroundColor = menuItem.color
+        if menuItem.symbol == "✺" && view.subviews.count != 0 {
+            let presentingViewController : UIViewController! = self.presentingViewController
+            self.dismissViewControllerAnimated(false) {
+                presentingViewController.dismissViewControllerAnimated(false, completion: {
+                    let settingsVC = SettingsViewController()
+                    self.addChildViewController(settingsVC)
+                    self.view.addSubview(settingsVC.view)
+                    settingsVC.didMoveToParentViewController(self)
+                })
+            }
+        }
     }
   }
   
@@ -42,6 +51,9 @@ class CenterViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    navigationController?.navigationBar.tintColor = .whiteColor()
+    
     let scannerView = ScannerViewController()
     addChildViewController(scannerView)
     view.addSubview(scannerView.view)

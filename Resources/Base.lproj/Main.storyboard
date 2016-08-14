@@ -144,18 +144,12 @@
                                     <color key="backgroundColor" red="1" green="0.48221905570000001" blue="0.1105622424" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="HeaderCell" id="LRu-c3-zyU">
+                            <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" restorationIdentifier="HeaderCell" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="HeaderCell" id="LRu-c3-zyU">
                                 <rect key="frame" x="0.0" y="112" width="80" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottom" tableViewCell="LRu-c3-zyU" id="r5l-0i-dJB">
                                     <rect key="frame" x="0.0" y="0.0" width="80" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwz-lh-czP">
-                                            <rect key="frame" x="0.0" y="0.0" width="80" height="43"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </tableViewCell>
@@ -167,9 +161,6 @@
                     </tableView>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="80" height="568"/>
-                    <connections>
-                        <outlet property="menuLogo" destination="cwz-lh-czP" id="vgt-nV-kT9"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7UU-vU-GzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -236,6 +227,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t20-Vl-8Jx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

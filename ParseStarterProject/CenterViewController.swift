@@ -29,24 +29,30 @@ class CenterViewController: UIViewController {
     didSet {
       title = menuItem.title
         navigationController?.navigationBar.barTintColor = menuItem.color
-        if menuItem.symbol == "✺" {
-            let settingsViewController = SettingsViewController()
-//            let curentChildVC = self.presentedViewController
-//            print("------>", curentChildVC?.childViewControllers)
-            //            let containerVC = curentChildVC?.parentViewController
-            //            curentChildVC?.willMoveToParentViewController(nil)
-            //            containerVC?.transitionFromViewController(curentChildVC!, toViewController: settingsViewController, duration: 0.5, options: .TransitionCrossDissolve, animations: nil, completion: { (_) in
-            //                curentChildVC?.removeFromParentViewController()
-            //                settingsViewController.didMoveToParentViewController(containerVC)
-            //            })
-//            curentChildVC?.removeFromParentViewController()
-            addChildViewController(settingsViewController)
-            view.addSubview(settingsViewController.view)
-            settingsViewController.didMoveToParentViewController(self)
-            print("________", childViewControllers)
-            
-        } else {
-            addScanner()
+        
+        if let containerVC = self.navigationController?.parentViewController as? ContainerViewController {
+            containerVC.replaceChildren()
+//            if menuItem.symbol == "✺" {
+//                let settingsViewController = SettingsViewController()
+//                childViewControllers.
+//                let curentChildVC = navigationController?.presentedViewController?.childViewControllers.first
+//                let container = curentChildVC?.parentViewController
+//                print("------>", container )
+//                curentChildVC?.willMoveToParentViewController(nil)
+//                container!.transitionFromViewController(curentChildVC!, toViewController: settingsViewController, duration: 0.5, options: .TransitionCrossDissolve, animations: nil, completion: { (_) in
+//                    curentChildVC?.removeFromParentViewController()
+//                    settingsViewController.didMoveToParentViewController(containerVC)
+//                })
+//                curentChildVC?.removeFromParentViewController()
+//                addChildViewController(settingsViewController)
+//                view.addSubview(settingsViewController.view)
+//                settingsViewController.didMoveToParentViewController(self)
+//                print("________", childViewControllers)
+//                
+//            } else {
+//                addScanner()
+//            }
+
         }
     }
   }

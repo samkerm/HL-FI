@@ -30,12 +30,14 @@ class ContainerViewController: UIViewController {
   
   let menuViewController: UIViewController!
   let centerViewController: UIViewController!
-  
+    let settingsViewController: UIViewController!
+    
   var isOpening = false
   
-  init(sideMenu: UIViewController, center: UIViewController) {
+    init(sideMenu: UIViewController, center: UIViewController, setting: UIViewController) {
     menuViewController = sideMenu
     centerViewController = center
+    settingsViewController = setting
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -64,11 +66,15 @@ class ContainerViewController: UIViewController {
     menuViewController.view.layer.anchorPoint.x = 1.0
     menuViewController.view.frame = CGRect(x: -menuWidth, y: 0, width: menuWidth, height: view.frame.height)
     
-    let panGesture = UIPanGestureRecognizer(target:self, action:Selector("handleGesture:"))
+    let panGesture = UIPanGestureRecognizer(target:self, action:#selector(ContainerViewController.handleGesture(_:)))
     view.addGestureRecognizer(panGesture)
     
     setToPercent(0.0)
   }
+    
+    func replaceChildren() {
+        print(childViewControllers)
+    }
   
   func handleGesture(recognizer: UIPanGestureRecognizer) {
     
@@ -166,13 +172,5 @@ class ContainerViewController: UIViewController {
         
         return rotationTransform
     }
-//    func slideMenueButtonTransformForPercent(percent: CGFloat) -> CATransform3D {
-//        var identity = CATransform3DIdentity
-//        identity.m34 = -1.0/1000
-//        
-//        let angle = percent * CGFloat(M_PI)
-//        let rotationTransform = CATransform3DRotate(identity, angle, 1.0, 1.0, 0.0)
-//        
-//        return rotationTransform
-//    }
+
 }

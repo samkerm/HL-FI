@@ -33,9 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let centerNav = storyboard.instantiateViewControllerWithIdentifier("CenterNav") as! UINavigationController
         let menuVC = storyboard.instantiateViewControllerWithIdentifier("SideMenu") as! SideMenuViewController
+        let settingsNav = storyboard.instantiateViewControllerWithIdentifier("Settings") as! UINavigationController
+        
         menuVC.centerViewController = centerNav.viewControllers.first as! CenterViewController
         
-        let containerVC = ContainerViewController(sideMenu: menuVC, center: centerNav)
+        let containerVC = ContainerViewController(sideMenu: menuVC, center: centerNav, setting: settingsNav)
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window!.rootViewController = containerVC

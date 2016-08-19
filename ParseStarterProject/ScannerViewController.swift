@@ -19,11 +19,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     let parseHandler = ParseBackendHandler()
 //    @IBOutlet weak var captureButton: UIButton!
     var captureButton = UIButton()
-    
-    override func viewDidLoad() {
+        override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        navigationController?.navigationBarHidden = true
         view.backgroundColor = UIColor.blackColor()
         captureSession = AVCaptureSession()
         
@@ -42,47 +41,65 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             failed();
             return;
         }
-        
-        let buttonFrame = CGRect(x: view.bounds.width/2 - 50, y: view.bounds.height - 120, width: 100, height: 100)
-        captureButton = UIButton(frame: buttonFrame)
         addPreviewLayer()
-        captureButton.layer.cornerRadius = captureButton.layer.frame.width/2
-        captureButton.backgroundColor = .grayColor()
-        view.addSubview(captureButton)
-        captureButton.addTarget(self, action: #selector(ScannerViewController.touchDown), forControlEvents: UIControlEvents.TouchDown)
-        captureButton.addTarget(self, action: #selector(ScannerViewController.buttonReleased), forControlEvents: UIControlEvents.TouchUpInside)
-        view.bringSubviewToFront(captureButton)
+        addCaptureButton()
+        let leftPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(ScannerViewController.leftSlide))
+        leftPan.edges = .Left
+        self.view.addGestureRecognizer(leftPan)
     }
-//    override func viewWillDisappear(animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        
-//        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
-//        
-//    }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
+    
+    func addCaptureButton() {
+        let buttonCenter = CGPoint(x: view.bounds.width/2 - 50, y: view.bounds.height - 120)
+        let arcCenter = CGPoint(x: view.bounds.width/2, y: view.bounds.height - 70)
+        let buttonFrame = CGRect(origin: buttonCenter, size: CGSize(width: 100, height: 100))
+        let path = UIBezierPath(arcCenter: arcCenter, radius: CGFloat(60), startAngle: CGFloat(0), endAngle:CGFloat(M_PI * 2), clockwise: true)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.CGPath
+        shapeLayer.fillColor = UIColor.clearColor().CGColor
+        shapeLayer.strokeColor = UIColor.grayColor().CGColor
+        shapeLayer.lineWidth = 7.0
+        view.layer.addSublayer(shapeLayer)
+        captureButton = UIButton(frame: buttonFrame)
+        captureButton.layer.cornerRadius = captureButton.layer.frame.width/2
+        captureButton.backgroundColor = .redColor()
+        view.addSubview(captureButton)
+        captureButton.addTarget(self, action: #selector(ScannerViewController.touchDown), forControlEvents: UIControlEvents.TouchDown)
+        captureButton.addTarget(self, action: #selector(ScannerViewController.buttonReleased), forControlEvents: UIControlEvents.TouchUpInside)
+        view.bringSubviewToFront(captureButton)
+
+    }
+    func leftSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .Recognized {
+//            let transition = CATransition()
+//            transition.type = kCATransitionMoveIn
+//            transition.subtype = kCATransitionFromLeft
+//            self.navigationController!.view.layer.addAnimation(transition, forKey: nil)
+//            let destinationViewController = UINavigationController.addChildViewController(ListTableViewController())
+//            self.navigationController?.pushViewController(ListTableViewController(), animated: true)
+            performSegueWithIdentifier("ShowList", sender: self)
+        }
+    }
     func touchDown(){
         print("button pressed")
-        captureButton.backgroundColor = .redColor()
+        captureButton.alpha = 0.2
         
         if (captureSession.canAddOutput(metadataOutput)) {
             captureSession.addOutput(metadataOutput)
             
             metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
             metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
-        } else {
-            failed()
-            return
         }
 
     }
     func buttonReleased() {
         print("button released")
-        captureButton.backgroundColor = .grayColor()
+        captureButton.alpha = 1
         captureSession.removeOutput(metadataOutput)
-        
+        navigationController?.navigationBarHidden = true
     }
     
     func addPreviewLayer() {
@@ -199,5 +216,5 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             previewLayer.connection.videoOrientation = .Portrait
         }
     }
+    
 }
-

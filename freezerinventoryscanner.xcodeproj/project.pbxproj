@@ -18,6 +18,9 @@
 		228F8F831D5FCE8C00314DB3 /* MenuLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228F8F821D5FCE8C00314DB3 /* MenuLogo.swift */; };
 		228F8F871D5FD27100314DB3 /* Header.xib in Resources */ = {isa = PBXBuildFile; fileRef = 228F8F861D5FD27100314DB3 /* Header.xib */; };
 		228F8F891D5FFF9800314DB3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228F8F881D5FFF9800314DB3 /* SettingsViewController.swift */; };
+		22B915AA1D65940900E32C65 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B915A91D65940900E32C65 /* ListTableViewController.swift */; };
+		22B915AC1D66662400E32C65 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B915AB1D66662400E32C65 /* SettingsTableViewController.swift */; };
+		22B915AE1D6690A100E32C65 /* ShowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B915AD1D6690A100E32C65 /* ShowList.swift */; };
 		22C4BCF11D56B28F00A1F4BD /* AnimatedMaskLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C4BCF01D56B28F00A1F4BD /* AnimatedMaskLabel.swift */; };
 		22C4BCF31D57DEC200A1F4BD /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C4BCF21D57DEC200A1F4BD /* LoginButton.swift */; };
 		814C3ACA1B69877600E307BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC61B69877600E307BB /* Main.storyboard */; };
@@ -43,6 +46,9 @@
 		228F8F821D5FCE8C00314DB3 /* MenuLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuLogo.swift; sourceTree = "<group>"; };
 		228F8F861D5FD27100314DB3 /* Header.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Header.xib; sourceTree = "<group>"; };
 		228F8F881D5FFF9800314DB3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = ../SettingsViewController.swift; sourceTree = "<group>"; };
+		22B915A91D65940900E32C65 /* ListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
+		22B915AB1D66662400E32C65 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		22B915AD1D6690A100E32C65 /* ShowList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowList.swift; sourceTree = "<group>"; };
 		22C4BCF01D56B28F00A1F4BD /* AnimatedMaskLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedMaskLabel.swift; sourceTree = "<group>"; };
 		22C4BCF21D57DEC200A1F4BD /* LoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -129,15 +135,18 @@
 			children = (
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				226D28BF1D5594170004FBD5 /* ScannerViewController.swift */,
+				22B915A91D65940900E32C65 /* ListTableViewController.swift */,
+				22B915AB1D66662400E32C65 /* SettingsTableViewController.swift */,
+				226D28C51D55BA840004FBD5 /* LoginPage.swift */,
+				22C4BCF01D56B28F00A1F4BD /* AnimatedMaskLabel.swift */,
 				228F8F801D5DA83D00314DB3 /* CenterViewController */,
 				228F8F771D5DA70100314DB3 /* ContainerViewController.swift */,
 				228F8F881D5FFF9800314DB3 /* SettingsViewController.swift */,
 				228F8F811D5DA86200314DB3 /* SideMenue */,
 				226D28C11D5599020004FBD5 /* ParseBackendHandler.swift */,
-				226D28C51D55BA840004FBD5 /* LoginPage.swift */,
 				22C4BCF21D57DEC200A1F4BD /* LoginButton.swift */,
-				22C4BCF01D56B28F00A1F4BD /* AnimatedMaskLabel.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				22B915AD1D6690A100E32C65 /* ShowList.swift */,
 			);
 			path = ParseStarterProject;
 			sourceTree = "<group>";
@@ -197,6 +206,7 @@
 				TargetAttributes = {
 					81BA81441A49DA1800E65899 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 5EL7YNNLPR;
 					};
 				};
 			};
@@ -242,13 +252,16 @@
 				22C4BCF11D56B28F00A1F4BD /* AnimatedMaskLabel.swift in Sources */,
 				228F8F7F1D5DA70100314DB3 /* SideMenuViewController.swift in Sources */,
 				228F8F7B1D5DA70100314DB3 /* CenterViewController.swift in Sources */,
+				22B915AE1D6690A100E32C65 /* ShowList.swift in Sources */,
 				228F8F7D1D5DA70100314DB3 /* MenuButton.swift in Sources */,
 				228F8F831D5FCE8C00314DB3 /* MenuLogo.swift in Sources */,
 				226D28C21D5599020004FBD5 /* ParseBackendHandler.swift in Sources */,
 				226D28C01D5594170004FBD5 /* ScannerViewController.swift in Sources */,
 				228F8F891D5FFF9800314DB3 /* SettingsViewController.swift in Sources */,
+				22B915AC1D66662400E32C65 /* SettingsTableViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				228F8F7E1D5DA70100314DB3 /* MenuItem.swift in Sources */,
+				22B915AA1D65940900E32C65 /* ListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +364,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -367,6 +381,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

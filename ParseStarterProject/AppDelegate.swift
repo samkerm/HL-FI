@@ -28,22 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //--------------------------------------
         // MARK: - HomeStuff
         //--------------------------------------
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        let centerNav = storyboard.instantiateViewControllerWithIdentifier("CenterNav") as! UINavigationController
-        let menuVC = storyboard.instantiateViewControllerWithIdentifier("SideMenu") as! SideMenuViewController
-        let settingsNav = storyboard.instantiateViewControllerWithIdentifier("Settings") as! UINavigationController
-        
-        menuVC.centerViewController = centerNav.viewControllers.first as! CenterViewController
-        
-        let containerVC = ContainerViewController(sideMenu: menuVC, center: centerNav, setting: settingsNav)
-        
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window!.rootViewController = containerVC
-        self.window!.backgroundColor = UIColor.blackColor()
-        self.window!.makeKeyAndVisible()
-        
+        UINavigationBar.appearance().tintColor = UIColor(red: 42/255, green: 61/255, blue: 66/255, alpha: 1.0)
         //--------------------------------------
         // MARK: - UIApplicationDelegate
         //--------------------------------------

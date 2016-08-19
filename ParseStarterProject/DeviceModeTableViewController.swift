@@ -1,85 +1,49 @@
 //
-//  SettingsTableViewController.swift
+//  DeviceModeTableViewController.swift
 //  freezerinventoryscanner
 //
-//  Created by Sam Kheirandish on 2016-08-18.
+//  Created by Sam Kheirandish on 2016-08-19.
 //  Copyright © 2016 Parse. All rights reserved.
 //
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController {
+class DeviceModeTableViewController: UITableViewController {
+
+    let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.clearsSelectionOnViewWillAppear = false
-        navigationController?.hidesBarsOnTap = false
-        let logOut = UIBarButtonItem(title: "Log Out", style: .Plain, target: self, action: #selector(self.logOut))
-        navigationItem.rightBarButtonItem = logOut
+
     }
-    
-    func logOut() {
-        navigationController?.popToRootViewControllerAnimated(true)
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     // MARK: - Table view data source
-    
+
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 1
     }
-    
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Settings Cell", forIndexPath: indexPath)
-        if indexPath.section == 0 {
-            cell.textLabel!.text = "Device mode"
-        } else  {
-            cell.textLabel?.text = "About"
-        }
-        return cell
-    }
-    
-    override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == 0 {
-            return "Items in this page are editable. Please go through all items before submitting changes"
-        }
-        return "Ready to commit changes?"
-    }
-    
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section != 0 {
-            return ""
-        }
-        return "SCANNED ITEMS"
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 3
     }
 
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Mode Cell", forIndexPath: indexPath)
+        cell.textLabel?.text = modesArray[indexPath.row]
+        return cell
+    }
+ 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 && indexPath.row == 0 {
-            performSegueWithIdentifier("Show Settings Detail", sender: self)
-        }
+        <#code#>
     }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

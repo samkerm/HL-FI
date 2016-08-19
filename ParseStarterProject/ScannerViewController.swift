@@ -19,10 +19,18 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     let parseHandler = ParseBackendHandler()
 //    @IBOutlet weak var captureButton: UIButton!
     var captureButton = UIButton()
-        override func viewDidLoad() {
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if (captureSession?.running == false) {
+            captureSession.startRunning();
+        }
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.hidesBarsOnTap = true
+    }
+    override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBarHidden = true
         view.backgroundColor = UIColor.blackColor()
         captureSession = AVCaptureSession()
         
@@ -74,17 +82,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     func leftSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .Recognized {
-//            let transition = CATransition()
-//            transition.type = kCATransitionMoveIn
-//            transition.subtype = kCATransitionFromLeft
-//            self.navigationController!.view.layer.addAnimation(transition, forKey: nil)
-//            let destinationViewController = UINavigationController.addChildViewController(ListTableViewController())
-//            self.navigationController?.pushViewController(ListTableViewController(), animated: true)
             performSegueWithIdentifier("ShowList", sender: self)
         }
     }
     func touchDown(){
         print("button pressed")
+        navigationController?.navigationBarHidden = true
         captureButton.alpha = 0.2
         
         if (captureSession.canAddOutput(metadataOutput)) {
@@ -130,14 +133,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 //        self.discoveredBorder.hidden = true
 //    }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        if (captureSession?.running == false) {
-            captureSession.startRunning();
-        }
-    }
-    
-
     
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
        

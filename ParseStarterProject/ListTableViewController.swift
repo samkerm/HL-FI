@@ -14,12 +14,11 @@ class ListTableViewController: UITableViewController {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
-//        let back = UIBarButtonItem(title: "Back >", style: .Plain, target: self, action: #selector(self.back))
-        let OriBack : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem(rawValue: 4)!, target: self, action: #selector (self.back))
-        navigationItem.rightBarButtonItem = OriBack
+        let add : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem(rawValue: 4)!, target: self, action: #selector (self.pop))
+        navigationItem.rightBarButtonItem = add
         
     }
-    func back() {
+    func pop() {
         navigationController?.popToRootViewControllerAnimated(true)
     }
     override func didReceiveMemoryWarning() {

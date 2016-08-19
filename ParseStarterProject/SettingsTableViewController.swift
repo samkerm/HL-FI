@@ -12,11 +12,10 @@ class SettingsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.clearsSelectionOnViewWillAppear = false
+        navigationController?.hidesBarsOnTap = false
         let logOut = UIBarButtonItem(title: "Log Out", style: .Plain, target: self, action: #selector(self.logOut))
         navigationItem.rightBarButtonItem = logOut
-    
     }
     
     func logOut() {
@@ -37,15 +36,17 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return 1
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Settings Cell", forIndexPath: indexPath)
-        
-        cell.textLabel!.text = "Hi"
-        
+        if indexPath.section == 0 {
+            cell.textLabel!.text = "Device mode"
+        } else  {
+            cell.textLabel?.text = "About"
+        }
         return cell
     }
     

@@ -103,6 +103,18 @@
 			name = SideMenue;
 			sourceTree = "<group>";
 		};
+		22B915AF1D66AD0000E32C65 /* Old design */ = {
+			isa = PBXGroup;
+			children = (
+				228F8F801D5DA83D00314DB3 /* CenterViewController */,
+				228F8F771D5DA70100314DB3 /* ContainerViewController.swift */,
+				228F8F881D5FFF9800314DB3 /* SettingsViewController.swift */,
+				228F8F811D5DA86200314DB3 /* SideMenue */,
+				22C4BCF21D57DEC200A1F4BD /* LoginButton.swift */,
+			);
+			name = "Old design";
+			sourceTree = "<group>";
+		};
 		814C3AC51B69877600E307BB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,12 +151,8 @@
 				22B915AB1D66662400E32C65 /* SettingsTableViewController.swift */,
 				226D28C51D55BA840004FBD5 /* LoginPage.swift */,
 				22C4BCF01D56B28F00A1F4BD /* AnimatedMaskLabel.swift */,
-				228F8F801D5DA83D00314DB3 /* CenterViewController */,
-				228F8F771D5DA70100314DB3 /* ContainerViewController.swift */,
-				228F8F881D5FFF9800314DB3 /* SettingsViewController.swift */,
-				228F8F811D5DA86200314DB3 /* SideMenue */,
+				22B915AF1D66AD0000E32C65 /* Old design */,
 				226D28C11D5599020004FBD5 /* ParseBackendHandler.swift */,
-				22C4BCF21D57DEC200A1F4BD /* LoginButton.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
 				22B915AD1D6690A100E32C65 /* ShowList.swift */,
 			);

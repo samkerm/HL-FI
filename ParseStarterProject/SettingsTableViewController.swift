@@ -13,11 +13,14 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.clearsSelectionOnViewWillAppear = false
+        let logOut = UIBarButtonItem(title: "Log Out", style: .Plain, target: self, action: #selector(self.logOut))
+        navigationItem.rightBarButtonItem = logOut
+    
+    }
+    
+    func logOut() {
+        navigationController?.popToRootViewControllerAnimated(true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,7 +42,7 @@ class SettingsTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("List Cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Settings Cell", forIndexPath: indexPath)
         
         cell.textLabel!.text = "Hi"
         

@@ -10,12 +10,17 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
 
+    var devicemodeDetail = "View mode"
+    var index = 0
+    let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
         navigationController?.hidesBarsOnTap = false
         let logOut = UIBarButtonItem(title: "Log Out", style: .Plain, target: self, action: #selector(self.logOut))
         navigationItem.rightBarButtonItem = logOut
+        tableView.reloadData()
     }
     
     func logOut() {
@@ -44,6 +49,7 @@ class SettingsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Settings Cell", forIndexPath: indexPath)
         if indexPath.section == 0 {
             cell.textLabel!.text = "Device mode"
+            cell.detailTextLabel?.text = modesArray[index]
         } else  {
             cell.textLabel?.text = "About"
         }
@@ -115,13 +121,13 @@ class SettingsTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
 
+    // MARK: - Navigation
+    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let destinationVC = segue.destinationViewController as! DeviceModeTableViewController
+        index = destinationVC.selectedRow
     }
     */
 

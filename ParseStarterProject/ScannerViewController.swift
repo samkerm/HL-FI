@@ -20,6 +20,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 //    @IBOutlet weak var captureButton: UIButton!
     var captureButton = UIButton()
     
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if (captureSession?.running == false) {

@@ -11,7 +11,7 @@ import UIKit
 class DeviceModeTableViewController: UITableViewController {
 
     let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
-
+    var selectedRow : Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,12 +37,20 @@ class DeviceModeTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Mode Cell", forIndexPath: indexPath)
+        if indexPath.row == selectedRow {
+            cell.accessoryType = .Checkmark
+        } else {
+            cell.accessoryType = .None
+        }
         cell.textLabel?.text = modesArray[indexPath.row]
         return cell
     }
  
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        <#code#>
+        let cell = tableView.dequeueReusableCellWithIdentifier("Mode Cell", forIndexPath: indexPath)
+        cell.accessoryType = .Checkmark
+        selectedRow = indexPath.row
+        tableView.reloadData()
     }
     /*
     // Override to support conditional editing of the table view.
@@ -79,14 +87,13 @@ class DeviceModeTableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let destinationVC = segue.destinationViewController as! SettingsTableViewController
+        destinationVC.index = selectedRow
     }
-    */
 
 }

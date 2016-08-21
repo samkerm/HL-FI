@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class DeviceMode {
+struct DeviceMode {
 
     enum State {
         case View
@@ -17,7 +17,7 @@ public class DeviceMode {
     }
     private(set) var state: State = .View
     
-    func setStateOfApp(selectedRow:Int)  {
+    mutating func setStateOfApp(selectedRow:Int)  {
         switch selectedRow {
         case 0:
             state = .View

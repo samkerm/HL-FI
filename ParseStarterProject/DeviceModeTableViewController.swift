@@ -12,10 +12,6 @@ class DeviceModeTableViewController: UITableViewController {
 
     let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
     var selectedRow : Int = 0
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -51,6 +47,9 @@ class DeviceModeTableViewController: UITableViewController {
         cell.accessoryType = .Checkmark
         selectedRow = indexPath.row
         tableView.reloadData()
+        if let settingsVC = navigationController?.viewControllers[1] as? SettingsTableViewController {
+            settingsVC.index = selectedRow
+        }
     }
     /*
     // Override to support conditional editing of the table view.
@@ -94,6 +93,7 @@ class DeviceModeTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destinationVC = segue.destinationViewController as! SettingsTableViewController
         destinationVC.index = selectedRow
+        destinationVC.tableView.reloadData()
     }
 
 }

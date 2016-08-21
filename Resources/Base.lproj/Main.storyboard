@@ -182,12 +182,12 @@
                     <navigationItem key="navigationItem" title="Scanner" id="EEl-I0-fai">
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="yX3-Je-MGz" userLabel="List">
                             <connections>
-                                <segue destination="h8L-RV-BFZ" kind="custom" identifier="ShowList" customClass="ShowList" customModule="freezerinventoryscanner" customModuleProvider="target" id="uu8-gy-mCe"/>
+                                <segue destination="h8L-RV-BFZ" kind="custom" identifier="Show List" customClass="ShowList" customModule="freezerinventoryscanner" customModuleProvider="target" id="uu8-gy-mCe"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="menu" id="jcI-J6-Uva" userLabel="Setting">
                             <connections>
-                                <segue destination="ZVq-Yy-joi" kind="show" identifier="ShowSettings" id="Bkr-nh-lHv"/>
+                                <segue destination="ZVq-Yy-joi" kind="show" identifier="Show Settings" id="Bkr-nh-lHv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -205,7 +205,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationLevel="1" indentationWidth="10" reuseIdentifier="List Cell" textLabel="KDG-SO-abe" detailTextLabel="a89-SA-g3E" style="IBUITableViewCellStyleSubtitle" id="fKK-72-rhk">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationLevel="1" indentationWidth="10" reuseIdentifier="List Cell" textLabel="KDG-SO-abe" detailTextLabel="a89-SA-g3E" style="IBUITableViewCellStyleSubtitle" id="fKK-72-rhk">
                                 <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fKK-72-rhk" id="A7U-wb-aJM">
@@ -228,6 +228,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="hWB-1V-F3c" kind="show" identifier="Scanned Items Details" trigger="accessoryAction" id="ZeH-Cz-RUb"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -239,6 +242,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="95G-pa-Vpz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1080" y="1066"/>
+        </scene>
+        <!--Details-->
+        <scene sceneID="euc-F2-qrP">
+            <objects>
+                <tableViewController storyboardIdentifier="List Details" id="hWB-1V-F3c" customClass="DetailsOfItemsTableViewController" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rUO-Up-MFW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Detail" id="7hi-9y-usR">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7hi-9y-usR" id="0OE-rE-sKY">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hWB-1V-F3c" id="CyC-6c-EvR"/>
+                            <outlet property="delegate" destination="hWB-1V-F3c" id="BCf-3K-bH7"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Details" id="pW0-DU-dm1"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dck-11-Gbj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1080" y="1789"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dKK-TA-Kjd">
@@ -272,21 +304,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Settings Cell" editingAccessoryType="detailDisclosureButton" textLabel="q9l-GO-fiF" detailTextLabel="jzS-m1-MFm" style="IBUITableViewCellStyleValue1" id="u7J-89-wCr">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Settings Cell" textLabel="hSk-Kq-4qe" detailTextLabel="NIH-YF-NLw" style="IBUITableViewCellStyleValue1" id="u7J-89-wCr">
                                 <rect key="frame" x="0.0" y="114" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u7J-89-wCr" id="wAu-PN-ErR">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q9l-GO-fiF">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hSk-Kq-4qe">
                                             <rect key="frame" x="15" y="12" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jzS-m1-MFm">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NIH-YF-NLw">
                                             <rect key="frame" x="543" y="12" width="42" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>

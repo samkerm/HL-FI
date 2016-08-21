@@ -19,7 +19,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     let parseHandler = ParseBackendHandler()
 //    @IBOutlet weak var captureButton: UIButton!
     var captureButton = UIButton()
-    
+    var deviceModeIndex = 0
+    let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
+    var scannedItem : ScannedItem!
+    var scannedItems = [ScannedItem]()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -28,7 +31,26 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
         navigationController?.setNavigationBarHidden(true, animated: true)
         navigationController?.hidesBarsOnTap = true
+        navigationItem.title = modesArray[deviceModeIndex]
+        createFakeScanneditem()
     }
+    
+    func createFakeScanneditem() {
+        scannedItem = ScannedItem()
+        scannedItem.barcode = "15627326382"
+        scannedItem.creatorFirstName = "Sam"
+        scannedItem.creatorLastName = "Kheirandish"
+        scannedItem.creatorUsername = "Namak"
+        scannedItem.dateCreated = "Aug-2016"
+        scannedItem.dateLastDefrosted = "12-Aug-2016"
+        scannedItem.detailedInformation = "Selection of positive clones from mixec CMU-assay for both 1hr and 18hr"
+        scannedItem.lastDefrostedBy = "Keith Miewis"
+        scannedItem.library = "CO182"
+        scannedItem.plateName = "CO182-01"
+        scannedItem.project = "Hydrocarbon"
+        scannedItems.append(scannedItem!)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,7 +105,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     func leftSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .Recognized {
-            performSegueWithIdentifier("ShowList", sender: self)
+            performSegueWithIdentifier("Show List", sender: self)
         }
     }
     func touchDown(){
@@ -213,4 +235,16 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
     }
     
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "Show Settings" {
+            if let destinationVC = segue.destinationViewController as? SettingsTableViewController {
+                destinationVC.index = self.deviceModeIndex
+            }
+        } else if segue.identifier == "Show List" {
+            if let destinationVC = segue.destinationViewController as? ListTableViewController {
+                destinationVC.scannedItems = self.scannedItems
+            }
+        }
+    }
 }

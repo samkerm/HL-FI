@@ -11,8 +11,15 @@ import UIKit
 class SettingsTableViewController: UITableViewController {
 
     var devicemodeDetail = "View mode"
-    var index = 0
+    var index: Int = 0 {
+        didSet {
+            if let scannerVC = navigationController?.viewControllers[0] as? ScannerViewController {
+                scannerVC.deviceModeIndex = index
+            }
+        }
+    }
     let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
+    var deviceMode : DeviceMode!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +27,9 @@ class SettingsTableViewController: UITableViewController {
         navigationController?.hidesBarsOnTap = false
         let logOut = UIBarButtonItem(title: "Log Out", style: .Plain, target: self, action: #selector(self.logOut))
         navigationItem.rightBarButtonItem = logOut
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         tableView.reloadData()
     }
     
@@ -50,24 +60,27 @@ class SettingsTableViewController: UITableViewController {
         if indexPath.section == 0 {
             cell.textLabel!.text = "Device mode"
             cell.detailTextLabel?.text = modesArray[index]
+            cell.accessoryType = .DisclosureIndicator
         } else  {
             cell.textLabel?.text = "About"
+            cell.accessoryType = .DetailButton
+            cell.detailTextLabel?.text = ""
         }
         return cell
     }
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 0 {
-            return "Items in this page are editable. Please go through all items before submitting changes"
+            return "Set the \"Device mode\" to the state of the app for managing the content."
         }
-        return "Ready to commit changes?"
+        return "Created by Sam Kheirandish. Copyright © 2016 UBC. All rights reserved."
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section != 0 {
             return ""
         }
-        return "SCANNED ITEMS"
+        return "Information handler"
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -123,12 +136,13 @@ class SettingsTableViewController: UITableViewController {
 
 
     // MARK: - Navigation
-    /*
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let destinationVC = segue.destinationViewController as! DeviceModeTableViewController
-        index = destinationVC.selectedRow
+        if segue.identifier == "Show Settings Detail" {
+            let destinationVC = segue.destinationViewController as! DeviceModeTableViewController
+            destinationVC.selectedRow = index
+        }
     }
-    */
 
 }

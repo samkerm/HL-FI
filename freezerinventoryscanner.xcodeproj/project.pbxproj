@@ -14,6 +14,7 @@
 		226D28C01D5594170004FBD5 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226D28BF1D5594170004FBD5 /* ScannerViewController.swift */; };
 		226D28C21D5599020004FBD5 /* ParseBackendHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226D28C11D5599020004FBD5 /* ParseBackendHandler.swift */; };
 		226D28C61D55BA840004FBD5 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226D28C51D55BA840004FBD5 /* LoginPage.swift */; };
+		227569B71D6AD3E700427B52 /* ScanSuccessPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227569B61D6AD3E700427B52 /* ScanSuccessPopOverVC.swift */; };
 		228F8F7B1D5DA70100314DB3 /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228F8F761D5DA70100314DB3 /* CenterViewController.swift */; };
 		228F8F7C1D5DA70100314DB3 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228F8F771D5DA70100314DB3 /* ContainerViewController.swift */; };
 		228F8F7D1D5DA70100314DB3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228F8F781D5DA70100314DB3 /* MenuButton.swift */; };
@@ -46,6 +47,7 @@
 		226D28BF1D5594170004FBD5 /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		226D28C11D5599020004FBD5 /* ParseBackendHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseBackendHandler.swift; sourceTree = "<group>"; };
 		226D28C51D55BA840004FBD5 /* LoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
+		227569B61D6AD3E700427B52 /* ScanSuccessPopOverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanSuccessPopOverVC.swift; sourceTree = "<group>"; };
 		228F8F761D5DA70100314DB3 /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
 		228F8F771D5DA70100314DB3 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		228F8F781D5DA70100314DB3 /* MenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				22B915AF1D66AD0000E32C65 /* Old design */,
 				226D28C11D5599020004FBD5 /* ParseBackendHandler.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				227569B61D6AD3E700427B52 /* ScanSuccessPopOverVC.swift */,
 				22B915AD1D6690A100E32C65 /* ShowList.swift */,
 			);
 			path = ParseStarterProject;
@@ -281,6 +284,7 @@
 				22C4BCF11D56B28F00A1F4BD /* AnimatedMaskLabel.swift in Sources */,
 				228F8F7F1D5DA70100314DB3 /* SideMenuViewController.swift in Sources */,
 				2252251F1D6967DE004D6362 /* DetailsOfItemsTableViewController.swift in Sources */,
+				227569B71D6AD3E700427B52 /* ScanSuccessPopOverVC.swift in Sources */,
 				228F8F7B1D5DA70100314DB3 /* CenterViewController.swift in Sources */,
 				22B915AE1D6690A100E32C65 /* ShowList.swift in Sources */,
 				228F8F7D1D5DA70100314DB3 /* MenuButton.swift in Sources */,

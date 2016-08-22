@@ -21,4 +21,5 @@ public class ScannedItem {
     var lastDefrostedBy = ""
     var detailedInformation = ""
     var project = ""
+    var numberOfThaws = 0
 }

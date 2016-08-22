@@ -11,17 +11,18 @@ import UIKit
 class DetailsOfItemsTableViewController: UITableViewController {
 
     var scannedItem = ScannedItem()
-    var contentArray :[String] = []
-    var titleArray = ["Barcode", "Plate Name", "Library Name", "Date Last Defrosted", "Project", "Creator's Username", "Creator's First Name", "Creator's Last Name", "Date Created", "Last Defrosted By", "Detailed Information"]
+    var contentArray :[AnyObject] = []
+    var titleArray = ["Barcode", "Plate Name", "Project", "Library Name", "Date Last Defrosted", "NumberOf Thaws", "Creator's Username", "Creator's First Name", "Creator's Last Name", "Date Created", "Last Defrosted By", "Detailed Information"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         contentArray.append(scannedItem.barcode)
         contentArray.append(scannedItem.plateName)
+        contentArray.append(scannedItem.project)
         contentArray.append(scannedItem.library)
         contentArray.append(scannedItem.dateLastDefrosted)
-        contentArray.append(scannedItem.project)
+        contentArray.append(scannedItem.numberOfThaws)
         contentArray.append(scannedItem.creatorUsername)
         contentArray.append(scannedItem.creatorFirstName)
         contentArray.append(scannedItem.creatorLastName)
@@ -49,7 +50,7 @@ class DetailsOfItemsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Detail", forIndexPath: indexPath)
         cell.textLabel?.text = titleArray[indexPath.row]
-        cell.detailTextLabel!.text = contentArray[indexPath.row]
+        cell.detailTextLabel!.text = String(contentArray[indexPath.row])
         return cell
     }
  

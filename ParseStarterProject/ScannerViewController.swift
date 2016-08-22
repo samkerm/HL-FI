@@ -48,6 +48,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         scannedItem.library = "CO182"
         scannedItem.plateName = "CO182-01"
         scannedItem.project = "Hydrocarbon"
+        scannedItem.numberOfThaws = 3
         scannedItems.append(scannedItem!)
     }
     

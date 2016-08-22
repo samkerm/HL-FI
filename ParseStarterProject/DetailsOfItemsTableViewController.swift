@@ -11,18 +11,25 @@ import UIKit
 class DetailsOfItemsTableViewController: UITableViewController {
 
     var scannedItem = ScannedItem()
-    var contentArray = [""]
+    var contentArray :[String] = []
+    var titleArray = ["Barcode", "Plate Name", "Library Name", "Date Last Defrosted", "Project", "Creator's Username", "Creator's First Name", "Creator's Last Name", "Date Created", "Last Defrosted By", "Detailed Information"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(scannedItem.barcode)
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        contentArray.append(scannedItem.barcode)
+        contentArray.append(scannedItem.plateName)
+        contentArray.append(scannedItem.library)
+        contentArray.append(scannedItem.dateLastDefrosted)
+        contentArray.append(scannedItem.project)
+        contentArray.append(scannedItem.creatorUsername)
+        contentArray.append(scannedItem.creatorFirstName)
+        contentArray.append(scannedItem.creatorLastName)
+        contentArray.append(scannedItem.dateCreated)
+        contentArray.append(scannedItem.lastDefrostedBy)
+        contentArray.append(scannedItem.detailedInformation)
         self.navigationController?.navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,25 +39,29 @@ class DetailsOfItemsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 11
+        return titleArray.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Detail", forIndexPath: indexPath)
-        cell.textLabel?.text = contentArray[0]
-
+        cell.textLabel?.text = titleArray[indexPath.row]
+        cell.detailTextLabel!.text = contentArray[indexPath.row]
         return cell
     }
  
-
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == titleArray.count - 1 {
+            return 88
+        } else {
+            return 44
+        }
+    }
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

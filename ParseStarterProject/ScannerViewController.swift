@@ -23,6 +23,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
     var scannedItem : ScannedItem!
     var scannedItems = [ScannedItem]()
+    var string = ""
+    let datePicker = UIDatePicker()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -198,43 +200,121 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     func popUpInformation(barcodeText: String) {
         let ac = UIAlertController(title: "\(barcodeText)", message: "Would you like to add this to the list?", preferredStyle: .Alert)
-        ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (UIAlertAction) in
-            self.captureSession.startRunning()
-            self.parseHandler.addBarcodeToDataBase(barcodeText)
-            
-        }))
         ac.addAction(UIAlertAction(title: "No", style: .Default, handler: { (_) in
             self.captureSession.startRunning()
         }))
+        ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
+            self.captureSession.startRunning()
+            self.parseHandler.addBarcodeToDataBase(barcodeText)
+        }))
         buttonReleased()
+//        let v = UIView(frame: CGRectMake(0, 0, 250, 100))
+//        let textField1 = UITextField(frame: CGRectMake(10, 0, 252, 25))
+//        textField1.borderStyle = .RoundedRect
+//        textField1.placeholder = "Username"
+//        textField1.keyboardAppearance = .Dark
+////        textField1.delegate = self
+//        v.addSubview(textField1)
+//        let textField2 = UITextField(frame: CGRectMake(10, 30, 252, 25))
+//        textField2.placeholder = "Password"
+//        textField2.borderStyle = .RoundedRect
+//        textField2.keyboardAppearance = .Alert
+////        textField2.delegate = self
+//        v.addSubview(textField2)
+//        let textField3 = UITextField(frame: CGRectMake(10, 60, 252, 25))
+//        textField3.placeholder = "Address"
+//        textField3.borderStyle = .RoundedRect
+//        textField3.keyboardAppearance = .Alert
+////        textField3.delegate = self
+//        v.addSubview(textField3)
+        ac.actions.last?.enabled = false
+        ac.addTextFieldWithConfigurationHandler { (textField) in
+            textField.borderStyle = .RoundedRect
+            textField.placeholder = "Plate Name (>4 characters)"
+            textField.keyboardAppearance = .Dark
+            textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
+        }
+        ac.addTextFieldWithConfigurationHandler { (textField) in
+            textField.borderStyle = .RoundedRect
+            textField.placeholder = "Library Name (>4 characters)"
+            textField.keyboardAppearance = .Dark
+            textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
+        }
+        ac.addTextFieldWithConfigurationHandler { (textField) in
+            textField.borderStyle = .RoundedRect
+            textField.placeholder = "Project (>2 characters)"
+            textField.keyboardAppearance = .Dark
+            textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
+        }
+        ac.addTextFieldWithConfigurationHandler { (textField) in
+            textField.borderStyle = .RoundedRect
+            textField.placeholder = "Pick a Date"
+            textField.keyboardAppearance = .Dark
+            self.datePicker.datePickerMode = .Date
+            self.datePicker.inputAccessoryView
+            self.datePicker.timeZone = NSTimeZone.localTimeZone()
+            self.datePicker.calendar = NSCalendar.currentCalendar()
+//            self.datePicker.inputViewController.tin
+            textField.inputView = self.datePicker
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+            let strDate = dateFormatter.stringFromDate(self.datePicker.date)
+            self.datePicker.addTarget(self, action: #selector(self.datepickerChangedValue), forControlEvents: .AllEvents)
+            textField.text = self.string == "" ? strDate : self.string
+        }
         presentViewController(ac, animated: true, completion: nil)
-    }
-    
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        view.bringSubviewToFront(captureButton)
-        if fromInterfaceOrientation == .Portrait {
-            previewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width/2, height: view.frame.height)
-            previewLayer.position = CGPointMake(CGRectGetMidX(self.view.bounds)/2, CGRectGetMidY(self.view.bounds))
-            previewLayer.captureDevicePointOfInterestForPoint(previewLayer.position)
-        } else {
-            previewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height/3)
-            previewLayer.position = CGPointMake(CGRectGetMidX(self.view.bounds), view.frame.height/6)
-            previewLayer.captureDevicePointOfInterestForPoint(previewLayer.position)
+        for textField: UIView in ac.textFields! {
+            let container : UIView = textField.superview!
+            let effectView : UIView = container.superview!.subviews[0]
+            container.backgroundColor = UIColor.clearColor()
+            effectView.removeFromSuperview()
         }
     }
     
-    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        switch toInterfaceOrientation {
-        case .LandscapeLeft:
-            previewLayer.connection.videoOrientation = .LandscapeLeft
-        case .LandscapeRight:
-            previewLayer.connection.videoOrientation = .LandscapeRight
-        case .PortraitUpsideDown:
-            previewLayer.connection.videoOrientation = .PortraitUpsideDown
-        default:
-            previewLayer.connection.videoOrientation = .Portrait
-        }
+    func alertTextFieldDidChange()  {
+        let alertController = (self.presentedViewController as! UIAlertController)
+        let plateName = alertController.textFields![0]
+        let libraryName = alertController.textFields![1]
+        let projectName = alertController.textFields![2]
+        let yes = alertController.actions.last
+        yes!.enabled = (plateName.text?.characters.count > 4 && libraryName.text?.characters.count > 4 && projectName.text?.characters.count > 2)
+        
     }
+    
+    func datepickerChangedValue() {
+        print("Change")
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        let strDate = dateFormatter.stringFromDate(self.datePicker.date)
+        self.string = strDate
+        print(self.string)
+    }
+    
+//    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+//        view.bringSubviewToFront(captureButton)
+//        if fromInterfaceOrientation == .Portrait {
+//            previewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width/2, height: view.frame.height)
+//            previewLayer.position = CGPointMake(CGRectGetMidX(self.view.bounds)/2, CGRectGetMidY(self.view.bounds))
+//            previewLayer.captureDevicePointOfInterestForPoint(previewLayer.position)
+//        } else {
+//            previewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height/3)
+//            previewLayer.position = CGPointMake(CGRectGetMidX(self.view.bounds), view.frame.height/6)
+//            previewLayer.captureDevicePointOfInterestForPoint(previewLayer.position)
+//        }
+//    }
+    
+//    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+//        switch toInterfaceOrientation {
+//        case .LandscapeLeft:
+//            previewLayer.connection.videoOrientation = .LandscapeLeft
+//        case .LandscapeRight:
+//            previewLayer.connection.videoOrientation = .LandscapeRight
+//        case .PortraitUpsideDown:
+//            previewLayer.connection.videoOrientation = .PortraitUpsideDown
+//        default:
+//            previewLayer.connection.videoOrientation = .Portrait
+//        }
+//    }
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

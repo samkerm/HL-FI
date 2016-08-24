@@ -12,6 +12,7 @@ import Parse
 class ParseBackendHandler: NSObject {
     
     var barcodeText: String?
+    var scannedItem : ScannedItem!
     
     func searchBackendDataAnalysis(barcodeText:String)  {
         
@@ -51,6 +52,23 @@ class ParseBackendHandler: NSObject {
 //                // There was a problem, check error.description
 //            }
 //        }
+    }
+    
+    func lookUpBarcode(barcode : String) -> ScannedItem {
+        scannedItem = ScannedItem()
+        scannedItem.barcode = "\(barcode)"
+        scannedItem.creatorFirstName = "Keith"
+        scannedItem.creatorLastName = "Mewis"
+        scannedItem.creatorUsername = "Namak"
+        scannedItem.dateCreated = "Aug-2016"
+        scannedItem.dateLastDefrosted = "12-Aug-2016"
+        scannedItem.detailedInformation = "Selection of positive clones from mixec CMU-assay for both 1hr and 18hr and when it was replicated there were some cross contamination due to condensations on the lid which dropped down on to the plate"
+        scannedItem.lastDefrostedBy = "Keith Miewis"
+        scannedItem.library = "CO182"
+        scannedItem.plateName = "CO182-01"
+        scannedItem.project = "Hydrocarbon"
+        scannedItem.numberOfThaws = 3
+        return scannedItem
     }
 
 }

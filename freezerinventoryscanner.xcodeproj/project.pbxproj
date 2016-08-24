@@ -170,13 +170,13 @@
 				22B915A91D65940900E32C65 /* ListTableViewController.swift */,
 				2252251E1D6967DE004D6362 /* DetailsOfItemsTableViewController.swift */,
 				2252251C1D69068D004D6362 /* ScannedItem.swift */,
+				227569B61D6AD3E700427B52 /* ScanSuccessPopOverVC.swift */,
 				223D97001D679F0E00B720AD /* SettingsView */,
 				226D28C51D55BA840004FBD5 /* LoginPage.swift */,
 				22C4BCF01D56B28F00A1F4BD /* AnimatedMaskLabel.swift */,
 				22B915AF1D66AD0000E32C65 /* Old design */,
 				226D28C11D5599020004FBD5 /* ParseBackendHandler.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
-				227569B61D6AD3E700427B52 /* ScanSuccessPopOverVC.swift */,
 				22B915AD1D6690A100E32C65 /* ShowList.swift */,
 			);
 			path = ParseStarterProject;

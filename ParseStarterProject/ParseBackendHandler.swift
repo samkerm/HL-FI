@@ -37,13 +37,13 @@ class ParseBackendHandler: NSObject {
         }
     }
     
-    func addBarcodeToDataBase(barcodeText:String) {
-        let item = PFObject(className:"Inventory")
-        item["barcode"] = barcodeText
-        item["sampleType"] = "Plate"
-        let timeStamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
-        print(timeStamp)
-        item["date"] = timeStamp
+    func addScannedItemsToDataBase(scannedItemsList: [ScannedItem]) {
+//        let item = PFObject(className:"Inventory")
+//        item["barcode"] = barcodeText
+//        item["sampleType"] = "Plate"
+//        let timeStamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+//        print(timeStamp)
+//        item["date"] = timeStamp
 //        item.saveInBackgroundWithBlock {
 //            (success: Bool, error: NSError?) -> Void in
 //            if (success) {
@@ -52,6 +52,7 @@ class ParseBackendHandler: NSObject {
 //                // There was a problem, check error.description
 //            }
 //        }
+        print("Uploading List")
     }
     
     func lookUpBarcode(barcode : String) -> ScannedItem {
@@ -69,6 +70,10 @@ class ParseBackendHandler: NSObject {
         scannedItem.project = "Hydrocarbon"
         scannedItem.numberOfThaws = 3
         return scannedItem
+    }
+    
+    func updateChanges(scannedItemsList: [ScannedItem]) {
+        print("Updating List")
     }
 
 }

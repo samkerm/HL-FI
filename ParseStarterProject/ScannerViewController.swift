@@ -290,6 +290,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         } else if segue.identifier == "Show List" {
             if let destinationVC = segue.destinationViewController as? ListTableViewController {
                 destinationVC.scannedItems = self.scannedItems
+                destinationVC.deviceModeIndex = self.deviceModeIndex
             }
         } else if segue.identifier == "ShowScanSuccessPopover" {
             if let destinationVC = segue.destinationViewController as? ScanSuccessPopOverVC {

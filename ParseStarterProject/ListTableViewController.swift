@@ -11,7 +11,9 @@ import UIKit
 class ListTableViewController: UITableViewController {
 
     var scannedItems = [ScannedItem]()
+    var deviceModeIndex : Int!
     var selectedRow = 0
+    let parseHandler = ParseBackendHandler()
     
     override func viewWillAppear(animated: Bool) {
         navigationController?.hidesBarsOnTap = false
@@ -19,7 +21,11 @@ class ListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        if deviceModeIndex == 2 {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(self.submitListWithAllChanges))
+        } else {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(self.archiveList))
+        }
         let add : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem(rawValue: 4)!, target: self, action: #selector (self.pop))
         navigationItem.rightBarButtonItem = add
     }
@@ -29,27 +35,37 @@ class ListTableViewController: UITableViewController {
             navigationController?.popToRootViewControllerAnimated(true)
         }
     }
+    func submitListWithAllChanges() {
+        let ac = UIAlertController(title: "Update Changes?", message: "Are you sure you want to update these chagnes to the database?", preferredStyle: .Alert)
+        ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
+        ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
+            self.parseHandler.updateChanges(self.scannedItems)
+        }))
+        presentViewController(ac, animated: true, completion: nil)
+    }
+    func archiveList() {
+        let ac = UIAlertController(title: "Archive?", message: "Are you sure you want to add this list of barcodes to the database?", preferredStyle: .Alert)
+        ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
+        ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
+            self.parseHandler.addScannedItemsToDataBase(self.scannedItems)
+        }))
+        presentViewController(ac, animated: true, completion: nil)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return self.scannedItems.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("List Cell", forIndexPath: indexPath)
-
         cell.textLabel!.text = scannedItems[indexPath.row].barcode
         cell.detailTextLabel?.text = scannedItems[indexPath.row].plateName
         return cell
@@ -68,50 +84,18 @@ class ListTableViewController: UITableViewController {
         }
         return "SCANNED ITEMS"
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-
-    // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             scannedItems.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("Scanned Items Details", sender: self)
         selectedRow = indexPath.row
+        performSegueWithIdentifier("Scanned Items Details", sender: self)
     }
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Scanned Items Details" {
             if let destinationVC = segue.destinationViewController as? DetailsOfItemsTableViewController {

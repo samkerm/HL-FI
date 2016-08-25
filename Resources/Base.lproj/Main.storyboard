@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KFX-8z-Evg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ib4-1Z-dbk">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -510,7 +510,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Scanner" id="EEl-I0-fai">
-                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="yX3-Je-MGz" userLabel="List">
+                        <barButtonItem key="leftBarButtonItem" title="Items" id="yX3-Je-MGz" userLabel="List">
                             <connections>
                                 <segue destination="h8L-RV-BFZ" kind="custom" identifier="Show List" customClass="ShowList" customModule="freezerinventoryscanner" customModuleProvider="target" id="uu8-gy-mCe"/>
                             </connections>

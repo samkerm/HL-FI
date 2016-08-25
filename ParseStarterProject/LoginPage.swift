@@ -93,27 +93,8 @@ class LoginPage: UIViewController {
         let signUpAction = UIAlertAction(title: "Sign up", style: .Default) { (action) in
             self.signUpState = true
             self.signupState()
-            self.retypePasswordTextField.alpha = 0
-            self.firstNameTextField.alpha = 0
-            self.lastNameTextField.alpha = 0
-            self.passwordTextField.returnKeyType = .Next
-            UIView.animateWithDuration(0.5, animations: {
-                self.informationHeight.constant = 40
-                self.loginButton.backgroundColor = self.loginButton.signupColor
-                self.loginButton.setTitle("Sign up", forState: .Normal)
-                self.clearTextFields()
-                self.retypePasswordTextField.hidden = false
-                self.firstNameTextField.hidden = false
-                self.lastNameTextField.hidden = false
-                UIView.animateWithDuration(0.5, animations: { 
-                    self.retypePasswordTextField.alpha = 1
-                    self.firstNameTextField.alpha = 1
-                    self.lastNameTextField.alpha = 1
-                })
-                self.loginButtonHeightConstraint.constant = 129
-                self.usernameTextField.becomeFirstResponder()
-                self.view.layoutIfNeeded()
-            })
+            self.usernameTextField.becomeFirstResponder()
+            self.view.layoutIfNeeded()
         }
         alert.addAction(signUpAction)
         alert.addAction(cancelAction)
@@ -124,24 +105,8 @@ class LoginPage: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .ActionSheet)
         let loginAction = UIAlertAction(title: "Login", style: .Default) { (action) in
             self.signUpState = false
-            UIView.animateWithDuration(0.5, animations: {
-                self.clearTextFields()
-                self.loginButton.backgroundColor = self.loginButton.loginColor
-                self.loginButton.setTitle("Login", forState: .Normal)
-                self.passwordTextField.secureTextEntry = true
-                self.retypePasswordTextField.secureTextEntry = true
-                self.retypePasswordTextField.alpha = 0
-                self.firstNameTextField.alpha = 0
-                self.lastNameTextField.alpha = 0
-                self.loginButtonHeightConstraint.constant = 29
-                self.informationHeight.constant = self.view.layer.bounds.height/3
-                self.view.layoutIfNeeded()
-                }, completion: { (_) in
-                    self.retypePasswordTextField.hidden = true
-                    self.firstNameTextField.hidden = true
-                    self.lastNameTextField.hidden = true
-                    self.usernameTextField.becomeFirstResponder()
-            })
+            self.loginState()
+            self.view.layoutIfNeeded()
         }
         let signUpAction = UIAlertAction(title: "Sign up", style: .Default) { (action) in
             if self.passwordTextField.text == self.retypePasswordTextField.text {
@@ -203,6 +168,7 @@ class LoginPage: UIViewController {
         view.layer.addSublayer(emitter)
     }
     func loginState() {
+        clearTextFields()
         passwordTextField.returnKeyType = .Join
         loginButton.backgroundColor = self.loginButton.loginColor
         loginButton.setTitle("Login", forState: .Normal)
@@ -211,7 +177,7 @@ class LoginPage: UIViewController {
         UIView.animateWithDuration(0.5) { 
             self.fadeOutFields()
         }
-        loginButtonHeightConstraint.constant = 29
+        loginButtonHeightConstraint.constant = 30
         informationHeight.constant = self.view.layer.bounds.height/3
         hidetextFields()
         usernameTextField.becomeFirstResponder()
@@ -219,13 +185,21 @@ class LoginPage: UIViewController {
     func signupState() {
         passwordTextField.returnKeyType = .Next
         fadeOutFields()
+        clearTextFields()
         loginButton.backgroundColor = self.loginButton.signupColor
         loginButton.setTitle("Sign up", forState: .Normal)
         showTextFields()
         UIView.animateWithDuration(0.5) { 
             self.fadeInFields()
         }
-        loginButtonHeightConstraint.constant = 129
+        loginButtonHeightConstraint.constant = 130
+    }
+    func clearTextFields() {
+        usernameTextField.text = ""
+        passwordTextField.text = ""
+        retypePasswordTextField.text = ""
+        firstNameTextField.text = ""
+        lastNameTextField.text = ""
     }
     func hidetextFields() {
         retypePasswordTextField.hidden = true
@@ -256,7 +230,7 @@ class LoginPage: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         view.endEditing(true)
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseOut, animations: {
@@ -272,15 +246,7 @@ class LoginPage: UIViewController {
             self.view.layoutIfNeeded()
             }, completion: nil)
     }
-    
-    func clearTextFields() {
-        usernameTextField.text = ""
-        passwordTextField.text = ""
-        retypePasswordTextField.text = ""
-        firstNameTextField.text = ""
-        lastNameTextField.text = ""
-    }
-
+ */
 }
 extension LoginPage: UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {

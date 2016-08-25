@@ -92,9 +92,11 @@ class LoginPage: UIViewController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         let signUpAction = UIAlertAction(title: "Sign up", style: .Default) { (action) in
             self.signUpState = true
+            self.signupState()
             self.retypePasswordTextField.alpha = 0
             self.firstNameTextField.alpha = 0
             self.lastNameTextField.alpha = 0
+            self.passwordTextField.returnKeyType = .Next
             UIView.animateWithDuration(0.5, animations: {
                 self.informationHeight.constant = 40
                 self.loginButton.backgroundColor = self.loginButton.signupColor

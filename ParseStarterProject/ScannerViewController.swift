@@ -13,11 +13,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var videoOrientation : AVCaptureVideoOrientation!
-//    var discoveredBorder = DiscoveredBarCodeView()
-//    var timer: NSTimer?
     let metadataOutput = AVCaptureMetadataOutput()
     let parseHandler = ParseBackendHandler()
-//    @IBOutlet weak var captureButton: UIButton!
     var captureButton = UIButton()
     var deviceModeIndex = 0
     let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
@@ -32,7 +29,36 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         navigationController?.setNavigationBarHidden(true, animated: true)
         navigationController?.hidesBarsOnTap = true
         navigationItem.title = modesArray[deviceModeIndex]
+        switch deviceModeIndex {
+        case 0:
+            navigationItem.leftBarButtonItem?.enabled = false
+        case 1:
+            navigationItem.leftBarButtonItem?.enabled = true
+        default:
+            navigationItem.leftBarButtonItem?.enabled = true
+        }
         createFakeScanneditem()
+    }
+    
+    func drawTargetRectangle() {
+        let square = CGRect(x: view.frame.width/2 - 75, y: view.frame.height/2 - 75, width: 150, height: 150)
+        let rectangle = CGRect(x: 10, y: view.frame.height/2 - 40, width: view.frame.width - 20, height: 80)
+        let pathS = UIBezierPath(rect: square)
+        let shapeS = CAShapeLayer()
+        shapeS.path = pathS.CGPath
+        shapeS.lineWidth = 2
+        shapeS.lineDashPattern = [4,10,1,2]
+        shapeS.strokeColor = UIColor.redColor().CGColor
+        shapeS.fillColor = UIColor.clearColor().CGColor
+        let pathR = UIBezierPath(rect: rectangle)
+        let shapeR = CAShapeLayer()
+        shapeR.path = pathR.CGPath
+        shapeR.lineWidth = 4
+        shapeR.lineDashPattern = [10,30]
+        shapeR.strokeColor = UIColor.redColor().CGColor
+        shapeR.fillColor = UIColor.clearColor().CGColor
+        view.layer.addSublayer(shapeS)
+        view.layer.addSublayer(shapeR)
     }
     
     func createFakeScanneditem() {
@@ -54,19 +80,15 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor.blackColor()
         captureSession = AVCaptureSession()
-        
         let videoCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         let videoInput: AVCaptureDeviceInput
-        
         do {
             videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
         } catch {
             return
         }
-        
         if (captureSession.canAddInput(videoInput)) {
             captureSession.addInput(videoInput)
         } else {
@@ -75,6 +97,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
         addPreviewLayer()
         addCaptureButton()
+        drawTargetRectangle()
         let leftPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(ScannerViewController.leftSlide))
         leftPan.edges = .Left
         self.view.addGestureRecognizer(leftPan)
@@ -102,13 +125,14 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         captureButton.addTarget(self, action: #selector(ScannerViewController.touchDown), forControlEvents: UIControlEvents.TouchDown)
         captureButton.addTarget(self, action: #selector(ScannerViewController.buttonReleased), forControlEvents: UIControlEvents.TouchUpInside)
         view.bringSubviewToFront(captureButton)
-
     }
+    
     func leftSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .Recognized {
             performSegueWithIdentifier("Show List", sender: self)
         }
     }
+    
     func touchDown(){
         print("button pressed")
         navigationController?.navigationBarHidden = true
@@ -120,8 +144,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
             metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
         }
-
     }
+    
     func buttonReleased() {
         print("button released")
         captureButton.alpha = 1
@@ -135,6 +159,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             , width: view.frame.width, height: view.frame.height)
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         previewLayer.position = CGPointMake(self.view.bounds.width/2, view.frame.height/2 + 20)
+        previewLayer.rectForMetadataOutputRectOfInterest(CGRect(x: 10, y: view.frame.height/2 - 75, width: view.frame.width - 20, height: 150))
         view.layer.addSublayer(previewLayer)
     }
     
@@ -145,51 +170,14 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         captureSession = nil
     }
     
-//    func startTimer() {
-//        if timer?.valid != true {
-//            timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(ScannerViewController.removeBorder), userInfo: nil, repeats: false)
-//        } else {
-//            timer?.invalidate()
-//        }
-//    }
-    
-//    func removeBorder() {
-//        self.discoveredBorder.hidden = true
-//    }
-    
-    
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
-       
         captureSession.stopRunning()
-        
         if let metadataObject = metadataObjects.first {
             let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject
-            
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             foundCode(readableObject.stringValue)
-//            discoveredBorder.frame = readableObject.bounds
-//            discoveredBorder.hidden = false
-//            print(readableObject.corners)
-//            let identifiedCorners = self.translatePoints(readableObject.corners, fromView: view, toView: discoveredBorder)
-//            discoveredBorder.drawBorder(identifiedCorners)
-//            startTimer()
         }
     }
-    
-//    func translatePoints(points: [AnyObject], fromView: UIView, toView: UIView) -> [CGPoint] {
-//        print("got to translated points")
-//        var translatedPoints : [CGPoint] = []
-//        for point in points {
-//            let dict = point as! NSDictionary
-//            let x = CGFloat((dict.objectForKey("X") as! NSNumber).floatValue)
-//            let y = CGFloat((dict.objectForKey("Y") as! NSNumber).floatValue)
-//            let curr = CGPointMake(x, y)
-//            let currFinal = fromView.convertPoint(curr, toView: toView)
-//            translatedPoints.append(currFinal)//These are the corners which were detected by the framework and we will use it to display the identified barcode.
-//        }
-//        return translatedPoints//The translatedPoints in the above function can be used to draw a bezierpath.
-//    }
-
 
     func foundCode(code: String) {
         popUpInformation(code)
@@ -206,15 +194,30 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             popUpDefrostAlert(barcodeText, message: "Would you like to defrosting list?")
         }
     }
+    
     func popUpViewInformation (barcodeText: String) {
         scannedItem = parseHandler.lookUpBarcode(barcodeText)
-        performSegueWithIdentifier(<#T##identifier: String##String#>, sender: <#T##AnyObject?#>)
+        performSegueWithIdentifier("ShowScanSuccessPopover", sender: self)
         self.buttonReleased()
         self.captureSession.startRunning()
     }
+    
     func popUpDefrostAlert(barcodeText: String, message: String) {
-        let message : String = ""
-        let ac = UIAlertController(title: barcodeText, message: message, preferredStyle: .ActionSheet)
+        scannedItem = parseHandler.lookUpBarcode(barcodeText)
+        if (scannedItem != nil) {
+            let ac = UIAlertController(title: barcodeText, message: message, preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
+            ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
+                self.scannedItems.append(self.scannedItem)
+            }))
+            presentViewController(ac, animated: true, completion: nil)
+        } else {
+            let ac = UIAlertController(title: "Oops!", message: "This barcode has not been registered in our inventory. Please register the barcode first before defrosting it.", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            presentViewController(ac, animated: true, completion: {
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            })
+        }
     }
     
     func popUpInputInformation(barcodeText: String, message : String) {
@@ -287,6 +290,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         } else if segue.identifier == "Show List" {
             if let destinationVC = segue.destinationViewController as? ListTableViewController {
                 destinationVC.scannedItems = self.scannedItems
+            }
+        } else if segue.identifier == "ShowScanSuccessPopover" {
+            if let destinationVC = segue.destinationViewController as? ScanSuccessPopOverVC {
+                destinationVC.scannedItem = self.scannedItem
             }
         }
     }

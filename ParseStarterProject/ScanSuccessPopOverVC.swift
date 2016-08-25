@@ -25,7 +25,7 @@ class ScanSuccessPopOverVC: UIViewController {
     @IBOutlet weak var detailedInformationLabel: UILabel!
     
     @IBAction func doneButton(sender: AnyObject) {
-        
+        dismissViewControllerAnimated(true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,7 @@ class ScanSuccessPopOverVC: UIViewController {
             barcodeLabel.text = scannedItem.barcode
             plateNameLabel.text = scannedItem.plateName
             libraryNameLabel.text = scannedItem.library
+            projectNameLabel.text = scannedItem.project
             plateNameLabel.text = scannedItem.plateName
             numberOfThawsLabel.text = String(scannedItem.numberOfThaws)
             dateLastDefrostedLabel.text = scannedItem.dateLastDefrosted
@@ -50,15 +51,8 @@ class ScanSuccessPopOverVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        modalPresentationStyle = .Custom
     }
-    */
-
 }

@@ -56,7 +56,7 @@ class DetailsOfItemsTableViewController: UITableViewController {
  
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == titleArray.count - 1 {
-            return 88
+            return 132
         } else {
             return 44
         }

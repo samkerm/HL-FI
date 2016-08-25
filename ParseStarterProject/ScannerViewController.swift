@@ -238,7 +238,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             let strDate = dateFormatter.stringFromDate(NSDate())
             self.scannedItem.dateCreated = strDate
             self.scannedItem.barcode = barcodeText
-            self.parseHandler.addBarcodeToDataBase(barcodeText)
+            self.scannedItems.append(self.scannedItem)
         }))
         buttonReleased()
         ac.actions.last?.enabled = false

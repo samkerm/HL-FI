@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "81BA81441A49DA1800E65899"
-               BuildableName = "freezerinventoryscanner.app"
-               BlueprintName = "freezerinventoryscanner"
-               ReferencedContainer = "container:freezerinventoryscanner.xcodeproj">
+               BuildableName = "HL FI.app"
+               BlueprintName = "HL-FI"
+               ReferencedContainer = "container:HL-FI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "81BA81441A49DA1800E65899"
-            BuildableName = "freezerinventoryscanner.app"
-            BlueprintName = "freezerinventoryscanner"
-            ReferencedContainer = "container:freezerinventoryscanner.xcodeproj">
+            BuildableName = "HL FI.app"
+            BlueprintName = "HL-FI"
+            ReferencedContainer = "container:HL-FI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "81BA81441A49DA1800E65899"
-            BuildableName = "freezerinventoryscanner.app"
-            BlueprintName = "freezerinventoryscanner"
-            ReferencedContainer = "container:freezerinventoryscanner.xcodeproj">
+            BuildableName = "HL FI.app"
+            BlueprintName = "HL-FI"
+            ReferencedContainer = "container:HL-FI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "81BA81441A49DA1800E65899"
-            BuildableName = "freezerinventoryscanner.app"
-            BlueprintName = "freezerinventoryscanner"
-            ReferencedContainer = "container:freezerinventoryscanner.xcodeproj">
+            BuildableName = "HL FI.app"
+            BlueprintName = "HL-FI"
+            ReferencedContainer = "container:HL-FI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

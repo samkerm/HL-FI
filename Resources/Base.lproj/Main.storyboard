@@ -8,7 +8,7 @@
         <!--Login Page-->
         <scene sceneID="TuJ-ie-uGa">
             <objects>
-                <viewController id="KFX-8z-Evg" customClass="LoginPage" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KFX-8z-Evg" customClass="LoginPage" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sVA-dl-Mx4"/>
                         <viewControllerLayoutGuide type="bottom" id="ZwC-Z5-oPv"/>
@@ -34,7 +34,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIf-hX-EUE" customClass="LoginButton" customModule="freezerinventoryscanner" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIf-hX-EUE" customClass="LoginButton" customModule="HL_FI" customModuleProvider="target">
                                 <rect key="frame" x="245" y="173" width="100" height="50"/>
                                 <color key="backgroundColor" red="0.035294117649999998" green="0.47058823529999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -75,7 +75,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert" returnKeyType="join" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fHz-Et-v1T" customClass="AnimatedMaskLabel" customModule="freezerinventoryscanner" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fHz-Et-v1T" customClass="AnimatedMaskLabel" customModule="HL_FI" customModuleProvider="target">
                                 <rect key="frame" x="181" y="28" width="238" height="28"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="text" value="Hallam Lab"/>
@@ -125,7 +125,7 @@
         <!--Side Menu View Controller-->
         <scene sceneID="l8r-2p-EoF">
             <objects>
-                <tableViewController storyboardIdentifier="SideMenu" id="drq-Ml-WWr" customClass="SideMenuViewController" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SideMenu" id="drq-Ml-WWr" customClass="SideMenuViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FB5-se-bX3">
                         <rect key="frame" x="0.0" y="0.0" width="80" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -170,7 +170,7 @@
         <!--Scan Success Pop OverVC-->
         <scene sceneID="VZY-ZQ-mzH">
             <objects>
-                <viewController id="iKC-cg-UsQ" customClass="ScanSuccessPopOverVC" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iKC-cg-UsQ" customClass="ScanSuccessPopOverVC" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gmZ-2d-5wR"/>
                         <viewControllerLayoutGuide type="bottom" id="0Go-1Z-6vK"/>
@@ -499,7 +499,7 @@
         <!--Camera-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Camera" id="BYZ-38-t0r" customClass="ScannerViewController" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Camera" id="BYZ-38-t0r" customClass="ScannerViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -512,7 +512,7 @@
                     <navigationItem key="navigationItem" title="Scanner" id="EEl-I0-fai">
                         <barButtonItem key="leftBarButtonItem" title="Items" id="yX3-Je-MGz" userLabel="List">
                             <connections>
-                                <segue destination="h8L-RV-BFZ" kind="custom" identifier="Show List" customClass="ShowList" customModule="freezerinventoryscanner" customModuleProvider="target" id="uu8-gy-mCe"/>
+                                <segue destination="h8L-RV-BFZ" kind="custom" identifier="Show List" customClass="ShowList" customModule="HL_FI" customModuleProvider="target" id="uu8-gy-mCe"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="menu" id="jcI-J6-Uva" userLabel="Setting">
@@ -532,7 +532,7 @@
         <!--List of Scanned Items-->
         <scene sceneID="5tZ-oE-mdk">
             <objects>
-                <tableViewController title="List of Scanned Items" modalTransitionStyle="crossDissolve" id="h8L-RV-BFZ" customClass="ListTableViewController" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="List of Scanned Items" modalTransitionStyle="crossDissolve" id="h8L-RV-BFZ" customClass="ListTableViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Qia-kO-8X9">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -579,7 +579,7 @@
         <!--Details-->
         <scene sceneID="euc-F2-qrP">
             <objects>
-                <tableViewController storyboardIdentifier="List Details" id="hWB-1V-F3c" customClass="DetailsOfItemsTableViewController" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="List Details" id="hWB-1V-F3c" customClass="DetailsOfItemsTableViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rUO-Up-MFW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -661,7 +661,7 @@
         <!--Settings-->
         <scene sceneID="27N-oI-cC4">
             <objects>
-                <tableViewController title="Settings" id="ZVq-Yy-joi" customClass="SettingsTableViewController" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Settings" id="ZVq-Yy-joi" customClass="SettingsTableViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="aqE-hU-Tk7">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -708,7 +708,7 @@
         <!--Device Mode-->
         <scene sceneID="hkW-xf-2h4">
             <objects>
-                <tableViewController modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="FnT-8F-8ak" customClass="DeviceModeTableViewController" customModule="freezerinventoryscanner" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="FnT-8F-8ak" customClass="DeviceModeTableViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="AFM-Ht-bWl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

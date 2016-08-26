@@ -142,7 +142,14 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             captureSession.addOutput(metadataOutput)
             
             metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
-            metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
+            metadataOutput.metadataObjectTypes =
+                [AVMetadataObjectTypeQRCode,
+                 AVMetadataObjectTypeEAN8Code,
+                 AVMetadataObjectTypeUPCECode,
+                 AVMetadataObjectTypeAztecCode,
+                 AVMetadataObjectTypeEAN13Code,
+                 AVMetadataObjectTypeCode39Code,
+                 AVMetadataObjectTypeCode128Code]
         }
     }
     
@@ -209,7 +216,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
             ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
                 self.scannedItems.append(self.scannedItem)
-            }))
+                self.showSuccess()
+                self.buttonReleased()
+                self.captureSession.startRunning()
+                }))
+        
             presentViewController(ac, animated: true, completion: nil)
         } else {
             let ac = UIAlertController(title: "Oops!", message: "This barcode has not been registered in our inventory. Please register the barcode first before defrosting it.", preferredStyle: .Alert)
@@ -280,6 +291,33 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         let yes = alertController.actions.last
         yes!.enabled = (plateName.text?.characters.count > 4 && libraryName.text?.characters.count > 4 && projectName.text?.characters.count > 2)
         
+    }
+    
+    func showSuccess() {
+        let text = UILabel(frame: CGRect(x: self.view.bounds.width/2 - 75, y: self.view.bounds.height/2 - 25, width: 150, height: 50))
+        text.text = "Success"
+        text.textAlignment = .Center
+        text.font = UIFont(name: "System-Regular", size: 17.0)
+        text.textColor = .whiteColor()
+        text.layer.cornerRadius = 10
+        text.layer.masksToBounds = true
+        text.alpha = 0
+        self.view.addSubview(text)
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseIn, animations: {
+            text.alpha = 1
+            }, completion: nil)
+        let animation = CABasicAnimation(keyPath: "transform.scale")
+        animation.fromValue = 1.5
+        animation.toValue = 1.0
+        animation.duration = 0.3
+        animation.beginTime = CACurrentMediaTime() + 0.3
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        UIView.animateWithDuration(0.2, delay: 0.5, options: .CurveEaseInOut, animations: {
+            text.alpha = 0
+            }, completion: { (_) in
+                text.removeFromSuperview()
+        })
+        text.layer.addAnimation(animation, forKey: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

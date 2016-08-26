@@ -98,6 +98,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         addPreviewLayer()
         addCaptureButton()
         drawTargetRectangle()
+        initialInstructions()
+        addQuickSwitch()
         let leftPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(ScannerViewController.leftSlide))
         leftPan.edges = .Left
         self.view.addGestureRecognizer(leftPan)
@@ -299,10 +301,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         text.textAlignment = .Center
         text.font = UIFont(name: "System-Regular", size: 17.0)
         text.textColor = .whiteColor()
-        text.layer.cornerRadius = 10
-        text.layer.masksToBounds = true
         text.alpha = 0
-        self.view.addSubview(text)
+        view.addSubview(text)
         UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseIn, animations: {
             text.alpha = 1
             }, completion: nil)
@@ -312,12 +312,41 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         animation.duration = 0.3
         animation.beginTime = CACurrentMediaTime() + 0.3
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        UIView.animateWithDuration(0.2, delay: 0.5, options: .CurveEaseInOut, animations: {
+        UIView.animateWithDuration(1, delay: 0.5, options: .CurveEaseOut, animations: {
             text.alpha = 0
             }, completion: { (_) in
                 text.removeFromSuperview()
         })
         text.layer.addAnimation(animation, forKey: nil)
+    }
+    
+    func initialInstructions() {
+        let text = UILabel(frame: CGRect(x: 0, y: self.view.bounds.height/2 + 65, width: view.bounds.width, height: 50))
+        text.text = "Hold red button to capture the barcode"
+        text.textAlignment = .Center
+        text.font = UIFont(name: "System-Regular", size: 17.0)
+        text.textColor = .whiteColor()
+        text.alpha = 0
+        view.addSubview(text)
+        UIView.animateWithDuration(1, delay: 0, options: .CurveEaseIn, animations: {
+            text.alpha = 1
+            }, completion: nil)
+        let animation = CABasicAnimation(keyPath: "transform.scale")
+        animation.fromValue = 1.5
+        animation.toValue = 1.0
+        animation.duration = 0.2
+        animation.beginTime = CACurrentMediaTime() + 1
+        text.layer.addAnimation(animation, forKey: nil)
+        UIView.animateWithDuration(1, delay: 4, options: .CurveEaseOut, animations: {
+            text.alpha = 0
+            }, completion: { (_) in
+                text.removeFromSuperview()
+        })
+    }
+    
+    func addQuickSwitch() {
+        let quickSwitch = UISwitch(frame: CGRect(x: 10, y: view.frame.height - 60, width: 100, height: 50))
+        view.addSubview(quickSwitch)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

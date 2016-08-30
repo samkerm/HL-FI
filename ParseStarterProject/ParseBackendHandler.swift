@@ -6,13 +6,55 @@
 //  Copyright © 2016 Parse. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Parse
 
 class ParseBackendHandler: NSObject {
     
     var barcodeText: String?
     var scannedItem : ScannedItem!
+    typealias loginStatus = (Bool, String) -> Void
+    typealias signUpStatus = (Bool, String) -> Void
+    
+    func checkCurentUserStatus() -> Bool {
+        let curentUser = PFUser.currentUser()?.username
+        if curentUser != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func loginWithUsernameAndPassword(username: String, password: String, complition : loginStatus) {
+        print("Loging in...")
+        PFUser.logInWithUsernameInBackground(username, password: password) {
+            (user: PFUser?, error: NSError?) -> Void in
+            if user != nil {
+                complition(true, "")
+            } else {
+                let errorString = error!.userInfo["error"] as! String
+                complition(false, errorString)
+            }
+        }
+    }
+    
+    func parseSignUpInBackgroundWithBlock(username: String, password: String, firstName: String, lastName: String, email: String, completion: signUpStatus) {
+        print("Signing up...")
+        let newUser = PFUser()
+        newUser.username = username
+        newUser.password = password
+        newUser.email = email
+        newUser["firstName"] = firstName
+        newUser["lastName"] = lastName
+        newUser.signUpInBackgroundWithBlock({ (success, error) -> Void in
+            if(error != nil) {
+                let errorString = error!.userInfo["error"] as! String
+                completion(false, errorString)
+            } else {
+                completion(true, "")
+            }
+        })
+    }
     
     func searchBackendDataAnalysis(barcodeText:String)  {
         
@@ -52,7 +94,7 @@ class ParseBackendHandler: NSObject {
 //                // There was a problem, check error.description
 //            }
 //        }
-        print("Uploading List")
+        print("Uploading List...")
     }
     
     func lookUpBarcode(barcode : String) -> ScannedItem {
@@ -73,7 +115,13 @@ class ParseBackendHandler: NSObject {
     }
     
     func updateChanges(scannedItemsList: [ScannedItem]) {
-        print("Updating List")
+        print("Updating List...")
+    }
+    
+    func logout() {
+        if PFUser.currentUser() != nil {
+            PFUser.logOutInBackground()
+        }
     }
 
 }

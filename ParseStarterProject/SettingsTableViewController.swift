@@ -20,6 +20,7 @@ class SettingsTableViewController: UITableViewController {
     }
     let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
     var deviceMode : DeviceMode!
+    let parseBackendHandler = ParseBackendHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,9 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func logOut() {
-        navigationController?.popToRootViewControllerAnimated(true)
+        self.parseBackendHandler.logout()
+        let Login = storyboard!.instantiateViewControllerWithIdentifier("LoginPage") 
+        self.presentViewController(Login, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,6 +89,8 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 && indexPath.row == 0 {
             performSegueWithIdentifier("Show Settings Detail", sender: self)
+        } else {
+            performSegueWithIdentifier("ShowAbout", sender: self)
         }
     }
 

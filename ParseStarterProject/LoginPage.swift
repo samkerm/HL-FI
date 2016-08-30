@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Parse
+
 
 class LoginPage: UIViewController {
 
@@ -16,29 +16,40 @@ class LoginPage: UIViewController {
     @IBOutlet weak var retypePasswordTextField: UITextField!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var loginButton: LoginButton!
     @IBOutlet weak var informationHeight: NSLayoutConstraint!
     @IBOutlet weak var loginButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var logo: AnimatedMaskLabel!
     var signUpState = false
+    let parseBackendHandler = ParseBackendHandler()
     
     @IBAction func login(sender: AnyObject) {
         if !signUpState && usernameTextField.text != "" && passwordTextField.text != "" {
-            PFUser.logInWithUsernameInBackground(usernameTextField.text!, password:passwordTextField.text!) {
-                (user: PFUser?, error: NSError?) -> Void in
-                if user != nil {
-                    // self.performSegueWithIdentifier("riderView", sender: self)
+            parseBackendHandler.loginWithUsernameAndPassword(usernameTextField.text!, password: passwordTextField.text!, complition: { (success, error) in
+                if success {
+                    self.performSegueWithIdentifier("ScanView", sender: self)
                 } else {
-                    let errorString = error!.userInfo["error"] as? String
-                    self.showLoginAlert("Login Failed", message:errorString!)
+                    self.showLoginAlert("Login Failed", message: error)
                 }
+            })
+        } else if signUpState && usernameTextField.text != "" && passwordTextField.text != "" && retypePasswordTextField.text != "" && firstNameTextField.text != "" &&
+            lastNameTextField.text != "" {
+            if isValidEmail(emailTextField.text!) {
+                passwordTextField.secureTextEntry = false
+                retypePasswordTextField.secureTextEntry = false
+                self.showSignupAlert("Great!", message: "Is this information correct?")
+            } else {
+                self.showAlert("E-mail not valid", message: "Make sure you use a Canadian email domain.")
             }
-        } else if signUpState && usernameTextField.text != "" && passwordTextField.text != "" && retypePasswordTextField.text != "" && firstNameTextField.text != "" && lastNameTextField.text != "" {
-            passwordTextField.secureTextEntry = false
-            retypePasswordTextField.secureTextEntry = false
-            self.showSignupAlert("Great!", message: "Is this information correct?")
         }
     }
+    override func viewDidAppear(animated: Bool) {
+        if parseBackendHandler.checkCurentUserStatus() {
+            performSegueWithIdentifier("ScanView", sender: self)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSnowFlakes()
@@ -48,8 +59,9 @@ class LoginPage: UIViewController {
         growAnimation.toValue = 1
         growAnimation.duration = animationDuration
         growAnimation.fillMode = kCAFillModeBackwards
+        growAnimation.beginTime = CACurrentMediaTime() + animationDuration/2
         usernameTextField.layer.addAnimation(growAnimation, forKey: nil)
-        growAnimation.beginTime = CACurrentMediaTime() + animationDuration/3
+        growAnimation.beginTime = CACurrentMediaTime() + animationDuration
         passwordTextField.layer.addAnimation(growAnimation, forKey: nil)
         loginButton.layer.addAnimation(growAnimation, forKey: nil)
         let fadeInAnimation = CABasicAnimation(keyPath: "opacity")
@@ -57,7 +69,9 @@ class LoginPage: UIViewController {
         fadeInAnimation.toValue = 1
         fadeInAnimation.duration = animationDuration
         fadeInAnimation.fillMode = kCAFillModeBackwards
+        fadeInAnimation.beginTime = CACurrentMediaTime() + animationDuration/2
         usernameTextField.layer.addAnimation(fadeInAnimation, forKey: nil)
+        fadeInAnimation.beginTime = CACurrentMediaTime() + animationDuration
         passwordTextField.layer.addAnimation(fadeInAnimation, forKey: nil)
         loginButton.layer.addAnimation(fadeInAnimation, forKey: nil)
     }
@@ -78,6 +92,7 @@ class LoginPage: UIViewController {
         retypePasswordTextField.delegate = self
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
+        emailTextField.delegate = self
         informationHeight.constant = view.layer.bounds.height/3
     }
     func showAlert(title:String, message:String) {
@@ -110,18 +125,14 @@ class LoginPage: UIViewController {
         }
         let signUpAction = UIAlertAction(title: "Sign up", style: .Default) { (action) in
             if self.passwordTextField.text == self.retypePasswordTextField.text {
-                let newUser = PFUser()
-                newUser.username = self.usernameTextField.text
-                newUser.password = self.passwordTextField.text
-                newUser["firstName"] = self.firstNameTextField.text
-                newUser["lastName"] = self.lastNameTextField.text
-                newUser.signUpInBackgroundWithBlock({ (success, error) -> Void in
-                    if(error != nil) {
-                        let errorString = error!.userInfo["error"] as? String
-                        self.showAlert("Problem Signing Up", message:errorString!)
+                self.parseBackendHandler.parseSignUpInBackgroundWithBlock(self.usernameTextField.text!, password: self.passwordTextField.text!, firstName: self.firstNameTextField.text!, lastName: self.lastNameTextField.text!, email: self.emailTextField.text!, completion: { (success, error) in
+                    if success {
+//                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                            self.showAlert("Success!", message:"You have signed up successfully.")
+//                        })
+                        self.performSegueWithIdentifier("ScanView", sender: self)
                     } else {
-                        self.showAlert("Success!", message:"You have signed up successfully.")
-                        // self.performSegueWithIdentifier("riderView", sender: self)
+                        self.showAlert("Problem Signing Up", message: error)
                     }
                 })
             } else {
@@ -167,6 +178,11 @@ class LoginPage: UIViewController {
         emitterCell.lifetimeRange = 1.0
         view.layer.addSublayer(emitter)
     }
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.ca"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluateWithObject(testStr)
+    }
     func loginState() {
         clearTextFields()
         passwordTextField.returnKeyType = .Join
@@ -192,7 +208,7 @@ class LoginPage: UIViewController {
         UIView.animateWithDuration(0.5) { 
             self.fadeInFields()
         }
-        loginButtonHeightConstraint.constant = 130
+        loginButtonHeightConstraint.constant = 160
     }
     func clearTextFields() {
         usernameTextField.text = ""
@@ -200,26 +216,31 @@ class LoginPage: UIViewController {
         retypePasswordTextField.text = ""
         firstNameTextField.text = ""
         lastNameTextField.text = ""
+        emailTextField.text = ""
     }
     func hidetextFields() {
         retypePasswordTextField.hidden = true
         firstNameTextField.hidden = true
         lastNameTextField.hidden = true
+        emailTextField.hidden = true
     }
     func fadeOutFields() {
         retypePasswordTextField.alpha = 0
         firstNameTextField.alpha = 0
         lastNameTextField.alpha = 0
+        emailTextField.alpha = 0
     }
     func showTextFields() {
         retypePasswordTextField.hidden = false
         firstNameTextField.hidden = false
         lastNameTextField.hidden = false
+        emailTextField.hidden = false
     }
     func fadeInFields() {
         retypePasswordTextField.alpha = 1
         firstNameTextField.alpha = 1
         lastNameTextField.alpha = 1
+        emailTextField.alpha = 1
     }
 
     /*
@@ -260,6 +281,8 @@ extension LoginPage: UITextFieldDelegate {
                 firstNameTextField.becomeFirstResponder()
             case firstNameTextField:
                 lastNameTextField.becomeFirstResponder()
+            case lastNameTextField:
+                emailTextField.becomeFirstResponder()
             default:
                 login(self)
             }
@@ -278,16 +301,14 @@ extension LoginPage: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(textField: UITextField) {
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseOut, animations: {
-            if UIDevice.currentDevice().orientation == .Portrait {
-                self.informationHeight.constant = self.signUpState ? 40 : self.view.layer.bounds.height/6
-            } else {
-                self.informationHeight.constant = 40
-            }
+            self.logo.alpha = self.signUpState ? 0 : 1
+            self.informationHeight.constant = self.signUpState ? 10 : self.view.layer.bounds.height/6
             self.view.layoutIfNeeded()
-            }, completion: nil)
+        }, completion: nil)
     }
     func textFieldDidEndEditing(textField: UITextField) {
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseOut, animations: {
+            self.logo.alpha = 1
             self.informationHeight.constant = self.signUpState ? self.view.layer.bounds.height/6 : self.view.layer.bounds.height/3
             self.view.layoutIfNeeded()
             }, completion: nil)

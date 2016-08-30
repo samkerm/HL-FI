@@ -37,7 +37,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         default:
             navigationItem.leftBarButtonItem?.enabled = true
         }
-        createFakeScanneditem()
     }
     
     func drawTargetRectangle() {
@@ -99,7 +98,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         addCaptureButton()
         drawTargetRectangle()
         initialInstructions()
-        addQuickSwitch()
+//        addQuickSwitch()
+        createFakeScanneditem()
         let leftPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(ScannerViewController.leftSlide))
         leftPan.edges = .Left
         self.view.addGestureRecognizer(leftPan)
@@ -198,9 +198,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         case 0:
             popUpViewInformation(barcodeText)
         case 1:
-            popUpInputInformation(barcodeText, message: "Would you like to add this to the archiving list?")
+            PopUpArchiveAlert(barcodeText, message: "Would you like to add this to the archiving list?")
         default:
-            popUpDefrostAlert(barcodeText, message: "Would you like to defrosting list?")
+            popUpDefrostAlert(barcodeText, message: "Would you like to add this to the defrosting list?")
         }
     }
     
@@ -215,14 +215,16 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         scannedItem = parseHandler.lookUpBarcode(barcodeText)
         if (scannedItem != nil) {
             let ac = UIAlertController(title: barcodeText, message: message, preferredStyle: .Alert)
-            ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
+            ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: { (_) in
+                self.buttonReleased()
+                self.captureSession.startRunning()
+            }))
             ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
                 self.scannedItems.append(self.scannedItem)
                 self.showSuccess()
                 self.buttonReleased()
                 self.captureSession.startRunning()
-                }))
-        
+            }))
             presentViewController(ac, animated: true, completion: nil)
         } else {
             let ac = UIAlertController(title: "Oops!", message: "This barcode has not been registered in our inventory. Please register the barcode first before defrosting it.", preferredStyle: .Alert)
@@ -233,7 +235,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
     }
     
-    func popUpInputInformation(barcodeText: String, message : String) {
+    func PopUpArchiveAlert(barcodeText: String, message : String) {
         let ac = UIAlertController(title: barcodeText, message: message, preferredStyle: .Alert)
         ac.addAction(UIAlertAction(title: "No", style: .Default, handler: { (_) in
             self.captureSession.startRunning()
@@ -321,29 +323,38 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func initialInstructions() {
-        let text = UILabel(frame: CGRect(x: 0, y: self.view.bounds.height/2 + 65, width: view.bounds.width, height: 50))
+        let dimmedView = UIView()
+        dimmedView.frame = view.frame
+        dimmedView.backgroundColor = UIColor(white: 0, alpha: 0.8)
+        view.addSubview(dimmedView)
+        let text = UILabel(frame: CGRect(x: 0, y: self.view.bounds.height/2 - 25 , width: view.bounds.width, height: 50))
         text.text = "Hold red button to capture the barcode"
         text.textAlignment = .Center
         text.font = UIFont(name: "System-Regular", size: 17.0)
         text.textColor = .whiteColor()
         text.alpha = 0
-        view.addSubview(text)
+        dimmedView.addSubview(text)
         UIView.animateWithDuration(1, delay: 0, options: .CurveEaseIn, animations: {
             text.alpha = 1
             }, completion: nil)
         let animation = CABasicAnimation(keyPath: "transform.scale")
-        animation.fromValue = 1.5
+        animation.fromValue = 2
         animation.toValue = 1.0
         animation.duration = 0.2
         animation.beginTime = CACurrentMediaTime() + 1
         text.layer.addAnimation(animation, forKey: nil)
-        UIView.animateWithDuration(1, delay: 4, options: .CurveEaseOut, animations: {
+        UIView.animateWithDuration(3, delay: 2, options: [], animations: {
+            text.frame.offsetInPlace(dx: 0, dy: 90)
+            }, completion: nil)
+        UIView.animateWithDuration(6, delay: 4, options: .CurveEaseOut, animations: {
             text.alpha = 0
+            dimmedView.alpha = 0
             }, completion: { (_) in
                 text.removeFromSuperview()
+                dimmedView.removeFromSuperview()
         })
     }
-    
+ 
     func addQuickSwitch() {
         let quickSwitch = UISwitch(frame: CGRect(x: 10, y: view.frame.height - 60, width: 100, height: 50))
         view.addSubview(quickSwitch)

@@ -9,7 +9,7 @@
 import Foundation
 
 
-public class ScannedItem {
+struct ScannedItem {
     var barcode = ""
     var plateName = ""
     var library = ""

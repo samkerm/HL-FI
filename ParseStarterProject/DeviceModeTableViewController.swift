@@ -50,6 +50,9 @@ class DeviceModeTableViewController: UITableViewController {
         if let settingsVC = navigationController?.viewControllers[1] as? SettingsTableViewController {
             settingsVC.index = selectedRow
         }
+        if let scannerVC = navigationController?.viewControllers.first as? ScannerViewController {
+            scannerVC.scannedItems = []
+        }
     }
     /*
     // Override to support conditional editing of the table view.
@@ -92,8 +95,8 @@ class DeviceModeTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destinationVC = segue.destinationViewController as! SettingsTableViewController
-        destinationVC.index = selectedRow
-        destinationVC.tableView.reloadData()
+//        destinationVC.index = selectedRow
+//        destinationVC.tableView.reloadData()
     }
 
 }

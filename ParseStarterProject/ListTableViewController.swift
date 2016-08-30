@@ -101,6 +101,10 @@ class ListTableViewController: UITableViewController {
             if let destinationVC = segue.destinationViewController as? DetailsOfItemsTableViewController {
                 destinationVC.scannedItem = self.scannedItems[selectedRow]
             }
+        } else {
+            if let destinationVC = segue.destinationViewController as? ScannerViewController {
+                destinationVC.scannedItems = self.scannedItems
+            }
         }
     }
  

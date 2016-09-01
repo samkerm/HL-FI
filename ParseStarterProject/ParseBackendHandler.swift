@@ -19,6 +19,7 @@ class ParseBackendHandler: NSObject {
     typealias loginStatus = (Bool, String, CurentUser) -> Void
     typealias signUpStatus = (Bool, String, CurentUser) -> Void
     typealias logOutStatus = (Bool, String) -> Void
+    typealias scannedListUpdateStatus = (Bool, String, Int) -> Void
     
     func checkCurentUserStatus(complition: curentUserStatus) -> Bool {
         creator = CurentUser()
@@ -73,7 +74,6 @@ class ParseBackendHandler: NSObject {
     }
     
     func searchBackendDataAnalysis(barcodeText:String)  {
-        
         let query = PFQuery(className:"Inventory")
         query.whereKey("Barcode", equalTo:"\(barcodeText)")
         query.findObjectsInBackgroundWithBlock {
@@ -95,22 +95,41 @@ class ParseBackendHandler: NSObject {
         }
     }
     
-    func addScannedItemsToDataBase(scannedItemsList: [ScannedItem]) {
-//        let item = PFObject(className:"Inventory")
-//        item["barcode"] = barcodeText
-//        item["sampleType"] = "Plate"
-//        let timeStamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
-//        print(timeStamp)
-//        item["date"] = timeStamp
-//        item.saveInBackgroundWithBlock {
-//            (success: Bool, error: NSError?) -> Void in
-//            if (success) {
-//                // The object has been saved.
-//            } else {
-//                // There was a problem, check error.description
-//            }
-//        }
-        print("Uploading List...")
+    func addScannedItemsToDataBase(scannedItemsList: [ScannedItem], completion: scannedListUpdateStatus) {
+        var itemSavedSuccessfuly = false
+        var returnedError = ""
+        var errorAtIndex = 0
+        var itemsCount = 0
+        var successfulSavedItems = [ScannedItem]()
+            for i in 0...(scannedItemsList.count - 1) {
+                let inventory = PFObject(className:"Inventory")
+                inventory["barcode"] = scannedItemsList[i].barcode
+                inventory["sampleType"] = "Plate"
+                inventory["plateName"] = scannedItemsList[i].plateName
+                inventory["library"] = scannedItemsList[i].library
+                inventory["creatorsUsername"] = scannedItemsList[i].creatorUsername
+                inventory["creatorFirstName"] = scannedItemsList[i].creatorFirstName
+                inventory["creatorLastName"] = scannedItemsList[i].creatorLastName
+                inventory["dateCreated"] = scannedItemsList[i].dateCreated
+                inventory["dateLastDefrosted"] = scannedItemsList[i].dateLastDefrosted
+                inventory["lastDefrostedBy"] = scannedItemsList[i].lastDefrostedBy
+                inventory["detailedInformation"] = scannedItemsList[i].detailedInformation
+                inventory["project"] = scannedItemsList[i].project
+                inventory["numberOfThaws"] = scannedItemsList[i].numberOfThaws
+                inventory.saveInBackgroundWithBlock {
+                    (success: Bool, error: NSError?) -> Void in
+                    if (success) {
+                        itemSavedSuccessfuly = true
+                        successfulSavedItems.append(scannedItemsList[i])
+                        itemsCount += 1
+                    } else {
+                        itemSavedSuccessfuly = false
+                        returnedError = error!.userInfo["error"] as! String
+                        errorAtIndex = itemsCount
+                    }
+                }
+            }
+        completion(itemSavedSuccessfuly,returnedError, errorAtIndex)
     }
     
     func lookUpBarcode(barcode : String) -> ScannedItem {
@@ -131,7 +150,23 @@ class ParseBackendHandler: NSObject {
     }
     
     func updateChanges(scannedItemsList: [ScannedItem]) {
-        print("Updating List...")
+        for scannedItem in scannedItemsList {
+            let query = PFQuery(className: "Inventory")
+            query.whereKey("barcode", equalTo: scannedItem.barcode)
+            query.findObjectsInBackgroundWithBlock({ (objects, error) in
+                if error == nil {
+                    print("Successfully retrieved \(objects!.count) scores.")
+                    if let objects = objects {
+                        for object in objects {
+                            print(object)
+                        }
+                    }
+                } else {
+                    // Log details of the failure
+                    print("Error: \(error!) \(error!.userInfo)")
+                }
+            })
+        }
     }
     
     func logout(completion: logOutStatus) {

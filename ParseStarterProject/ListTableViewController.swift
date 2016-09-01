@@ -47,7 +47,19 @@ class ListTableViewController: UITableViewController {
         let ac = UIAlertController(title: "Archive?", message: "Are you sure you want to add this list of barcodes to the database?", preferredStyle: .Alert)
         ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
         ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
-            self.parseHandler.addScannedItemsToDataBase(self.scannedItems)
+            self.parseHandler.addScannedItemsToDataBase(self.scannedItems, completion: { (success, error, index) in
+                if success {
+                    print("Successfuly saved all items.")
+                    self.scannedItems.removeAll()
+                    self.tableView.reloadData()
+                } else {
+                    print("Found error saving \(self.scannedItems[index]). All items before this have been saved. \(error).")
+                    for i in 0...(index - 1) {
+                        self.scannedItems.removeAtIndex(i)
+                    }
+                    self.tableView.reloadData()
+                }
+            })
         }))
         presentViewController(ac, animated: true, completion: nil)
     }

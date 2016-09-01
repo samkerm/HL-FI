@@ -41,6 +41,10 @@ class DeviceModeTableViewController: UITableViewController {
         cell.textLabel?.text = modesArray[indexPath.row]
         return cell
     }
+    
+    override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return "Changing the view mode will erase all the scanned items."
+    }
  
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.dequeueReusableCellWithIdentifier("Mode Cell", forIndexPath: indexPath)

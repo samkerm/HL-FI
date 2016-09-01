@@ -11,14 +11,24 @@ import Parse
 
 class ParseBackendHandler: NSObject {
     
-    var barcodeText: String?
-    var scannedItem : ScannedItem!
-    typealias loginStatus = (Bool, String) -> Void
-    typealias signUpStatus = (Bool, String) -> Void
     
-    func checkCurentUserStatus() -> Bool {
-        let curentUser = PFUser.currentUser()?.username
-        if curentUser != nil {
+    var creator : CurentUser!
+    var scannedItem : ScannedItem!
+    
+    typealias curentUserStatus = (CurentUser) -> Void
+    typealias loginStatus = (Bool, String, CurentUser) -> Void
+    typealias signUpStatus = (Bool, String, CurentUser) -> Void
+    typealias logOutStatus = (Bool, String) -> Void
+    
+    func checkCurentUserStatus(complition: curentUserStatus) -> Bool {
+        creator = CurentUser()
+        let curentUser = PFUser.currentUser()
+        print(curentUser)
+        if let username = curentUser?.username {
+            creator.username = username
+            creator.firstName = curentUser!.objectForKey("firstName") as! String
+            creator.lastName = curentUser!.objectForKey("lastName") as! String
+            complition(creator)
             return true
         } else {
             return false
@@ -30,10 +40,13 @@ class ParseBackendHandler: NSObject {
         PFUser.logInWithUsernameInBackground(username, password: password) {
             (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
-                complition(true, "")
+                self.creator.username = user!.username!
+                self.creator.firstName = user?.objectForKey("firstName") as! String
+                self.creator.lastName = user?.objectForKey("lastName") as! String
+                complition(true, "", self.creator)
             } else {
                 let errorString = error!.userInfo["error"] as! String
-                complition(false, errorString)
+                complition(false, errorString, self.creator)
             }
         }
     }
@@ -49,9 +62,12 @@ class ParseBackendHandler: NSObject {
         newUser.signUpInBackgroundWithBlock({ (success, error) -> Void in
             if(error != nil) {
                 let errorString = error!.userInfo["error"] as! String
-                completion(false, errorString)
+                completion(false, errorString, self.creator)
             } else {
-                completion(true, "")
+                self.creator.username = username
+                self.creator.firstName = firstName
+                self.creator.lastName = lastName
+                completion(true, "", self.creator)
             }
         })
     }
@@ -118,9 +134,16 @@ class ParseBackendHandler: NSObject {
         print("Updating List...")
     }
     
-    func logout() {
+    func logout(completion: logOutStatus) {
         if PFUser.currentUser() != nil {
-            PFUser.logOutInBackground()
+            PFUser.logOutInBackgroundWithBlock({ (error) in
+                if error != nil {
+                    let errorString = error!.userInfo["error"] as! String
+                    completion(false, errorString)
+                } else {
+                    completion(true, "")
+                }
+            })
         }
     }
 

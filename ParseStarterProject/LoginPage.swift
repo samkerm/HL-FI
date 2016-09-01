@@ -23,18 +23,19 @@ class LoginPage: UIViewController {
     @IBOutlet weak var logo: AnimatedMaskLabel!
     var signUpState = false
     let parseBackendHandler = ParseBackendHandler()
+    var creator = CurentUser()
     
     @IBAction func login(sender: AnyObject) {
-        if !signUpState && usernameTextField.text != "" && passwordTextField.text != "" {
-            parseBackendHandler.loginWithUsernameAndPassword(usernameTextField.text!, password: passwordTextField.text!, complition: { (success, error) in
+        if !signUpState && !usernameTextField.text!.isEmpty && !passwordTextField.text!.isEmpty {
+            parseBackendHandler.loginWithUsernameAndPassword(usernameTextField.text!, password: passwordTextField.text!, complition: { (success, error, creator) in
                 if success {
+                    self.creator = creator
                     self.performSegueWithIdentifier("ScanView", sender: self)
                 } else {
                     self.showLoginAlert("Login Failed", message: error)
                 }
             })
-        } else if signUpState && usernameTextField.text != "" && passwordTextField.text != "" && retypePasswordTextField.text != "" && firstNameTextField.text != "" &&
-            lastNameTextField.text != "" {
+        } else if signUpState && !usernameTextField.text!.isEmpty && !passwordTextField.text!.isEmpty && !retypePasswordTextField.text!.isEmpty && !firstNameTextField.text!.isEmpty && !lastNameTextField.text!.isEmpty {
             if isValidEmail(emailTextField.text!) {
                 passwordTextField.secureTextEntry = false
                 retypePasswordTextField.secureTextEntry = false
@@ -45,7 +46,9 @@ class LoginPage: UIViewController {
         }
     }
     override func viewDidAppear(animated: Bool) {
-        if parseBackendHandler.checkCurentUserStatus() {
+        if parseBackendHandler.checkCurentUserStatus({ (curentUser) in
+            self.creator = curentUser
+        }) {
             performSegueWithIdentifier("ScanView", sender: self)
         }
     }
@@ -125,11 +128,12 @@ class LoginPage: UIViewController {
         }
         let signUpAction = UIAlertAction(title: "Sign up", style: .Default) { (action) in
             if self.passwordTextField.text == self.retypePasswordTextField.text {
-                self.parseBackendHandler.parseSignUpInBackgroundWithBlock(self.usernameTextField.text!, password: self.passwordTextField.text!, firstName: self.firstNameTextField.text!, lastName: self.lastNameTextField.text!, email: self.emailTextField.text!, completion: { (success, error) in
+                self.parseBackendHandler.parseSignUpInBackgroundWithBlock(self.usernameTextField.text!, password: self.passwordTextField.text!, firstName: self.firstNameTextField.text!, lastName: self.lastNameTextField.text!, email: self.emailTextField.text!, completion: { (success, error, creator) in
                     if success {
 //                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
 //                            self.showAlert("Success!", message:"You have signed up successfully.")
 //                        })
+                        self.creator = creator
                         self.performSegueWithIdentifier("ScanView", sender: self)
                     } else {
                         self.showAlert("Problem Signing Up", message: error)
@@ -243,15 +247,16 @@ class LoginPage: UIViewController {
         emailTextField.alpha = 1
     }
 
-    /*
+  
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let destinationNavigationController = segue.destinationViewController as! UINavigationController
+        let targetController = destinationNavigationController.topViewController as! ScannerViewController
+        targetController.creator = self.creator
     }
-
+/*
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         view.endEditing(true)
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseOut, animations: {

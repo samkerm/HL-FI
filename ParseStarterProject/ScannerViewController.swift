@@ -20,6 +20,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
     var scannedItem : ScannedItem!
     var scannedItems = [ScannedItem]()
+    var creator = CurentUser()
+    let dimmedView = UIView()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -99,10 +101,21 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         drawTargetRectangle()
         initialInstructions()
 //        addQuickSwitch()
-        createFakeScanneditem()
+//        createFakeScanneditem()
         let leftPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(ScannerViewController.leftSlide))
         leftPan.edges = .Left
         self.view.addGestureRecognizer(leftPan)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
+        tap.numberOfTapsRequired = 1
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    func tap(recognizer: UITapGestureRecognizer) {
+        if recognizer.state == .Ended {
+            print("Tapped")
+            self.dimmedView.removeFromSuperview()
+            self.view.removeGestureRecognizer(recognizer)
+        }
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -245,14 +258,21 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             let plateName = ac.textFields![0]
             let libraryName = ac.textFields![1]
             let projectName = ac.textFields![2]
-            self.scannedItem.plateName = plateName.text!
-            self.scannedItem.library = libraryName.text!
-            self.scannedItem.project = projectName.text!
+            let additionalInfo = ac.textFields![3]
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let strDate = dateFormatter.stringFromDate(NSDate())
+            
+            self.scannedItem = ScannedItem()
+            self.scannedItem.plateName = plateName.text!
+            self.scannedItem.library = libraryName.text!
+            self.scannedItem.project = projectName.text!
+            self.scannedItem.detailedInformation = additionalInfo.text!
             self.scannedItem.dateCreated = strDate
             self.scannedItem.barcode = barcodeText
+            self.scannedItem.creatorFirstName = self.creator.firstName
+            self.scannedItem.creatorLastName = self.creator.lastName
+            self.scannedItem.creatorUsername = self.creator.username
             self.scannedItems.append(self.scannedItem)
         }))
         buttonReleased()
@@ -260,6 +280,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         ac.addTextFieldWithConfigurationHandler { (textField) in
             textField.borderStyle = .RoundedRect
             textField.clearButtonMode = .Always
+            textField.returnKeyType = .Next
             textField.placeholder = "Plate Name (>4 characters)"
             textField.keyboardAppearance = .Dark
             textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
@@ -267,16 +288,23 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         ac.addTextFieldWithConfigurationHandler { (textField) in
             textField.borderStyle = .RoundedRect
             textField.clearButtonMode = .Always
-            textField.placeholder = "Library Name (>4 characters)"
+            textField.returnKeyType = .Next
+            textField.placeholder = "Library Name (Optional)"
+            textField.keyboardAppearance = .Dark
+        }
+        ac.addTextFieldWithConfigurationHandler { (textField) in
+            textField.borderStyle = .RoundedRect
+            textField.clearButtonMode = .Always
+            textField.returnKeyType = .Next
+            textField.placeholder = "Project (>2 characters)"
             textField.keyboardAppearance = .Dark
             textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
         }
         ac.addTextFieldWithConfigurationHandler { (textField) in
             textField.borderStyle = .RoundedRect
             textField.clearButtonMode = .Always
-            textField.placeholder = "Project (>2 characters)"
+            textField.placeholder = "Additional info"
             textField.keyboardAppearance = .Dark
-            textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
         }
         presentViewController(ac, animated: true, completion: nil)
         for textField: UIView in ac.textFields! {
@@ -290,10 +318,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     func alertTextFieldDidChange()  {
         let alertController = (self.presentedViewController as! UIAlertController)
         let plateName = alertController.textFields![0]
-        let libraryName = alertController.textFields![1]
+//        let libraryName = alertController.textFields![1]
         let projectName = alertController.textFields![2]
         let yes = alertController.actions.last
-        yes!.enabled = (plateName.text?.characters.count > 4 && libraryName.text?.characters.count > 4 && projectName.text?.characters.count > 2)
+        yes!.enabled = (plateName.text?.characters.count > 4 && /*libraryName.text?.characters.count > 4 && */projectName.text?.characters.count > 2)
         
     }
     
@@ -323,7 +351,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func initialInstructions() {
-        let dimmedView = UIView()
         dimmedView.frame = view.frame
         dimmedView.backgroundColor = UIColor(white: 0, alpha: 0.8)
         view.addSubview(dimmedView)
@@ -334,7 +361,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         text.textColor = .whiteColor()
         text.alpha = 0
         dimmedView.addSubview(text)
-        UIView.animateWithDuration(1, delay: 0, options: .CurveEaseIn, animations: {
+        UIView.animateWithDuration(1, delay: 0, options: [.CurveEaseIn, .AllowUserInteraction], animations: {
             text.alpha = 1
             }, completion: nil)
         let animation = CABasicAnimation(keyPath: "transform.scale")
@@ -343,15 +370,15 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         animation.duration = 0.2
         animation.beginTime = CACurrentMediaTime() + 1
         text.layer.addAnimation(animation, forKey: nil)
-        UIView.animateWithDuration(3, delay: 2, options: [], animations: {
+        UIView.animateWithDuration(3, delay: 2, options: [.AllowUserInteraction], animations: {
             text.frame.offsetInPlace(dx: 0, dy: 90)
             }, completion: nil)
-        UIView.animateWithDuration(6, delay: 4, options: .CurveEaseOut, animations: {
+        UIView.animateWithDuration(6, delay: 4, options: [.CurveEaseOut, .AllowUserInteraction], animations: {
             text.alpha = 0
-            dimmedView.alpha = 0
+            self.dimmedView.alpha = 0
             }, completion: { (_) in
                 text.removeFromSuperview()
-                dimmedView.removeFromSuperview()
+                self.dimmedView.removeFromSuperview()
         })
     }
  

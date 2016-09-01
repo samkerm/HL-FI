@@ -23,3 +23,4 @@ struct ScannedItem {
     var project = ""
     var numberOfThaws = 0
 }
+

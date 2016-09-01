@@ -35,9 +35,14 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func logOut() {
-        self.parseBackendHandler.logout()
-        let Login = storyboard!.instantiateViewControllerWithIdentifier("LoginPage") 
-        self.presentViewController(Login, animated: true, completion: nil)
+        self.parseBackendHandler.logout({ (success, error) in
+            if success {
+                let Login = self.storyboard!.instantiateViewControllerWithIdentifier("LoginPage")
+                self.presentViewController(Login, animated: true, completion: nil)
+            } else {
+                print(error)
+            }
+        })
     }
     
     override func didReceiveMemoryWarning() {

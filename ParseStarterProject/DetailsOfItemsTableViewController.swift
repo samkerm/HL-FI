@@ -12,7 +12,7 @@ class DetailsOfItemsTableViewController: UITableViewController {
 
     var scannedItem = ScannedItem()
     var contentArray :[AnyObject] = []
-    var titleArray = ["Barcode", "Plate Name", "Project", "Library Name", "Date Last Defrosted", "NumberOf Thaws", "Creator's Username", "Creator's First Name", "Creator's Last Name", "Date Created", "Last Defrosted By", "Detailed Information"]
+    var titleArray = ["Barcode", "Plate Name", "Project", "Library Name", "Creator's Username", "Creator's First Name", "Creator's Last Name", "Date Created", "Last Defrosted By", "Date Last Defrosted", "NumberOf Thaws", "Detailed Information"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,13 +21,13 @@ class DetailsOfItemsTableViewController: UITableViewController {
         contentArray.append(scannedItem.plateName)
         contentArray.append(scannedItem.project)
         contentArray.append(scannedItem.library)
-        contentArray.append(scannedItem.dateLastDefrosted)
-        contentArray.append(scannedItem.numberOfThaws)
         contentArray.append(scannedItem.creatorUsername)
         contentArray.append(scannedItem.creatorFirstName)
         contentArray.append(scannedItem.creatorLastName)
         contentArray.append(scannedItem.dateCreated)
         contentArray.append(scannedItem.lastDefrostedBy)
+        contentArray.append(scannedItem.dateLastDefrosted)
+        contentArray.append(scannedItem.numberOfThaws)
         contentArray.append(scannedItem.detailedInformation)
         self.navigationController?.navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
         

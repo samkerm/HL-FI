@@ -10,6 +10,7 @@
 		220B644F1D70BC2F00885130 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220B644E1D70BC2F00885130 /* Launch Screen.storyboard */; };
 		223D96FF1D679EFF00B720AD /* DeviceModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D96FE1D679EFF00B720AD /* DeviceModeTableViewController.swift */; };
 		223D97021D67BCEE00B720AD /* DeviceMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D97011D67BCEE00B720AD /* DeviceMode.swift */; };
+		2247C0FE1D7799A500BA932A /* CurentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2247C0FD1D7799A500BA932A /* CurentUser.swift */; };
 		2252251D1D69068D004D6362 /* ScannedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2252251C1D69068D004D6362 /* ScannedItem.swift */; };
 		2252251F1D6967DE004D6362 /* DetailsOfItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2252251E1D6967DE004D6362 /* DetailsOfItemsTableViewController.swift */; };
 		226D28C01D5594170004FBD5 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226D28BF1D5594170004FBD5 /* ScannerViewController.swift */; };
@@ -36,6 +37,7 @@
 		220B644E1D70BC2F00885130 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		223D96FE1D679EFF00B720AD /* DeviceModeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModeTableViewController.swift; sourceTree = "<group>"; };
 		223D97011D67BCEE00B720AD /* DeviceMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMode.swift; sourceTree = "<group>"; };
+		2247C0FD1D7799A500BA932A /* CurentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurentUser.swift; sourceTree = "<group>"; };
 		2252251C1D69068D004D6362 /* ScannedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannedItem.swift; sourceTree = "<group>"; };
 		2252251E1D6967DE004D6362 /* DetailsOfItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsOfItemsTableViewController.swift; sourceTree = "<group>"; };
 		226D28BF1D5594170004FBD5 /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			children = (
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				2252251C1D69068D004D6362 /* ScannedItem.swift */,
+				2247C0FD1D7799A500BA932A /* CurentUser.swift */,
 				226D28C11D5599020004FBD5 /* ParseBackendHandler.swift */,
 				22F5CD3B1D6F9E1A000E31A8 /* ScanView */,
 				22F5CD3A1D6F999B000E31A8 /* ListView */,
@@ -259,6 +262,7 @@
 				2252251D1D69068D004D6362 /* ScannedItem.swift in Sources */,
 				226D28C61D55BA840004FBD5 /* LoginPage.swift in Sources */,
 				22C4BCF11D56B28F00A1F4BD /* AnimatedMaskLabel.swift in Sources */,
+				2247C0FE1D7799A500BA932A /* CurentUser.swift in Sources */,
 				2252251F1D6967DE004D6362 /* DetailsOfItemsTableViewController.swift in Sources */,
 				227569B71D6AD3E700427B52 /* ScanSuccessPopOverVC.swift in Sources */,
 				22B915AE1D6690A100E32C65 /* ShowList.swift in Sources */,

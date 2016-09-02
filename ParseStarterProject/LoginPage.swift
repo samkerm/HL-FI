@@ -23,13 +23,13 @@ class LoginPage: UIViewController {
     @IBOutlet weak var logo: AnimatedMaskLabel!
     var signUpState = false
     let parseBackendHandler = ParseBackendHandler()
-    var creator = CurentUser()
+    var curentUser = CurentUser()
     
     @IBAction func login(sender: AnyObject) {
         if !signUpState && !usernameTextField.text!.isEmpty && !passwordTextField.text!.isEmpty {
-            parseBackendHandler.loginWithUsernameAndPassword(usernameTextField.text!, password: passwordTextField.text!, complition: { (success, error, creator) in
+            parseBackendHandler.loginWithUsernameAndPassword(usernameTextField.text!, password: passwordTextField.text!, complition: { (success, error, curentUser) in
                 if success {
-                    self.creator = creator
+                    self.curentUser = curentUser
                     self.performSegueWithIdentifier("ScanView", sender: self)
                 } else {
                     self.showLoginAlert("Login Failed", message: error)
@@ -47,7 +47,7 @@ class LoginPage: UIViewController {
     }
     override func viewDidAppear(animated: Bool) {
         if parseBackendHandler.checkCurentUserStatus({ (curentUser) in
-            self.creator = curentUser
+            self.curentUser = curentUser
         }) {
             performSegueWithIdentifier("ScanView", sender: self)
         }
@@ -128,12 +128,12 @@ class LoginPage: UIViewController {
         }
         let signUpAction = UIAlertAction(title: "Sign up", style: .Default) { (action) in
             if self.passwordTextField.text == self.retypePasswordTextField.text {
-                self.parseBackendHandler.parseSignUpInBackgroundWithBlock(self.usernameTextField.text!, password: self.passwordTextField.text!, firstName: self.firstNameTextField.text!, lastName: self.lastNameTextField.text!, email: self.emailTextField.text!, completion: { (success, error, creator) in
+                self.parseBackendHandler.parseSignUpInBackgroundWithBlock(self.usernameTextField.text!, password: self.passwordTextField.text!, firstName: self.firstNameTextField.text!, lastName: self.lastNameTextField.text!, email: self.emailTextField.text!, completion: { (success, error, curentUser) in
                     if success {
 //                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
 //                            self.showAlert("Success!", message:"You have signed up successfully.")
 //                        })
-                        self.creator = creator
+                        self.curentUser = curentUser
                         self.performSegueWithIdentifier("ScanView", sender: self)
                     } else {
                         self.showAlert("Problem Signing Up", message: error)
@@ -254,7 +254,7 @@ class LoginPage: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destinationNavigationController = segue.destinationViewController as! UINavigationController
         let targetController = destinationNavigationController.topViewController as! ScannerViewController
-        targetController.creator = self.creator
+        targetController.curentUser = self.curentUser
     }
 /*
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {

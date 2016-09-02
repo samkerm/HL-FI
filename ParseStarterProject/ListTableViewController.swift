@@ -14,17 +14,21 @@ class ListTableViewController: UITableViewController {
     var deviceModeIndex : Int!
     var selectedRow = 0
     let parseHandler = ParseBackendHandler()
+    var curentUser : CurentUser!
     
     override func viewWillAppear(animated: Bool) {
+        updateLeftBarButtonItem()
         navigationController?.hidesBarsOnTap = false
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
-        if deviceModeIndex == 2 {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(self.submitListWithAllChanges))
-        } else {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(self.archiveList))
+        let send = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(self.submitListWithAllChanges))
+        let save = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(self.submitListWithAllChanges))
+        if deviceModeIndex == 1 {
+            navigationItem.leftBarButtonItem = save
+        } else if deviceModeIndex == 2 {
+            navigationItem.leftBarButtonItem = send
         }
         let add : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem(rawValue: 4)!, target: self, action: #selector (self.pop))
         navigationItem.rightBarButtonItem = add
@@ -35,33 +39,44 @@ class ListTableViewController: UITableViewController {
             navigationController?.popToRootViewControllerAnimated(true)
         }
     }
-    func submitListWithAllChanges() {
-        let ac = UIAlertController(title: "Update Changes?", message: "Are you sure you want to update these chagnes to the database?", preferredStyle: .Alert)
-        ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
-        ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
-            self.parseHandler.updateChanges(self.scannedItems)
-        }))
-        presentViewController(ac, animated: true, completion: nil)
+    func updateLeftBarButtonItem() {
+        if scannedItems.count == 0 {
+            navigationItem.leftBarButtonItem?.enabled = false
+        } else {
+            navigationItem.leftBarButtonItem?.enabled = true
+        }
     }
-    func archiveList() {
-        let ac = UIAlertController(title: "Archive?", message: "Are you sure you want to add this list of barcodes to the database?", preferredStyle: .Alert)
-        ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
-        ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
-            self.parseHandler.addScannedItemsToDataBase(self.scannedItems, completion: { (success, error, index) in
-                if success {
-                    print("Successfuly saved all items.")
-                    self.scannedItems.removeAll()
-                    self.tableView.reloadData()
-                } else {
-                    print("Found error saving \(self.scannedItems[index]). All items before this have been saved. \(error).")
-                    for i in 0...(index - 1) {
-                        self.scannedItems.removeAtIndex(i)
+    func submitListWithAllChanges() {
+        if deviceModeIndex == 2 {
+            let ac = UIAlertController(title: "Update Changes?", message: "Are you sure you want to update these chagnes to the database?", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
+            ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
+                self.scannedItems = self.parseHandler.updateChanges(self.scannedItems, defrostingUser: self.curentUser)
+                self.tableView.reloadData()
+                self.updateLeftBarButtonItem()
+            }))
+            presentViewController(ac, animated: true, completion: nil)
+        } else if deviceModeIndex == 1 {
+            let ac = UIAlertController(title: "Archive?", message: "Are you sure you want to add this list of barcodes to the database?", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
+            ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
+                self.parseHandler.addScannedItemsToDataBase(self.scannedItems, completion: { (success, error, index) in
+                    if success && index == 0 {
+                        self.scannedItems.removeAll()
+                        self.tableView.reloadData()
+                        self.updateLeftBarButtonItem()
+                    } else {
+                        print("Found error saving \(self.scannedItems[index]). All items before this have been saved. \(error).")
+                        for i in 0..<index {
+                            self.scannedItems.removeAtIndex(i)
+                        }
+                        self.tableView.reloadData()
+                        self.updateLeftBarButtonItem()
                     }
-                    self.tableView.reloadData()
-                }
-            })
-        }))
-        presentViewController(ac, animated: true, completion: nil)
+                })
+            }))
+            presentViewController(ac, animated: true, completion: nil)
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -100,6 +115,7 @@ class ListTableViewController: UITableViewController {
         if editingStyle == .Delete {
             scannedItems.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            self.updateLeftBarButtonItem()
         }
     }
 

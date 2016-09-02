@@ -12,24 +12,24 @@ import Parse
 class ParseBackendHandler: NSObject {
     
     
-    var creator : CurentUser!
+    var curentUser : CurentUser!
     var scannedItem : ScannedItem!
     
     typealias curentUserStatus = (CurentUser) -> Void
+    typealias barcodeCheckStatus = (Bool, String, ScannedItem) -> Void
     typealias loginStatus = (Bool, String, CurentUser) -> Void
     typealias signUpStatus = (Bool, String, CurentUser) -> Void
     typealias logOutStatus = (Bool, String) -> Void
     typealias scannedListUpdateStatus = (Bool, String, Int) -> Void
     
     func checkCurentUserStatus(complition: curentUserStatus) -> Bool {
-        creator = CurentUser()
-        let curentUser = PFUser.currentUser()
-        print(curentUser)
+        curentUser = CurentUser()
+        let user = PFUser.currentUser()
         if let username = curentUser?.username {
-            creator.username = username
-            creator.firstName = curentUser!.objectForKey("firstName") as! String
-            creator.lastName = curentUser!.objectForKey("lastName") as! String
-            complition(creator)
+            curentUser.username = username
+            curentUser.firstName = user!.objectForKey("firstName") as! String
+            curentUser.lastName = user!.objectForKey("lastName") as! String
+            complition(curentUser)
             return true
         } else {
             return false
@@ -37,23 +37,21 @@ class ParseBackendHandler: NSObject {
     }
     
     func loginWithUsernameAndPassword(username: String, password: String, complition : loginStatus) {
-        print("Loging in...")
         PFUser.logInWithUsernameInBackground(username, password: password) {
             (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
-                self.creator.username = user!.username!
-                self.creator.firstName = user?.objectForKey("firstName") as! String
-                self.creator.lastName = user?.objectForKey("lastName") as! String
-                complition(true, "", self.creator)
+                self.curentUser.username = user!.username!
+                self.curentUser.firstName = user?.objectForKey("firstName") as! String
+                self.curentUser.lastName = user?.objectForKey("lastName") as! String
+                complition(true, "", self.curentUser)
             } else {
                 let errorString = error!.userInfo["error"] as! String
-                complition(false, errorString, self.creator)
+                complition(false, errorString, self.curentUser)
             }
         }
     }
     
     func parseSignUpInBackgroundWithBlock(username: String, password: String, firstName: String, lastName: String, email: String, completion: signUpStatus) {
-        print("Signing up...")
         let newUser = PFUser()
         newUser.username = username
         newUser.password = password
@@ -63,110 +61,147 @@ class ParseBackendHandler: NSObject {
         newUser.signUpInBackgroundWithBlock({ (success, error) -> Void in
             if(error != nil) {
                 let errorString = error!.userInfo["error"] as! String
-                completion(false, errorString, self.creator)
+                completion(false, errorString, self.curentUser)
             } else {
-                self.creator.username = username
-                self.creator.firstName = firstName
-                self.creator.lastName = lastName
-                completion(true, "", self.creator)
+                self.curentUser.username = username
+                self.curentUser.firstName = firstName
+                self.curentUser.lastName = lastName
+                completion(true, "", self.curentUser)
             }
         })
     }
     
-    func searchBackendDataAnalysis(barcodeText:String)  {
-        let query = PFQuery(className:"Inventory")
-        query.whereKey("Barcode", equalTo:"\(barcodeText)")
-        query.findObjectsInBackgroundWithBlock {
-            (objects: [PFObject]?, error: NSError?) -> Void in
-            
-            if error == nil {
-                // The find succeeded.
-                print("Successfully retrieved \(objects!.count) scores.")
-                // Do something with the found objects
-                if let objects = objects {
-                    for object in objects {
-                        print(object.objectId)
-                    }
-                }
-            } else {
-                // Log details of the failure
-                print("Error: \(error!) \(error!.userInfo)")
-            }
-        }
-    }
-    
     func addScannedItemsToDataBase(scannedItemsList: [ScannedItem], completion: scannedListUpdateStatus) {
-        var itemSavedSuccessfuly = false
+        var itemSavedSuccessfuly : Bool?
         var returnedError = ""
         var errorAtIndex = 0
         var itemsCount = 0
         var successfulSavedItems = [ScannedItem]()
-            for i in 0...(scannedItemsList.count - 1) {
-                let inventory = PFObject(className:"Inventory")
-                inventory["barcode"] = scannedItemsList[i].barcode
-                inventory["sampleType"] = "Plate"
-                inventory["plateName"] = scannedItemsList[i].plateName
-                inventory["library"] = scannedItemsList[i].library
-                inventory["creatorsUsername"] = scannedItemsList[i].creatorUsername
-                inventory["creatorFirstName"] = scannedItemsList[i].creatorFirstName
-                inventory["creatorLastName"] = scannedItemsList[i].creatorLastName
-                inventory["dateCreated"] = scannedItemsList[i].dateCreated
-                inventory["dateLastDefrosted"] = scannedItemsList[i].dateLastDefrosted
-                inventory["lastDefrostedBy"] = scannedItemsList[i].lastDefrostedBy
-                inventory["detailedInformation"] = scannedItemsList[i].detailedInformation
-                inventory["project"] = scannedItemsList[i].project
-                inventory["numberOfThaws"] = scannedItemsList[i].numberOfThaws
-                inventory.saveInBackgroundWithBlock {
-                    (success: Bool, error: NSError?) -> Void in
-                    if (success) {
-                        itemSavedSuccessfuly = true
-                        successfulSavedItems.append(scannedItemsList[i])
-                        itemsCount += 1
-                    } else {
-                        itemSavedSuccessfuly = false
-                        returnedError = error!.userInfo["error"] as! String
-                        errorAtIndex = itemsCount
-                    }
+        for i in 0..<scannedItemsList.count {
+            let inventory = PFObject(className:"Inventory")
+            inventory["barcode"] = scannedItemsList[i].barcode
+            inventory["sampleType"] = "Plate"
+            inventory["plateName"] = scannedItemsList[i].plateName
+            inventory["library"] = scannedItemsList[i].library
+            inventory["creatorsUsername"] = scannedItemsList[i].creatorUsername
+            inventory["creatorFirstName"] = scannedItemsList[i].creatorFirstName
+            inventory["creatorLastName"] = scannedItemsList[i].creatorLastName
+            inventory["dateCreated"] = scannedItemsList[i].dateCreated
+            inventory["dateLastDefrosted"] = scannedItemsList[i].dateLastDefrosted
+            inventory["lastDefrostedBy"] = scannedItemsList[i].lastDefrostedBy
+            inventory["detailedInformation"] = scannedItemsList[i].detailedInformation
+            inventory["project"] = scannedItemsList[i].project
+            inventory["numberOfThaws"] = scannedItemsList[i].numberOfThaws
+            inventory.saveInBackgroundWithBlock {
+                (success: Bool, error: NSError?) -> Void in
+                if (success) {
+                    itemSavedSuccessfuly = true
+                    successfulSavedItems.append(scannedItemsList[i])
+                    itemsCount += 1
+                    completion(itemSavedSuccessfuly!,returnedError, errorAtIndex)
+                } else {
+                    itemSavedSuccessfuly = false
+                    returnedError = error!.userInfo["error"] as! String
+                    errorAtIndex = itemsCount
+                    completion(itemSavedSuccessfuly!,returnedError, errorAtIndex)
                 }
             }
-        completion(itemSavedSuccessfuly,returnedError, errorAtIndex)
+            if itemSavedSuccessfuly == false {
+                break
+            }
+        }
     }
     
-    func lookUpBarcode(barcode : String) -> ScannedItem {
+    func lookUpBarcode(string : String, completion : barcodeCheckStatus) {
         scannedItem = ScannedItem()
-        scannedItem.barcode = "\(barcode)"
-        scannedItem.creatorFirstName = "Keith"
-        scannedItem.creatorLastName = "Mewis"
-        scannedItem.creatorUsername = "Namak"
-        scannedItem.dateCreated = "Aug-2016"
-        scannedItem.dateLastDefrosted = "12-Aug-2016"
-        scannedItem.detailedInformation = "Selection of positive clones from mixec CMU-assay for both 1hr and 18hr and when it was replicated there were some cross contamination due to condensations on the lid which dropped down on to the plate"
-        scannedItem.lastDefrostedBy = "Keith Miewis"
-        scannedItem.library = "CO182"
-        scannedItem.plateName = "CO182-01"
-        scannedItem.project = "Hydrocarbon"
-        scannedItem.numberOfThaws = 3
-        return scannedItem
+        let query = PFQuery(className: "Inventory")
+        query.whereKey("barcode", equalTo: string)
+        query.findObjectsInBackgroundWithBlock({ (objects, error) in
+            if error == nil {
+                if let objects = objects {
+                    switch objects.count {
+                    case 0:
+                        completion(false, "Nothing found", self.scannedItem)
+                    case 1:
+                        for object in objects {
+                            if let barcode = object.valueForKeyPath("barcode") as? String {
+                                self.scannedItem.barcode = barcode
+                            }
+                            if let plateName = object.valueForKeyPath("plateName") as? String {
+                                self.scannedItem.plateName = plateName
+                            }
+                            if let library = object.valueForKeyPath("library") as? String {
+                                self.scannedItem.library = library
+                            }
+                            if let creatorUsername = object.valueForKeyPath("creatorUsername") as? String {
+                                self.scannedItem.creatorUsername = creatorUsername
+                            }
+                            if let creatorFirstName  = object.valueForKeyPath("creatorFirstName") as? String {
+                                self.scannedItem.creatorFirstName = creatorFirstName
+                            }
+                            if let creatorLastName = object.valueForKeyPath("creatorLastName") as? String {
+                                self.scannedItem.creatorLastName = creatorLastName
+                            }
+                            if let dateCreated = object.valueForKeyPath("dateCreated") as? String {
+                                self.scannedItem.dateCreated = dateCreated
+                            }
+                            if let dateLastDefrosted = object.valueForKeyPath("dateLastDefrosted") as? String {
+                                self.scannedItem.dateLastDefrosted = dateLastDefrosted
+                            }
+                            if let lastDefrosted = object.valueForKeyPath("lastDefrostedBy") as? String {
+                                self.scannedItem.lastDefrostedBy = lastDefrosted
+                            }
+                            if let detailedInformation = object.valueForKeyPath("detailedInformation") as? String {
+                                self.scannedItem.detailedInformation = detailedInformation
+                            }
+                            if let project = object.valueForKeyPath("project") as? String {
+                                self.scannedItem.project = project
+                            }
+                            if let numberOfThaws = object.valueForKeyPath("numberOfThaws") as? Int {
+                                self.scannedItem.numberOfThaws = numberOfThaws
+                            }
+                        }
+                        completion(true, "Success", self.scannedItem)
+                    default:
+                        completion(false, "More than one item with the same barcode is in database.", self.scannedItem)
+                    }
+                }
+            } else {
+                let errorString = error!.userInfo["error"] as! String
+                print("Error: \(error!). " + errorString)
+                completion(false, "Didn't find any object", self.scannedItem)
+            }
+        })
     }
     
-    func updateChanges(scannedItemsList: [ScannedItem]) {
+    func updateChanges(scannedItemsList: [ScannedItem], defrostingUser : CurentUser) -> [ScannedItem] {
+        var unsavedItems = [ScannedItem]()
         for scannedItem in scannedItemsList {
             let query = PFQuery(className: "Inventory")
             query.whereKey("barcode", equalTo: scannedItem.barcode)
             query.findObjectsInBackgroundWithBlock({ (objects, error) in
                 if error == nil {
-                    print("Successfully retrieved \(objects!.count) scores.")
                     if let objects = objects {
                         for object in objects {
-                            print(object)
+                            object["dateLastDefrosted"] = scannedItem.dateLastDefrosted
+                            object["lastDefrostedBy"] = "\(defrostingUser.firstName)  \(defrostingUser.lastName)"
+                            object["numberOfThaws"] = scannedItem.numberOfThaws + 1
+                            object.saveInBackgroundWithBlock({ (success, error) in
+                                if success {
+                                    print("Success")
+                                } else {
+                                    unsavedItems.append(scannedItem)
+                                }
+                            })
                         }
                     }
                 } else {
-                    // Log details of the failure
+                    unsavedItems.append(scannedItem)
                     print("Error: \(error!) \(error!.userInfo)")
                 }
             })
         }
+        return unsavedItems
     }
     
     func logout(completion: logOutStatus) {

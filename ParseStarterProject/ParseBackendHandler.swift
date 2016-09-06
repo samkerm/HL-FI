@@ -25,7 +25,7 @@ class ParseBackendHandler: NSObject {
     func checkCurentUserStatus(complition: curentUserStatus) -> Bool {
         curentUser = CurentUser()
         let user = PFUser.currentUser()
-        if let username = curentUser?.username {
+        if let username = user?.username {
             curentUser.username = username
             curentUser.firstName = user!.objectForKey("firstName") as! String
             curentUser.lastName = user!.objectForKey("lastName") as! String

@@ -198,10 +198,10 @@
                                 <rect key="frame" x="20" y="380" width="280" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXO-C5-wVP">
-                                        <rect key="frame" x="110" y="20" width="60" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="80"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="XfQ-AW-2re"/>
-                                            <constraint firstAttribute="width" constant="60" id="eIY-bo-c1e"/>
+                                            <constraint firstAttribute="height" constant="80" id="XfQ-AW-2re"/>
+                                            <constraint firstAttribute="width" constant="280" id="eIY-bo-c1e"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <state key="normal" title="Done"/>
@@ -210,14 +210,14 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="0.96243443602885048" blue="0.86797476315109756" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="3fp-wM-adw"/>
-                                    <constraint firstItem="zXO-C5-wVP" firstAttribute="top" secondItem="ui7-O7-fP5" secondAttribute="top" constant="20" id="7zJ-Yv-HKT"/>
-                                    <constraint firstAttribute="bottom" secondItem="zXO-C5-wVP" secondAttribute="bottom" constant="20" id="8DM-Q4-B7V"/>
+                                    <constraint firstItem="zXO-C5-wVP" firstAttribute="top" secondItem="ui7-O7-fP5" secondAttribute="top" id="7zJ-Yv-HKT"/>
+                                    <constraint firstAttribute="bottom" secondItem="zXO-C5-wVP" secondAttribute="bottom" id="8DM-Q4-B7V"/>
                                     <constraint firstAttribute="height" constant="80" id="gTX-yk-0j1"/>
-                                    <constraint firstAttribute="trailing" secondItem="zXO-C5-wVP" secondAttribute="trailing" constant="110" id="jEf-Dc-az6"/>
-                                    <constraint firstItem="zXO-C5-wVP" firstAttribute="leading" secondItem="ui7-O7-fP5" secondAttribute="leading" constant="110" id="nck-Lv-TsT"/>
+                                    <constraint firstAttribute="trailing" secondItem="zXO-C5-wVP" secondAttribute="trailing" id="jEf-Dc-az6"/>
+                                    <constraint firstItem="zXO-C5-wVP" firstAttribute="leading" secondItem="ui7-O7-fP5" secondAttribute="leading" id="nck-Lv-TsT"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nPo-9N-Op5">
@@ -434,7 +434,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="0.962434436" blue="0.8679747632" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="hQH-11-m99" firstAttribute="leading" secondItem="7d2-Hg-kCp" secondAttribute="trailing" constant="8" id="1xv-jE-3EP"/>
                                     <constraint firstItem="TOa-dY-dLY" firstAttribute="leading" secondItem="nPo-9N-Op5" secondAttribute="leading" constant="12" id="3WZ-bP-W4r"/>
@@ -655,10 +655,12 @@
             <objects>
                 <navigationController storyboardIdentifier="CameraNavigationController" automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnSwipe="YES" hidesBarsOnTap="YES" hidesBarsWhenKeyboardAppears="YES" hidesBarsWhenVerticallyCompact="YES" id="Ib4-1Z-dbk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="viN-yc-lCf">
+                    <navigationBar key="navigationBar" alpha="0.80000000000000004" contentMode="scaleToFill" semanticContentAttribute="playback" id="viN-yc-lCf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="eOx-W9-86O">

@@ -15,7 +15,7 @@ import Parse
 // import ParseUI
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate {
 
     var window: UIWindow?
     
@@ -28,9 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 
         //--------------------------------------
-        // MARK: - HomeStuff
+        // MARK: - Appearance
         //--------------------------------------
-        UINavigationBar.appearance().tintColor = UIColor(red: 42/255, green: 61/255, blue: 66/255, alpha: 1.0)
+        let appearance = UINavigationBar.appearance()
+        appearance.tintColor = .whiteColor()
+        appearance.barTintColor = UIColor(red: 60/255, green: 93/255, blue: 99/255, alpha: 1.0)
+        appearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.lightGrayColor()]
         //--------------------------------------
         // MARK: - UIApplicationDelegate
         //--------------------------------------
@@ -40,9 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.enableLocalDatastore()
         
         let parseConfiguration = ParseClientConfiguration(block: { (ParseMutableClientConfiguration) -> Void in
-            ParseMutableClientConfiguration.applicationId = "barcodefreezerinventory1hgh163dsjlk7JGGGHJ6"
+            ParseMutableClientConfiguration.applicationId = "hlfi1hgh163dsjlk7JGGGHJ6"
             ParseMutableClientConfiguration.clientKey = "Macbig11barcodefreezerinventory"
-            ParseMutableClientConfiguration.server = "https://barcodefreezerinventory.herokuapp.com/parse"
+            ParseMutableClientConfiguration.server = "https://hlfi.herokuapp.com/Parse"
         })
         
         Parse.initializeWithConfiguration(parseConfiguration)

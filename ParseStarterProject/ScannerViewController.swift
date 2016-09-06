@@ -81,6 +81,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         let rectangle = CGRect(x: 10, y: view.frame.height/2 - 40, width: view.frame.width - 20, height: 80)
         let pathS = UIBezierPath(rect: square)
         let shapeS = CAShapeLayer()
+        let hamburger = UIImage(named: "menu")
+        let hamburgerView = UIImageView(image: hamburger)
+        hamburgerView.frame = CGRect(x: self.view.bounds.width - hamburgerView.frame.width - 15, y: 30, width: hamburgerView.frame.width, height: hamburgerView.frame.height)
         shapeS.path = pathS.CGPath
         shapeS.lineWidth = 2
         shapeS.lineDashPattern = [4,10,1,2]
@@ -95,6 +98,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         shapeR.fillColor = UIColor.clearColor().CGColor
         view.layer.addSublayer(shapeS)
         view.layer.addSublayer(shapeR)
+        view.addSubview(hamburgerView)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

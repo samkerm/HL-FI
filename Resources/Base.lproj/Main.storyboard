@@ -813,17 +813,25 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEw-L7-gFH">
                                 <rect key="frame" x="20" y="30" width="280" height="430"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Twg-RG-1IH">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="352"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Twg-RG-1IH">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="360"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter new items information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvf-E7-vNR">
-                                                <rect key="frame" x="37" y="10" width="214" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter new items information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvf-E7-vNR">
+                                                <rect key="frame" x="33" y="10" width="214" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="O9k-15-9pk"/>
+                                                    <constraint firstAttribute="width" constant="214" id="RKo-e5-UTw"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NZe-8W-YFw">
-                                                <rect key="frame" x="8" y="37" width="264" height="29"/>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NZe-8W-YFw">
+                                                <rect key="frame" x="8" y="35" width="264" height="29"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="264" id="TmE-IK-p7C"/>
+                                                    <constraint firstAttribute="height" constant="28" id="whs-IK-pn0"/>
+                                                </constraints>
                                                 <segments>
                                                     <segment title="Plate"/>
                                                     <segment title="Product"/>
@@ -832,79 +840,135 @@
                                                     <action selector="itemTypeChanged:" destination="50j-BG-Bi5" eventType="valueChanged" id="UKX-oO-ayc"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Plate Name &gt; 4 characters" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Qa4-71-J0x">
-                                                <rect key="frame" x="8" y="73" width="264" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Plate Name &gt; 4 characters" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Qa4-71-J0x">
+                                                <rect key="frame" x="8" y="70" width="264" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="nGh-v1-l7g"/>
+                                                    <constraint firstAttribute="width" constant="264" id="od7-f5-bcR"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Library Name &gt; 4 characters" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="95Y-fg-9zN">
-                                                <rect key="frame" x="8" y="108" width="264" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Library Name &gt; 4 characters" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="95Y-fg-9zN">
+                                                <rect key="frame" x="8" y="105" width="264" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="264" id="l15-iZ-nU3"/>
+                                                    <constraint firstAttribute="height" constant="30" id="nPf-4I-lRj"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Project Name &gt; 4 characters" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NDH-Kh-5iT">
-                                                <rect key="frame" x="8" y="143" width="264" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Project Name &gt; 4 characters" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NDH-Kh-5iT">
+                                                <rect key="frame" x="8" y="140" width="264" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="00g-BH-RU8"/>
+                                                    <constraint firstAttribute="width" constant="264" id="RXt-gs-5oF"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Additional Information" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZMz-gI-fRX">
-                                                <rect key="frame" x="8" y="178" width="264" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date Prepared" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SLR-LB-rCf">
+                                                <rect key="frame" x="8" y="210" width="264" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="Olb-yC-kSw"/>
+                                                    <constraint firstAttribute="width" constant="264" id="qUd-2W-iEl"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date Prepared" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SLR-LB-rCf">
-                                                <rect key="frame" x="8" y="213" width="264" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Freezer Location" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8y6-nB-JtS">
+                                                <rect key="frame" x="8" y="175" width="264" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="fTK-8X-oAr"/>
+                                                    <constraint firstAttribute="width" constant="264" id="gsR-vf-qFH"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Freezer Location" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8y6-nB-JtS">
-                                                <rect key="frame" x="8" y="283" width="264" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
-                                            </textField>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mOG-XR-Qqy">
-                                                <rect key="frame" x="8" y="318" width="264" height="29"/>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mOG-XR-Qqy">
+                                                <rect key="frame" x="8" y="315" width="264" height="29"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="264" id="IKF-dS-TmE"/>
+                                                    <constraint firstAttribute="height" constant="28" id="zVN-lT-eKc"/>
+                                                </constraints>
                                                 <segments>
                                                     <segment title="Original"/>
                                                     <segment title="Replicate"/>
                                                 </segments>
                                             </segmentedControl>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zmL-im-7XP">
-                                                <rect key="frame" x="8" y="248" width="264" height="29"/>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zmL-im-7XP">
+                                                <rect key="frame" x="8" y="245" width="264" height="29"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="264" id="G9V-Eb-sX1"/>
+                                                    <constraint firstAttribute="height" constant="28" id="Qj8-Mv-fXQ"/>
+                                                </constraints>
                                                 <segments>
-                                                    <segment title="96"/>
                                                     <segment title="384"/>
+                                                    <segment title="96"/>
                                                 </segments>
                                             </segmentedControl>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Additional Information" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MsK-7s-gE7">
+                                                <rect key="frame" x="8" y="280" width="264" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="0oo-TR-gMY"/>
+                                                    <constraint firstAttribute="width" constant="264" id="kAD-jW-hFj"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.962434436" blue="0.8679747632" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="95Y-fg-9zN" firstAttribute="top" secondItem="Qa4-71-J0x" secondAttribute="bottom" constant="5" id="1tp-7f-cIJ"/>
+                                            <constraint firstItem="NZe-8W-YFw" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="7pv-Th-KUC"/>
+                                            <constraint firstItem="8y6-nB-JtS" firstAttribute="top" secondItem="Qa4-71-J0x" secondAttribute="bottom" constant="75" id="8sl-rX-sr1"/>
+                                            <constraint firstItem="zmL-im-7XP" firstAttribute="top" secondItem="SLR-LB-rCf" secondAttribute="bottom" constant="5" id="CjH-z0-Fc4"/>
+                                            <constraint firstItem="MsK-7s-gE7" firstAttribute="top" secondItem="8y6-nB-JtS" secondAttribute="bottom" constant="75" id="Hiz-PS-VDv"/>
+                                            <constraint firstItem="NDH-Kh-5iT" firstAttribute="top" secondItem="95Y-fg-9zN" secondAttribute="bottom" constant="5" id="LJn-7C-Lef"/>
+                                            <constraint firstItem="Qa4-71-J0x" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="RIB-zf-Rhx"/>
+                                            <constraint firstItem="NDH-Kh-5iT" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="TFr-Eg-vLg"/>
+                                            <constraint firstItem="NZe-8W-YFw" firstAttribute="top" secondItem="Qvf-E7-vNR" secondAttribute="bottom" constant="4" id="TNU-uX-v7K"/>
+                                            <constraint firstAttribute="width" constant="280" id="UEm-Xa-i7Q"/>
+                                            <constraint firstItem="SLR-LB-rCf" firstAttribute="top" secondItem="8y6-nB-JtS" secondAttribute="bottom" constant="5" id="YUK-NQ-Ag7"/>
+                                            <constraint firstItem="Qvf-E7-vNR" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="cv1-Dh-SUh"/>
+                                            <constraint firstItem="mOG-XR-Qqy" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="dQo-gv-mOW"/>
+                                            <constraint firstItem="Qvf-E7-vNR" firstAttribute="top" secondItem="Twg-RG-1IH" secondAttribute="top" constant="10" id="eSp-Er-uSq"/>
+                                            <constraint firstItem="95Y-fg-9zN" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="iiA-Hl-tlH"/>
+                                            <constraint firstItem="Qa4-71-J0x" firstAttribute="top" secondItem="NZe-8W-YFw" secondAttribute="bottom" constant="7" id="mVM-LI-i8R"/>
+                                            <constraint firstItem="8y6-nB-JtS" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="my5-eC-JHI"/>
+                                            <constraint firstItem="mOG-XR-Qqy" firstAttribute="top" secondItem="MsK-7s-gE7" secondAttribute="bottom" constant="5" id="tFD-A2-JYW"/>
+                                            <constraint firstItem="MsK-7s-gE7" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="tuP-fi-4Js"/>
+                                            <constraint firstAttribute="height" constant="360" id="wlq-0K-k33"/>
+                                            <constraint firstItem="zmL-im-7XP" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="wum-Jx-QlY"/>
+                                            <constraint firstItem="SLR-LB-rCf" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="zQG-95-obk"/>
+                                        </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Hy-qy-gSd">
-                                        <rect key="frame" x="0.0" y="350" width="280" height="80"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Hy-qy-gSd">
+                                        <rect key="frame" x="0.0" y="359" width="280" height="70"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4J-DG-4ak">
-                                                <rect key="frame" x="0.0" y="0.0" width="140" height="80"/>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4J-DG-4ak">
+                                                <rect key="frame" x="0.0" y="0.0" width="140" height="70"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="7MK-vs-8uk"/>
+                                                    <constraint firstAttribute="height" constant="70" id="7MK-vs-8uk"/>
                                                     <constraint firstAttribute="width" constant="140" id="OFo-B8-xp9"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <state key="normal" title="Cancel"/>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptG-QQ-Jsc">
-                                                <rect key="frame" x="140" y="0.0" width="143" height="80"/>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptG-QQ-Jsc">
+                                                <rect key="frame" x="140" y="0.0" width="143" height="70"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="143" id="DRo-Eg-N6Y"/>
-                                                    <constraint firstAttribute="height" constant="80" id="Tm2-bL-S14"/>
+                                                    <constraint firstAttribute="height" constant="70" id="Tm2-bL-S14"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
                                                 <state key="normal" title="Ok"/>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.962434436" blue="0.8679747632" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="s4J-DG-4ak" firstAttribute="top" secondItem="6Hy-qy-gSd" secondAttribute="top" id="0HW-6M-GiW"/>
-                                            <constraint firstAttribute="height" constant="80" id="7aL-rT-b3E"/>
+                                            <constraint firstAttribute="height" constant="70" id="7aL-rT-b3E"/>
                                             <constraint firstItem="ptG-QQ-Jsc" firstAttribute="top" secondItem="6Hy-qy-gSd" secondAttribute="top" id="Qf0-VR-qyc"/>
                                             <constraint firstItem="ptG-QQ-Jsc" firstAttribute="leading" secondItem="s4J-DG-4ak" secondAttribute="trailing" constant="-1" id="RIF-yE-fHz"/>
                                             <constraint firstAttribute="width" constant="280" id="hNq-uU-VgP"/>
@@ -917,6 +981,9 @@
                                     <constraint firstAttribute="height" constant="430" id="5qY-RL-C3C"/>
                                     <constraint firstAttribute="width" constant="280" id="bdc-se-Pkz"/>
                                     <constraint firstAttribute="bottom" secondItem="6Hy-qy-gSd" secondAttribute="bottom" id="e1e-sq-ccA"/>
+                                    <constraint firstItem="6Hy-qy-gSd" firstAttribute="centerX" secondItem="IEw-L7-gFH" secondAttribute="centerX" id="eVb-3X-Gd7"/>
+                                    <constraint firstItem="Twg-RG-1IH" firstAttribute="top" secondItem="IEw-L7-gFH" secondAttribute="top" id="iUz-Yu-M5i"/>
+                                    <constraint firstItem="Twg-RG-1IH" firstAttribute="centerX" secondItem="IEw-L7-gFH" secondAttribute="centerX" id="rQM-fG-1Pw"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -928,14 +995,21 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="additionalInformationTextField" destination="ZMz-gI-fRX" id="wvu-zp-27d"/>
+                        <outlet property="additionalInformationTextField" destination="MsK-7s-gE7" id="I4h-d1-ez2"/>
+                        <outlet property="additionalInformationVerticalSpacingConstraint" destination="Hiz-PS-VDv" id="jcH-4Q-fwA"/>
                         <outlet property="cancelButton" destination="s4J-DG-4ak" id="rC6-pD-dyj"/>
                         <outlet property="containerView" destination="IEw-L7-gFH" id="hjz-M6-0Jc"/>
-                        <outlet property="datePreparedTextField" destination="SLR-LB-rCf" id="0lO-Kt-fgD"/>
+                        <outlet property="containerViewHeightConstraint" destination="5qY-RL-C3C" id="b0O-oB-64O"/>
+                        <outlet property="dateTextField" destination="SLR-LB-rCf" id="GQG-H8-zQf"/>
                         <outlet property="freezerLocationTextField" destination="8y6-nB-JtS" id="c66-3b-8fi"/>
+                        <outlet property="freezerLocationVerticalSpacingConstraint" destination="8sl-rX-sr1" id="ySu-xp-tiR"/>
+                        <outlet property="itemType" destination="NZe-8W-YFw" id="w3c-6g-pWq"/>
+                        <outlet property="itemsDetailsHeightConstraint" destination="wlq-0K-k33" id="2f7-jO-ynK"/>
                         <outlet property="libraryNameTextField" destination="95Y-fg-9zN" id="5hT-zk-M7r"/>
+                        <outlet property="nameTextField" destination="Qa4-71-J0x" id="sCV-dg-sKz"/>
                         <outlet property="okButton" destination="ptG-QQ-Jsc" id="MRA-6y-clV"/>
-                        <outlet property="plateNameTextField" destination="Qa4-71-J0x" id="64d-gD-02V"/>
+                        <outlet property="plateCondition" destination="mOG-XR-Qqy" id="JMn-X5-gMS"/>
+                        <outlet property="plateType" destination="zmL-im-7XP" id="glU-yq-gkn"/>
                         <outlet property="projectNameTextField" destination="NDH-Kh-5iT" id="z4e-Vg-VPZ"/>
                     </connections>
                 </viewController>

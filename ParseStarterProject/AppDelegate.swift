@@ -26,10 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-
+        
         //--------------------------------------
         // MARK: - Appearance
         //--------------------------------------
+//        self.window?.tintColor = UIColor(red: 60/255, green: 93/255, blue: 99/255, alpha: 1.0)
         let appearance = UINavigationBar.appearance()
         appearance.tintColor = .whiteColor()
         appearance.barTintColor = UIColor(red: 60/255, green: 93/255, blue: 99/255, alpha: 1.0)

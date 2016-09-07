@@ -293,7 +293,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 self.showText("Item already in database")
                 self.buttonReleased()
                 self.captureSession.startRunning()
-            } else if !exists && error == "Didn't find any object" {
+            } else if !exists {
                 let ac = UIAlertController(title: barcodeText, message: message, preferredStyle: .Alert)
                 ac.addAction(UIAlertAction(title: "No", style: .Default, handler: { (_) in
                     self.captureSession.startRunning()

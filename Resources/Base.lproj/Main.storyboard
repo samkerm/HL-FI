@@ -810,20 +810,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ohy-43-tva">
-                                <rect key="frame" x="20" y="28" width="280" height="344"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEw-L7-gFH">
+                                <rect key="frame" x="20" y="30" width="280" height="430"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Twg-RG-1IH">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="369"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Twg-RG-1IH">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="352"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter new items information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvf-E7-vNR">
-                                                <rect key="frame" x="37" y="20" width="214" height="21"/>
+                                                <rect key="frame" x="37" y="10" width="214" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NZe-8W-YFw">
-                                                <rect key="frame" x="8" y="49" width="264" height="29"/>
+                                                <rect key="frame" x="8" y="37" width="264" height="29"/>
                                                 <segments>
                                                     <segment title="Plate"/>
                                                     <segment title="Product"/>
@@ -833,106 +833,109 @@
                                                 </connections>
                                             </segmentedControl>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Plate Name &gt; 4 characters" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Qa4-71-J0x">
-                                                <rect key="frame" x="8" y="85" width="264" height="30"/>
+                                                <rect key="frame" x="8" y="73" width="264" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Library Name &gt; 4 characters" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="95Y-fg-9zN">
-                                                <rect key="frame" x="8" y="120" width="264" height="30"/>
+                                                <rect key="frame" x="8" y="108" width="264" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Project Name &gt; 4 characters" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NDH-Kh-5iT">
-                                                <rect key="frame" x="8" y="155" width="264" height="30"/>
+                                                <rect key="frame" x="8" y="143" width="264" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Additional Information" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZMz-gI-fRX">
-                                                <rect key="frame" x="8" y="190" width="264" height="30"/>
+                                                <rect key="frame" x="8" y="178" width="264" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date Prepared" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SLR-LB-rCf">
-                                                <rect key="frame" x="8" y="225" width="264" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Plate Type" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="u8s-8G-8ON">
-                                                <rect key="frame" x="8" y="260" width="264" height="30"/>
+                                                <rect key="frame" x="8" y="213" width="264" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Freezer Location" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8y6-nB-JtS">
-                                                <rect key="frame" x="8" y="295" width="264" height="30"/>
+                                                <rect key="frame" x="8" y="283" width="264" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Original or Replicate" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pXa-Nm-L7H">
-                                                <rect key="frame" x="8" y="330" width="264" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
-                                            </textField>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mOG-XR-Qqy">
+                                                <rect key="frame" x="8" y="318" width="264" height="29"/>
+                                                <segments>
+                                                    <segment title="Original"/>
+                                                    <segment title="Replicate"/>
+                                                </segments>
+                                            </segmentedControl>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zmL-im-7XP">
+                                                <rect key="frame" x="8" y="248" width="264" height="29"/>
+                                                <segments>
+                                                    <segment title="96"/>
+                                                    <segment title="384"/>
+                                                </segments>
+                                            </segmentedControl>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.962434436" blue="0.8679747632" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                     </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="7S3-Ac-xM6"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="GUl-xH-tge"/>
-                                    <constraint firstItem="Twg-RG-1IH" firstAttribute="leading" secondItem="Ohy-43-tva" secondAttribute="leading" id="HMH-xo-tfP"/>
-                                    <constraint firstAttribute="trailing" secondItem="Twg-RG-1IH" secondAttribute="trailing" id="I5V-2A-L1a"/>
-                                    <constraint firstItem="Twg-RG-1IH" firstAttribute="top" secondItem="Ohy-43-tva" secondAttribute="top" id="Ocb-XX-dxE"/>
-                                    <constraint firstAttribute="height" constant="200" id="S7Q-hH-kCh"/>
-                                    <constraint firstAttribute="bottom" secondItem="Twg-RG-1IH" secondAttribute="bottom" id="cne-wE-a3i"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="344" id="yAe-wY-2kA"/>
-                                </constraints>
-                            </scrollView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Hy-qy-gSd">
-                                <rect key="frame" x="20" y="380" width="280" height="80"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4J-DG-4ak">
-                                        <rect key="frame" x="0.0" y="0.0" width="140" height="80"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Hy-qy-gSd">
+                                        <rect key="frame" x="0.0" y="350" width="280" height="80"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4J-DG-4ak">
+                                                <rect key="frame" x="0.0" y="0.0" width="140" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="7MK-vs-8uk"/>
+                                                    <constraint firstAttribute="width" constant="140" id="OFo-B8-xp9"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <state key="normal" title="Cancel"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptG-QQ-Jsc">
+                                                <rect key="frame" x="140" y="0.0" width="143" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="143" id="DRo-Eg-N6Y"/>
+                                                    <constraint firstAttribute="height" constant="80" id="Tm2-bL-S14"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <state key="normal" title="Ok"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.962434436" blue="0.8679747632" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="140" id="Yb4-cJ-FXG"/>
+                                            <constraint firstItem="s4J-DG-4ak" firstAttribute="top" secondItem="6Hy-qy-gSd" secondAttribute="top" id="0HW-6M-GiW"/>
+                                            <constraint firstAttribute="height" constant="80" id="7aL-rT-b3E"/>
+                                            <constraint firstItem="ptG-QQ-Jsc" firstAttribute="top" secondItem="6Hy-qy-gSd" secondAttribute="top" id="Qf0-VR-qyc"/>
+                                            <constraint firstItem="ptG-QQ-Jsc" firstAttribute="leading" secondItem="s4J-DG-4ak" secondAttribute="trailing" constant="-1" id="RIF-yE-fHz"/>
+                                            <constraint firstAttribute="width" constant="280" id="hNq-uU-VgP"/>
+                                            <constraint firstItem="s4J-DG-4ak" firstAttribute="leading" secondItem="6Hy-qy-gSd" secondAttribute="leading" constant="-1" id="nPv-Rg-acy"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <state key="normal" title="Cancel"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptG-QQ-Jsc">
-                                        <rect key="frame" x="140" y="1" width="140" height="80"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <state key="normal" title="Ok"/>
-                                    </button>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.962434436" blue="0.8679747632" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="s4J-DG-4ak" firstAttribute="leading" secondItem="6Hy-qy-gSd" secondAttribute="leading" id="3HJ-nX-SWT"/>
-                                    <constraint firstItem="s4J-DG-4ak" firstAttribute="top" secondItem="6Hy-qy-gSd" secondAttribute="top" id="RFN-KH-EGU"/>
-                                    <constraint firstAttribute="bottom" secondItem="ptG-QQ-Jsc" secondAttribute="bottom" constant="-1" id="alJ-2f-1o5"/>
-                                    <constraint firstAttribute="bottom" secondItem="s4J-DG-4ak" secondAttribute="bottom" id="bam-aP-4WL"/>
-                                    <constraint firstItem="ptG-QQ-Jsc" firstAttribute="top" secondItem="6Hy-qy-gSd" secondAttribute="top" constant="1" id="sqC-Vc-doC"/>
-                                    <constraint firstAttribute="trailing" secondItem="ptG-QQ-Jsc" secondAttribute="trailing" id="tSt-2Y-ZvT"/>
-                                    <constraint firstItem="ptG-QQ-Jsc" firstAttribute="leading" secondItem="s4J-DG-4ak" secondAttribute="trailing" id="xma-fH-Ge0"/>
+                                    <constraint firstAttribute="height" constant="430" id="5qY-RL-C3C"/>
+                                    <constraint firstAttribute="width" constant="280" id="bdc-se-Pkz"/>
+                                    <constraint firstAttribute="bottom" secondItem="6Hy-qy-gSd" secondAttribute="bottom" id="e1e-sq-ccA"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Ohy-43-tva" firstAttribute="top" secondItem="dfL-fm-1fF" secondAttribute="bottom" constant="8" id="1NP-1r-1oQ"/>
-                            <constraint firstItem="3hN-kV-bi3" firstAttribute="top" secondItem="Ohy-43-tva" secondAttribute="bottom" constant="108" id="C9x-Pc-qol"/>
-                            <constraint firstItem="Ohy-43-tva" firstAttribute="centerX" secondItem="7N0-7V-Aic" secondAttribute="centerX" id="GeM-ZA-rop"/>
-                            <constraint firstItem="Ohy-43-tva" firstAttribute="top" secondItem="dfL-fm-1fF" secondAttribute="bottom" constant="8" id="jvY-I6-mAI"/>
+                            <constraint firstItem="IEw-L7-gFH" firstAttribute="top" secondItem="dfL-fm-1fF" secondAttribute="bottom" constant="10" id="WfS-Gr-os3"/>
+                            <constraint firstItem="IEw-L7-gFH" firstAttribute="centerX" secondItem="7N0-7V-Aic" secondAttribute="centerX" id="khQ-or-3fY"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="additionalInformationTextField" destination="ZMz-gI-fRX" id="wvu-zp-27d"/>
+                        <outlet property="cancelButton" destination="s4J-DG-4ak" id="rC6-pD-dyj"/>
+                        <outlet property="containerView" destination="IEw-L7-gFH" id="hjz-M6-0Jc"/>
                         <outlet property="datePreparedTextField" destination="SLR-LB-rCf" id="0lO-Kt-fgD"/>
                         <outlet property="freezerLocationTextField" destination="8y6-nB-JtS" id="c66-3b-8fi"/>
                         <outlet property="libraryNameTextField" destination="95Y-fg-9zN" id="5hT-zk-M7r"/>
-                        <outlet property="originalReplicateTextField" destination="pXa-Nm-L7H" id="p2x-Vj-HSj"/>
+                        <outlet property="okButton" destination="ptG-QQ-Jsc" id="MRA-6y-clV"/>
                         <outlet property="plateNameTextField" destination="Qa4-71-J0x" id="64d-gD-02V"/>
-                        <outlet property="plateTypeTextField" destination="u8s-8G-8ON" id="SVS-fe-YGR"/>
                         <outlet property="projectNameTextField" destination="NDH-Kh-5iT" id="z4e-Vg-VPZ"/>
                     </connections>
                 </viewController>

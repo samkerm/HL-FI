@@ -81,7 +81,7 @@ class ParseBackendHandler: NSObject {
             let inventory = PFObject(className:"Inventory")
             inventory["barcode"] = scannedItemsList[i].barcode
             inventory["sampleType"] = "Plate"
-            inventory["plateName"] = scannedItemsList[i].plateName
+            inventory["plateName"] = scannedItemsList[i].name
             inventory["library"] = scannedItemsList[i].library
             inventory["creatorsUsername"] = scannedItemsList[i].creatorUsername
             inventory["creatorFirstName"] = scannedItemsList[i].creatorFirstName
@@ -128,7 +128,7 @@ class ParseBackendHandler: NSObject {
                                 self.scannedItem.barcode = barcode
                             }
                             if let plateName = object.valueForKeyPath("plateName") as? String {
-                                self.scannedItem.plateName = plateName
+                                self.scannedItem.name = plateName
                             }
                             if let library = object.valueForKeyPath("library") as? String {
                                 self.scannedItem.library = library

@@ -94,7 +94,7 @@ class ListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("List Cell", forIndexPath: indexPath)
         cell.textLabel!.text = scannedItems[indexPath.row].barcode
-        cell.detailTextLabel?.text = scannedItems[indexPath.row].plateName
+        cell.detailTextLabel?.text = scannedItems[indexPath.row].name
         return cell
     }
     

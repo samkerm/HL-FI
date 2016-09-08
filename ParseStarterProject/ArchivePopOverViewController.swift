@@ -8,20 +8,42 @@
 
 import UIKit
 
+protocol ArchivePopOverViewControllerDelegate {
+    func archiveItemReturned(value: ScannedItem)
+}
+
 class ArchivePopOverViewController: UIViewController {
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var libraryNameTextField: UITextField!
-    @IBOutlet weak var projectNameTextField: UITextField!
-    @IBOutlet weak var additionalInformationTextField: UITextField!
-    @IBOutlet weak var dateTextField: UITextField!
-    @IBOutlet weak var freezerLocationTextField: UITextField!
+    
     var platePickerView = UIPickerView()
     var freezerLocationPickerView = UIPickerView()
     var freezerLocation = ["F":"", "S":"", "R":""]
     var plateState = true
+    var scannedBarcode = ""
+    var scannedItem : ScannedItem!
+    var curentUser : CurentUser!
+    var delegate : ArchivePopOverViewControllerDelegate! 
+    var topViewController : UIViewController?
+    
+    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var libraryNameTextField: UITextField!
+    @IBOutlet weak var projectNameTextField: UITextField!
+    @IBOutlet weak var detailedInformationTextField: UITextField!
+    @IBOutlet weak var dateTextField: UITextField!
+    @IBOutlet weak var expieryDate: UITextField!
+    @IBOutlet weak var freezerLocationTextField: UITextField!
     @IBOutlet weak var itemType: UISegmentedControl!
     @IBOutlet weak var plateType: UISegmentedControl!
-    @IBOutlet weak var plateCondition: UISegmentedControl!
+    @IBOutlet weak var plateStatus: UISegmentedControl!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var okButton: UIButton!
+    @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var itemsDetailsHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var additionalInformationVerticalSpacingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var freezerLocationVerticalSpacingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewVerticalSpacingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var expiryDateVerticalSpacingConstraint: NSLayoutConstraint!
     @IBAction func itemTypeChanged(sender: AnyObject) {
         if itemType.selectedSegmentIndex == 0 {
             showPlatelayout()
@@ -33,19 +55,47 @@ class ArchivePopOverViewController: UIViewController {
             resetContent()
         }
     }
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var okButton: UIButton!
-    @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var itemsDetailsHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var additionalInformationVerticalSpacingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var freezerLocationVerticalSpacingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var containerViewVerticalSpacingConstraint: NSLayoutConstraint!
+    @IBAction func cancel(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    @IBAction func ok(sender: AnyObject) {
+        scannedItem = ScannedItem()
+        if plateState {
+            scannedItem.barcode = scannedBarcode
+            scannedItem.creatorFirstName = curentUser.firstName
+            scannedItem.creatorLastName = curentUser.lastName
+            scannedItem.creatorUsername = curentUser.username
+            scannedItem.dateCreated = dateTextField.text!
+            scannedItem.detailedInformation = detailedInformationTextField.text!
+            scannedItem.library = libraryNameTextField.text!
+            scannedItem.name = nameTextField.text!
+            scannedItem.project = projectNameTextField.text!
+            scannedItem.type = itemType.selectedSegmentIndex == 0 ? "Plate" : "Product"
+            scannedItem.plateType = plateType.selectedSegmentIndex == 0 ? "384" : "96"
+            scannedItem.plateStatus = plateStatus.selectedSegmentIndex == 0 ? "Original" : "Replicate"
+            delegate.archiveItemReturned(scannedItem)
+        } else {
+            scannedItem.barcode = scannedBarcode
+            scannedItem.creatorFirstName = curentUser.firstName
+            scannedItem.creatorLastName = curentUser.lastName
+            scannedItem.creatorUsername = curentUser.username
+            scannedItem.dateCreated = dateTextField.text!
+            scannedItem.expiryDate = expieryDate.text!
+            scannedItem.detailedInformation = detailedInformationTextField.text!
+            scannedItem.name = nameTextField.text!
+            scannedItem.type = itemType.selectedSegmentIndex == 0 ? "Plate" : "Product"
+            delegate.archiveItemReturned(scannedItem)
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        headerLabel.text = scannedBarcode
+        expieryDate.alpha = 0
         setTextfieldDelegates()
         setUpDateTextFieldsInputView()
+        setUpExpiryDateTextFieldsInputView()
         setUpFreezerLocationTextFieldsInputView()
         containerView.layer.cornerRadius = 20
         containerView.layer.masksToBounds = true
@@ -54,15 +104,20 @@ class ArchivePopOverViewController: UIViewController {
         cancelButton.layer.borderWidth = 1
         cancelButton.layer.borderColor = UIColor.lightGrayColor().CGColor
     }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        modalPresentationStyle = .Custom
+    }
     func resetContent() {
         nameTextField.text = ""
         libraryNameTextField.text = ""
         projectNameTextField.text = ""
         freezerLocationTextField.text = ""
         dateTextField.text = ""
-        additionalInformationTextField.text = ""
+        detailedInformationTextField.text = ""
+        expieryDate.text = ""
         plateType.selectedSegmentIndex = 0
-        plateCondition.selectedSegmentIndex = 0
+        plateStatus.selectedSegmentIndex = 0
         okButton.enabled = false
     }
     func showPlatelayout() {
@@ -70,12 +125,13 @@ class ArchivePopOverViewController: UIViewController {
             self.libraryNameTextField.alpha = 1
             self.projectNameTextField.alpha = 1
             self.plateType.alpha = 1
-            self.plateCondition.alpha = 1
+            self.plateStatus.alpha = 1
+            self.expieryDate.alpha = 0
             self.nameTextField.placeholder = "Plate Name > 4 characters"
-            self.dateTextField.placeholder = "Date Prepared"
             self.containerViewHeightConstraint.constant = 430
             self.itemsDetailsHeightConstraint.constant = 360
             self.additionalInformationVerticalSpacingConstraint.constant = 75
+
             self.freezerLocationVerticalSpacingConstraint.constant = 75
             self.view.layoutIfNeeded()
         }
@@ -85,12 +141,12 @@ class ArchivePopOverViewController: UIViewController {
             self.libraryNameTextField.alpha = 0
             self.projectNameTextField.alpha = 0
             self.plateType.alpha = 0
-            self.plateCondition.alpha = 0
+            self.plateStatus.alpha = 0
+            self.expieryDate.alpha = 1
             self.nameTextField.placeholder = "Product Name"
-            self.dateTextField.placeholder = "Expiery Date"
-            self.containerViewHeightConstraint.constant = 280
-            self.itemsDetailsHeightConstraint.constant = 210
-            self.additionalInformationVerticalSpacingConstraint.constant = 40
+            self.containerViewHeightConstraint.constant = 315
+            self.itemsDetailsHeightConstraint.constant = 250
+            self.additionalInformationVerticalSpacingConstraint.constant = 5
             self.freezerLocationVerticalSpacingConstraint.constant = 5
             self.view.layoutIfNeeded()
             
@@ -140,29 +196,49 @@ class ArchivePopOverViewController: UIViewController {
         dateTextField.inputView = inputView
         datePickerView.addTarget(self, action: #selector(ArchivePopOverViewController.handleDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
     }
+    func setUpExpiryDateTextFieldsInputView() {
+        let inputView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, 140))
+        inputView.backgroundColor = .lightGrayColor()
+        let datePickerView:UIDatePicker = UIDatePicker(frame: CGRectMake(0, 40, view.bounds.width, 100))
+        datePickerView.datePickerMode = UIDatePickerMode.Date
+        inputView.addSubview(datePickerView)
+        let doneButton = UIButton(frame: CGRectMake(0, 0, view.bounds.width, 40))
+        doneButton.setTitle("Done", forState: UIControlState.Normal)
+        doneButton.setTitle("Done", forState: UIControlState.Highlighted)
+        doneButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        doneButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
+        inputView.addSubview(doneButton)
+        doneButton.addTarget(self, action: #selector(ArchivePopOverViewController.doneButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        expieryDate.inputView = inputView
+        datePickerView.addTarget(self, action: #selector(ArchivePopOverViewController.handleExpiryDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
+    }
     
     func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateTextField.text = dateFormatter.stringFromDate(sender.date)
     }
+    func handleExpiryDatePicker(sender: UIDatePicker) {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        expieryDate.text = dateFormatter.stringFromDate(sender.date)
+    }
     
     func doneButton(sender:UIButton) {
-        additionalInformationTextField.becomeFirstResponder()
+        view.endEditing(true)
     }
     func todaysDate(sender:UIButton){
         let date = NSDate()
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateTextField.text = dateFormatter.stringFromDate(date)
-        additionalInformationTextField.becomeFirstResponder()
+        dateTextField.resignFirstResponder()
     }
     func freezerLocationPickerViewDoneButton(sender:UIButton) {
         if freezerLocation["F"] != "" && freezerLocation["S"] != "" && freezerLocation["R"] != "" {
             self.freezerLocationTextField.text = freezerLocation["F"]!+freezerLocation["S"]!+freezerLocation["R"]!
         }
-        print(freezerLocation["F"]!+freezerLocation["S"]!+freezerLocation["R"]!)
-        dateTextField.becomeFirstResponder()
+        view.endEditing(true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -227,7 +303,7 @@ extension ArchivePopOverViewController : UITextFieldDelegate {
         projectNameTextField.delegate = self
         freezerLocationTextField.delegate = self
         dateTextField.delegate = self
-        additionalInformationTextField.delegate = self
+        detailedInformationTextField.delegate = self
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         switch textField {
@@ -239,8 +315,8 @@ extension ArchivePopOverViewController : UITextFieldDelegate {
             freezerLocationTextField.becomeFirstResponder()
         case freezerLocationTextField:
             dateTextField.becomeFirstResponder()
-        case additionalInformationTextField:
-            additionalInformationTextField.resignFirstResponder()
+        case detailedInformationTextField:
+            detailedInformationTextField.resignFirstResponder()
         default:
             break
         }
@@ -250,7 +326,7 @@ extension ArchivePopOverViewController : UITextFieldDelegate {
         view.endEditing(true)
     }
     func textFieldDidEndEditing(textField: UITextField) {
-        if textField == additionalInformationTextField && plateState{
+        if textField == detailedInformationTextField && plateState{
             UIView.animateWithDuration(1.0, animations: {
                 self.containerViewVerticalSpacingConstraint.constant = 10
                 self.view.layoutIfNeeded()
@@ -259,7 +335,7 @@ extension ArchivePopOverViewController : UITextFieldDelegate {
         okButton.enabled = plateState ? (nameTextField.text?.characters.count > 4 && libraryNameTextField.text?.characters.count > 4 &&  projectNameTextField.text?.characters.count > 4 && dateTextField.text != "" && freezerLocationTextField.text != "") : (nameTextField.text?.characters.count > 4 && dateTextField.text != "" && freezerLocationTextField.text != "")
     }
     func textFieldDidBeginEditing(textField: UITextField) {
-        if textField == additionalInformationTextField && plateState{
+        if textField == detailedInformationTextField && plateState{
             UIView.animateWithDuration(1.0, animations: {
                 self.containerViewVerticalSpacingConstraint.constant = -110
                 self.view.layoutIfNeeded()

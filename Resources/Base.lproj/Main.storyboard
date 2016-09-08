@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="50j-BG-Bi5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KFX-8z-Evg">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -185,7 +185,7 @@
         <!--Scan Success Pop OverVC-->
         <scene sceneID="VZY-ZQ-mzH">
             <objects>
-                <viewController id="iKC-cg-UsQ" customClass="ScanSuccessPopOverVC" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="scanSuccessPopOver" id="iKC-cg-UsQ" customClass="ScanSuccessPopOverVC" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gmZ-2d-5wR"/>
                         <viewControllerLayoutGuide type="bottom" id="0Go-1Z-6vK"/>
@@ -221,7 +221,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nPo-9N-Op5">
-                                <rect key="frame" x="20" y="28" width="280" height="332"/>
+                                <rect key="frame" x="20" y="30" width="280" height="332"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Successful Scanning!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wcg-Ko-hw2">
                                         <rect key="frame" x="55" y="16" width="164" height="21"/>
@@ -485,7 +485,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ui7-O7-fP5" firstAttribute="top" secondItem="nPo-9N-Op5" secondAttribute="bottom" constant="20" id="4F3-Ag-s40"/>
+                            <constraint firstItem="ui7-O7-fP5" firstAttribute="top" secondItem="nPo-9N-Op5" secondAttribute="bottom" constant="18" id="4F3-Ag-s40"/>
                             <constraint firstItem="0Go-1Z-6vK" firstAttribute="top" secondItem="ui7-O7-fP5" secondAttribute="bottom" constant="20" id="SWa-bH-Ejc"/>
                             <constraint firstItem="ui7-O7-fP5" firstAttribute="centerX" secondItem="Gjh-pr-kRF" secondAttribute="centerX" id="rQV-NG-D9G"/>
                             <constraint firstItem="nPo-9N-Op5" firstAttribute="centerX" secondItem="Gjh-pr-kRF" secondAttribute="centerX" id="tFu-64-FT4"/>
@@ -538,6 +538,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="iKC-cg-UsQ" kind="presentation" identifier="ShowScanSuccessPopover" id="TwG-bP-z7W"/>
+                        <segue destination="50j-BG-Bi5" kind="presentation" identifier="ShowArchivePopover" id="eed-Mm-Gdr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -801,7 +802,7 @@
         <!--Archive Pop Over View Controller-->
         <scene sceneID="fxc-T9-sng">
             <objects>
-                <viewController id="50j-BG-Bi5" customClass="ArchivePopOverViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="archivePopOver" id="50j-BG-Bi5" customClass="ArchivePopOverViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dfL-fm-1fF"/>
                         <viewControllerLayoutGuide type="bottom" id="3hN-kV-bi3"/>
@@ -816,11 +817,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Twg-RG-1IH">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="360"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter new items information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvf-E7-vNR">
-                                                <rect key="frame" x="33" y="10" width="214" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter new items information" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvf-E7-vNR">
+                                                <rect key="frame" x="8" y="10" width="264" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="O9k-15-9pk"/>
-                                                    <constraint firstAttribute="width" constant="214" id="RKo-e5-UTw"/>
+                                                    <constraint firstAttribute="width" constant="264" id="RKo-e5-UTw"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -885,6 +886,15 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Expiry Date" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dPw-ki-kH9">
+                                                <rect key="frame" x="8" y="175" width="264" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="480-rL-5su"/>
+                                                    <constraint firstAttribute="width" constant="264" id="lf5-2I-w39"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                            </textField>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mOG-XR-Qqy">
                                                 <rect key="frame" x="8" y="315" width="264" height="29"/>
                                                 <constraints>
@@ -919,11 +929,12 @@
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.962434436" blue="0.8679747632" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="dPw-ki-kH9" firstAttribute="top" secondItem="Qa4-71-J0x" secondAttribute="bottom" constant="75" id="0bi-tr-D3b"/>
                                             <constraint firstItem="95Y-fg-9zN" firstAttribute="top" secondItem="Qa4-71-J0x" secondAttribute="bottom" constant="5" id="1tp-7f-cIJ"/>
+                                            <constraint firstItem="MsK-7s-gE7" firstAttribute="top" secondItem="dPw-ki-kH9" secondAttribute="bottom" constant="75" id="7VD-Rb-AG7"/>
                                             <constraint firstItem="NZe-8W-YFw" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="7pv-Th-KUC"/>
                                             <constraint firstItem="8y6-nB-JtS" firstAttribute="top" secondItem="Qa4-71-J0x" secondAttribute="bottom" constant="75" id="8sl-rX-sr1"/>
                                             <constraint firstItem="zmL-im-7XP" firstAttribute="top" secondItem="SLR-LB-rCf" secondAttribute="bottom" constant="5" id="CjH-z0-Fc4"/>
-                                            <constraint firstItem="MsK-7s-gE7" firstAttribute="top" secondItem="8y6-nB-JtS" secondAttribute="bottom" constant="75" id="Hiz-PS-VDv"/>
                                             <constraint firstItem="NDH-Kh-5iT" firstAttribute="top" secondItem="95Y-fg-9zN" secondAttribute="bottom" constant="5" id="LJn-7C-Lef"/>
                                             <constraint firstItem="Qa4-71-J0x" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="RIB-zf-Rhx"/>
                                             <constraint firstItem="NDH-Kh-5iT" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="TFr-Eg-vLg"/>
@@ -934,6 +945,7 @@
                                             <constraint firstItem="mOG-XR-Qqy" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="dQo-gv-mOW"/>
                                             <constraint firstItem="Qvf-E7-vNR" firstAttribute="top" secondItem="Twg-RG-1IH" secondAttribute="top" constant="10" id="eSp-Er-uSq"/>
                                             <constraint firstItem="95Y-fg-9zN" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="iiA-Hl-tlH"/>
+                                            <constraint firstItem="dPw-ki-kH9" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="kg9-f9-IdI"/>
                                             <constraint firstItem="Qa4-71-J0x" firstAttribute="top" secondItem="NZe-8W-YFw" secondAttribute="bottom" constant="7" id="mVM-LI-i8R"/>
                                             <constraint firstItem="8y6-nB-JtS" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="my5-eC-JHI"/>
                                             <constraint firstItem="mOG-XR-Qqy" firstAttribute="top" secondItem="MsK-7s-gE7" secondAttribute="bottom" constant="5" id="tFD-A2-JYW"/>
@@ -943,8 +955,8 @@
                                             <constraint firstItem="SLR-LB-rCf" firstAttribute="centerX" secondItem="Twg-RG-1IH" secondAttribute="centerX" id="zQG-95-obk"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Hy-qy-gSd">
-                                        <rect key="frame" x="0.0" y="359" width="280" height="70"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Hy-qy-gSd">
+                                        <rect key="frame" x="0.0" y="360" width="280" height="70"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4J-DG-4ak">
                                                 <rect key="frame" x="0.0" y="0.0" width="140" height="70"/>
@@ -954,6 +966,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="cancel:" destination="50j-BG-Bi5" eventType="touchUpInside" id="eWS-cI-bSB"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptG-QQ-Jsc">
                                                 <rect key="frame" x="140" y="0.0" width="143" height="70"/>
@@ -963,6 +978,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
                                                 <state key="normal" title="Ok"/>
+                                                <connections>
+                                                    <action selector="ok:" destination="50j-BG-Bi5" eventType="touchUpInside" id="EWb-wR-jhg"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.962434436" blue="0.8679747632" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
@@ -995,21 +1013,24 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="additionalInformationTextField" destination="MsK-7s-gE7" id="I4h-d1-ez2"/>
-                        <outlet property="additionalInformationVerticalSpacingConstraint" destination="Hiz-PS-VDv" id="jcH-4Q-fwA"/>
+                        <outlet property="additionalInformationVerticalSpacingConstraint" destination="7VD-Rb-AG7" id="VL9-nc-i3F"/>
                         <outlet property="cancelButton" destination="s4J-DG-4ak" id="rC6-pD-dyj"/>
                         <outlet property="containerView" destination="IEw-L7-gFH" id="hjz-M6-0Jc"/>
                         <outlet property="containerViewHeightConstraint" destination="5qY-RL-C3C" id="b0O-oB-64O"/>
                         <outlet property="containerViewVerticalSpacingConstraint" destination="WfS-Gr-os3" id="jXz-T0-XyD"/>
                         <outlet property="dateTextField" destination="SLR-LB-rCf" id="GQG-H8-zQf"/>
+                        <outlet property="detailedInformationTextField" destination="MsK-7s-gE7" id="nN5-dg-Cq7"/>
+                        <outlet property="expieryDate" destination="dPw-ki-kH9" id="KfP-2Q-yGD"/>
+                        <outlet property="expiryDateVerticalSpacingConstraint" destination="0bi-tr-D3b" id="5WP-Zw-VmF"/>
                         <outlet property="freezerLocationTextField" destination="8y6-nB-JtS" id="c66-3b-8fi"/>
                         <outlet property="freezerLocationVerticalSpacingConstraint" destination="8sl-rX-sr1" id="ySu-xp-tiR"/>
+                        <outlet property="headerLabel" destination="Qvf-E7-vNR" id="mv6-mn-YEg"/>
                         <outlet property="itemType" destination="NZe-8W-YFw" id="w3c-6g-pWq"/>
                         <outlet property="itemsDetailsHeightConstraint" destination="wlq-0K-k33" id="2f7-jO-ynK"/>
                         <outlet property="libraryNameTextField" destination="95Y-fg-9zN" id="5hT-zk-M7r"/>
                         <outlet property="nameTextField" destination="Qa4-71-J0x" id="sCV-dg-sKz"/>
                         <outlet property="okButton" destination="ptG-QQ-Jsc" id="MRA-6y-clV"/>
-                        <outlet property="plateCondition" destination="mOG-XR-Qqy" id="JMn-X5-gMS"/>
+                        <outlet property="plateStatus" destination="mOG-XR-Qqy" id="XTF-Gc-gHy"/>
                         <outlet property="plateType" destination="zmL-im-7XP" id="glU-yq-gkn"/>
                         <outlet property="projectNameTextField" destination="NDH-Kh-5iT" id="z4e-Vg-VPZ"/>
                     </connections>

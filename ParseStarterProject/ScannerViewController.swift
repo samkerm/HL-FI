@@ -23,6 +23,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var scannedItems = [ScannedItem]()
     var curentUser = CurentUser()
     let dimmedView = UIView()
+    var scannedBarcode = ""
+    
     
 //-------------------------------------------------------------------------------------------------------------
 //      MARK: APEARANCE
@@ -223,6 +225,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     func foundCode(code: String) {
         popUpInformation(code)
+        scannedBarcode = code
     }
     
 
@@ -293,71 +296,76 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 self.showText("Item already in database")
                 self.buttonReleased()
                 self.captureSession.startRunning()
+                print("oops")
+                
             } else if !exists {
-                let ac = UIAlertController(title: barcodeText, message: message, preferredStyle: .Alert)
-                ac.addAction(UIAlertAction(title: "No", style: .Default, handler: { (_) in
-                    self.captureSession.startRunning()
-                }))
-                ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
-                    self.captureSession.startRunning()
-                    let plateName = ac.textFields![0]
-                    let libraryName = ac.textFields![1]
-                    let projectName = ac.textFields![2]
-                    let additionalInfo = ac.textFields![3]
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    let strDate = dateFormatter.stringFromDate(NSDate())
-                    
-                    self.scannedItem = ScannedItem()
-                    self.scannedItem.plateName = plateName.text!
-                    self.scannedItem.library = libraryName.text!
-                    self.scannedItem.project = projectName.text!
-                    self.scannedItem.detailedInformation = additionalInfo.text!
-                    self.scannedItem.dateCreated = strDate
-                    self.scannedItem.barcode = barcodeText
-                    self.scannedItem.creatorFirstName = self.curentUser.firstName
-                    self.scannedItem.creatorLastName = self.curentUser.lastName
-                    self.scannedItem.creatorUsername = self.curentUser.username
-                    self.scannedItems.append(self.scannedItem)
-                }))
+                self.performSegueWithIdentifier("ShowArchivePopover", sender: self)
                 self.buttonReleased()
-                ac.actions.last?.enabled = false
-                ac.addTextFieldWithConfigurationHandler { (textField) in
-                    textField.borderStyle = .RoundedRect
-                    textField.clearButtonMode = .Always
-                    textField.returnKeyType = .Next
-                    textField.placeholder = "Plate Name (>4 characters)"
-                    textField.keyboardAppearance = .Dark
-                    textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
-                }
-                ac.addTextFieldWithConfigurationHandler { (textField) in
-                    textField.borderStyle = .RoundedRect
-                    textField.clearButtonMode = .Always
-                    textField.returnKeyType = .Next
-                    textField.placeholder = "Library Name (Optional)"
-                    textField.keyboardAppearance = .Dark
-                }
-                ac.addTextFieldWithConfigurationHandler { (textField) in
-                    textField.borderStyle = .RoundedRect
-                    textField.clearButtonMode = .Always
-                    textField.returnKeyType = .Next
-                    textField.placeholder = "Project (>2 characters)"
-                    textField.keyboardAppearance = .Dark
-                    textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
-                }
-                ac.addTextFieldWithConfigurationHandler { (textField) in
-                    textField.borderStyle = .RoundedRect
-                    textField.clearButtonMode = .Always
-                    textField.placeholder = "Additional info"
-                    textField.keyboardAppearance = .Dark
-                }
-                self.presentViewController(ac, animated: true, completion: nil)
-                for textField: UIView in ac.textFields! {
-                    let container : UIView = textField.superview!
-                    let effectView : UIView = container.superview!.subviews[0]
-                    container.backgroundColor = UIColor.clearColor()
-                    effectView.removeFromSuperview()
-                }
+                self.captureSession.startRunning()
+//                let ac = UIAlertController(title: barcodeText, message: message, preferredStyle: .Alert)
+//                ac.addAction(UIAlertAction(title: "No", style: .Default, handler: { (_) in
+//                    self.captureSession.startRunning()
+//                }))
+//                ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
+//                    self.captureSession.startRunning()
+//                    let plateName = ac.textFields![0]
+//                    let libraryName = ac.textFields![1]
+//                    let projectName = ac.textFields![2]
+//                    let additionalInfo = ac.textFields![3]
+//                    let dateFormatter = NSDateFormatter()
+//                    dateFormatter.dateFormat = "yyyy-MM-dd"
+//                    let strDate = dateFormatter.stringFromDate(NSDate())
+//                    
+//                    self.scannedItem = ScannedItem()
+//                    self.scannedItem.plateName = plateName.text!
+//                    self.scannedItem.library = libraryName.text!
+//                    self.scannedItem.project = projectName.text!
+//                    self.scannedItem.detailedInformation = additionalInfo.text!
+//                    self.scannedItem.dateCreated = strDate
+//                    self.scannedItem.barcode = barcodeText
+//                    self.scannedItem.creatorFirstName = self.curentUser.firstName
+//                    self.scannedItem.creatorLastName = self.curentUser.lastName
+//                    self.scannedItem.creatorUsername = self.curentUser.username
+//                    self.scannedItems.append(self.scannedItem)
+//                }))
+//                self.buttonReleased()
+//                ac.actions.last?.enabled = false
+//                ac.addTextFieldWithConfigurationHandler { (textField) in
+//                    textField.borderStyle = .RoundedRect
+//                    textField.clearButtonMode = .Always
+//                    textField.returnKeyType = .Next
+//                    textField.placeholder = "Plate Name (>4 characters)"
+//                    textField.keyboardAppearance = .Dark
+//                    textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
+//                }
+//                ac.addTextFieldWithConfigurationHandler { (textField) in
+//                    textField.borderStyle = .RoundedRect
+//                    textField.clearButtonMode = .Always
+//                    textField.returnKeyType = .Next
+//                    textField.placeholder = "Library Name (Optional)"
+//                    textField.keyboardAppearance = .Dark
+//                }
+//                ac.addTextFieldWithConfigurationHandler { (textField) in
+//                    textField.borderStyle = .RoundedRect
+//                    textField.clearButtonMode = .Always
+//                    textField.returnKeyType = .Next
+//                    textField.placeholder = "Project (>2 characters)"
+//                    textField.keyboardAppearance = .Dark
+//                    textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
+//                }
+//                ac.addTextFieldWithConfigurationHandler { (textField) in
+//                    textField.borderStyle = .RoundedRect
+//                    textField.clearButtonMode = .Always
+//                    textField.placeholder = "Additional info"
+//                    textField.keyboardAppearance = .Dark
+//                }
+//                self.presentViewController(ac, animated: true, completion: nil)
+//                for textField: UIView in ac.textFields! {
+//                    let container : UIView = textField.superview!
+//                    let effectView : UIView = container.superview!.subviews[0]
+//                    container.backgroundColor = UIColor.clearColor()
+//                    effectView.removeFromSuperview()
+//                }
             }
         }
     }
@@ -418,6 +426,20 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             if let destinationVC = segue.destinationViewController as? ScanSuccessPopOverVC {
                 destinationVC.scannedItem = self.scannedItem
             }
+        } else if segue.identifier == "ShowArchivePopover" {
+            if let destinationVC = segue.destinationViewController as? ArchivePopOverViewController {
+                destinationVC.curentUser = self.curentUser
+                destinationVC.scannedBarcode = self.scannedBarcode
+                destinationVC.delegate = self
+            }
         }
+    }
+}
+
+extension ScannerViewController : ArchivePopOverViewControllerDelegate {
+    func archiveItemReturned(value: ScannedItem) {
+        self.scannedItem = value
+        self.scannedItems.append(self.scannedItem)
+        print(scannedItems)
     }
 }

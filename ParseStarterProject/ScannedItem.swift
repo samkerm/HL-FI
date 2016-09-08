@@ -11,16 +11,20 @@ import Foundation
 
 struct ScannedItem {
     var barcode = ""
-    var plateName = ""
+    var name = ""
+    var type = ""
     var library = ""
     var creatorUsername = ""
     var creatorFirstName = ""
     var creatorLastName = ""
     var dateCreated = ""
+    var expiryDate = ""
     var dateLastDefrosted = ""
     var lastDefrostedBy = ""
     var detailedInformation = ""
     var project = ""
     var numberOfThaws = 0
+    var plateType = ""
+    var plateStatus = ""
 }
 

@@ -10,25 +10,48 @@ import UIKit
 
 class DetailsOfItemsTableViewController: UITableViewController {
 
-    var scannedItem = ScannedItem()
     var contentArray :[AnyObject] = []
-    var titleArray = ["Barcode", "Plate Name", "Project", "Library Name", "Creator's Username", "Creator's First Name", "Creator's Last Name", "Date Created", "Last Defrosted By", "Date Last Defrosted", "NumberOf Thaws", "Detailed Information"]
+    var titleArray = [""]
+    var scannedItem = ScannedItem() {
+        didSet{
+            if scannedItem.type == "Plate" {
+                titleArray = ["Barcode","Type", "Name", "PlateType", "Plate Status", "Project", "Library Name", "Creator's Username", "Creator's First Name", "Creator's Last Name", "Date Created", "Last Defrosted By", "Date Last Defrosted", "NumberOf Thaws", "Detailed Information"]
+                contentArray.append(scannedItem.barcode)
+                contentArray.append(scannedItem.type)
+                contentArray.append(scannedItem.name)
+                contentArray.append(scannedItem.plateType)
+                contentArray.append(scannedItem.plateStatus)
+                contentArray.append(scannedItem.project)
+                contentArray.append(scannedItem.library)
+                contentArray.append(scannedItem.creatorUsername)
+                contentArray.append(scannedItem.creatorFirstName)
+                contentArray.append(scannedItem.creatorLastName)
+                contentArray.append(scannedItem.dateCreated)
+                contentArray.append(scannedItem.lastDefrostedBy)
+                contentArray.append(scannedItem.dateLastDefrosted)
+                contentArray.append(scannedItem.numberOfThaws)
+                contentArray.append(scannedItem.detailedInformation)
+            } else {
+                titleArray = ["Barcode","Type", "Name", "Creator's Username", "Creator's First Name", "Creator's Last Name", "Date Created", "Expiry Date", "Last Defrosted By", "Date Last Defrosted", "NumberOf Thaws", "Detailed Information"]
+                contentArray.append(scannedItem.barcode)
+                contentArray.append(scannedItem.type)
+                contentArray.append(scannedItem.name)
+                contentArray.append(scannedItem.creatorUsername)
+                contentArray.append(scannedItem.creatorFirstName)
+                contentArray.append(scannedItem.creatorLastName)
+                contentArray.append(scannedItem.dateCreated)
+                contentArray.append(scannedItem.expiryDate)
+                contentArray.append(scannedItem.lastDefrostedBy)
+                contentArray.append(scannedItem.dateLastDefrosted)
+                contentArray.append(scannedItem.numberOfThaws)
+                contentArray.append(scannedItem.detailedInformation)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        contentArray.append(scannedItem.barcode)
-        contentArray.append(scannedItem.plateName)
-        contentArray.append(scannedItem.project)
-        contentArray.append(scannedItem.library)
-        contentArray.append(scannedItem.creatorUsername)
-        contentArray.append(scannedItem.creatorFirstName)
-        contentArray.append(scannedItem.creatorLastName)
-        contentArray.append(scannedItem.dateCreated)
-        contentArray.append(scannedItem.lastDefrostedBy)
-        contentArray.append(scannedItem.dateLastDefrosted)
-        contentArray.append(scannedItem.numberOfThaws)
-        contentArray.append(scannedItem.detailedInformation)
         self.navigationController?.navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
         
     }
@@ -58,11 +81,14 @@ class DetailsOfItemsTableViewController: UITableViewController {
     }
  
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == titleArray.count - 1 {
-            return 132
-        } else {
-            return 44
+        let deviceScale = Int(view.bounds.size.width / 320 * 88)
+        var charactersCount = 0
+        if contentArray[indexPath.row] is String {
+            let string = contentArray[indexPath.row] as! String
+            charactersCount = string.characters.count
         }
+        let scale = CGFloat(charactersCount / deviceScale)
+        return (scale * 44) + 44
     }
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
     }

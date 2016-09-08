@@ -1000,6 +1000,7 @@
                         <outlet property="cancelButton" destination="s4J-DG-4ak" id="rC6-pD-dyj"/>
                         <outlet property="containerView" destination="IEw-L7-gFH" id="hjz-M6-0Jc"/>
                         <outlet property="containerViewHeightConstraint" destination="5qY-RL-C3C" id="b0O-oB-64O"/>
+                        <outlet property="containerViewVerticalSpacingConstraint" destination="WfS-Gr-os3" id="jXz-T0-XyD"/>
                         <outlet property="dateTextField" destination="SLR-LB-rCf" id="GQG-H8-zQf"/>
                         <outlet property="freezerLocationTextField" destination="8y6-nB-JtS" id="c66-3b-8fi"/>
                         <outlet property="freezerLocationVerticalSpacingConstraint" destination="8sl-rX-sr1" id="ySu-xp-tiR"/>

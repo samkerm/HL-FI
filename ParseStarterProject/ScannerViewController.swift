@@ -422,8 +422,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 destinationVC.deviceModeIndex = self.deviceModeIndex
                 destinationVC.curentUser = self.curentUser
             }
-        } else if segue.identifier == "ShowScanSuccessPopover" {
-            if let destinationVC = segue.destinationViewController as? ScanSuccessPopOverVC {
+        } else if segue.identifier == "ShowPlateScanSuccessPopover" {
+            if let destinationVC = segue.destinationViewController as? PlateScanSuccessPopOverVC {
                 destinationVC.scannedItem = self.scannedItem
             }
         } else if segue.identifier == "ShowArchivePopover" {

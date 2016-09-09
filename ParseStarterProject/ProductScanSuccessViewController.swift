@@ -1,14 +1,14 @@
 //
-//  ScanSuccessPopOverVC.swift
-//  freezerinventoryscanner
+//  ProductScanSuccessViewController.swift
+//  HL-FI
 //
-//  Created by Sam Kheirandish on 2016-08-21.
+//  Created by Sam Kheirandish on 2016-09-08.
 //  Copyright © 2016 Parse. All rights reserved.
 //
 
 import UIKit
 
-class ScanSuccessPopOverVC: UIViewController {
+class ProductScanSuccessViewController: UIViewController {
 
     @IBOutlet weak var successfulView: UIView!
     @IBOutlet weak var doneView: UIView!
@@ -45,7 +45,7 @@ class ScanSuccessPopOverVC: UIViewController {
             detailedInformationLabel.text = scannedItem.detailedInformation
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -55,4 +55,6 @@ class ScanSuccessPopOverVC: UIViewController {
         super.init(coder: aDecoder)
         modalPresentationStyle = .Custom
     }
+
+
 }

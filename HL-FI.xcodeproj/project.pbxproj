@@ -107,6 +107,7 @@
 			children = (
 				226D28BF1D5594170004FBD5 /* ScannerViewController.swift */,
 				227569B61D6AD3E700427B52 /* ScanSuccessPopOverVC.swift */,
+				22AF16E81D7FA2B200EBDC3C /* ArchivePopOverViewController.swift */,
 			);
 			name = ScanView;
 			sourceTree = "<group>";
@@ -160,7 +161,6 @@
 				223D97001D679F0E00B720AD /* SettingsView */,
 				22F5CD3C1D6F9E4E000E31A8 /* LoginView */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
-				22AF16E81D7FA2B200EBDC3C /* ArchivePopOverViewController.swift */,
 				220B644E1D70BC2F00885130 /* Launch Screen.storyboard */,
 				22B915AD1D6690A100E32C65 /* ShowList.swift */,
 			);

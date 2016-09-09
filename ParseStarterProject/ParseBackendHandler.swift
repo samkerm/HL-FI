@@ -80,18 +80,21 @@ class ParseBackendHandler: NSObject {
         for i in 0..<scannedItemsList.count {
             let inventory = PFObject(className:"Inventory")
             inventory["barcode"] = scannedItemsList[i].barcode
-            inventory["sampleType"] = "Plate"
-            inventory["plateName"] = scannedItemsList[i].name
+            inventory["name"] = scannedItemsList[i].name
+            inventory["type"] = scannedItemsList[i].type
             inventory["library"] = scannedItemsList[i].library
             inventory["creatorsUsername"] = scannedItemsList[i].creatorUsername
             inventory["creatorFirstName"] = scannedItemsList[i].creatorFirstName
             inventory["creatorLastName"] = scannedItemsList[i].creatorLastName
             inventory["dateCreated"] = scannedItemsList[i].dateCreated
+            inventory["expiryDate"] = scannedItemsList[i].expiryDate
             inventory["dateLastDefrosted"] = scannedItemsList[i].dateLastDefrosted
             inventory["lastDefrostedBy"] = scannedItemsList[i].lastDefrostedBy
             inventory["detailedInformation"] = scannedItemsList[i].detailedInformation
             inventory["project"] = scannedItemsList[i].project
             inventory["numberOfThaws"] = scannedItemsList[i].numberOfThaws
+            inventory["plateType"] = scannedItemsList[i].plateType
+            inventory["plateStatus"] = scannedItemsList[i].plateStatus
             inventory.saveInBackgroundWithBlock {
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
@@ -127,8 +130,11 @@ class ParseBackendHandler: NSObject {
                             if let barcode = object.valueForKeyPath("barcode") as? String {
                                 self.scannedItem.barcode = barcode
                             }
-                            if let plateName = object.valueForKeyPath("plateName") as? String {
-                                self.scannedItem.name = plateName
+                            if let name = object.valueForKeyPath("name") as? String {
+                                self.scannedItem.name = name
+                            }
+                            if let type = object.valueForKeyPath("type") as? String {
+                                self.scannedItem.type = type
                             }
                             if let library = object.valueForKeyPath("library") as? String {
                                 self.scannedItem.library = library
@@ -145,11 +151,14 @@ class ParseBackendHandler: NSObject {
                             if let dateCreated = object.valueForKeyPath("dateCreated") as? String {
                                 self.scannedItem.dateCreated = dateCreated
                             }
+                            if let expiryDate = object.valueForKeyPath("expiryDate") as? String {
+                                self.scannedItem.expiryDate = expiryDate
+                            }
                             if let dateLastDefrosted = object.valueForKeyPath("dateLastDefrosted") as? String {
                                 self.scannedItem.dateLastDefrosted = dateLastDefrosted
                             }
-                            if let lastDefrosted = object.valueForKeyPath("lastDefrostedBy") as? String {
-                                self.scannedItem.lastDefrostedBy = lastDefrosted
+                            if let lastDefrostedBy = object.valueForKeyPath("lastDefrostedBy") as? String {
+                                self.scannedItem.lastDefrostedBy = lastDefrostedBy
                             }
                             if let detailedInformation = object.valueForKeyPath("detailedInformation") as? String {
                                 self.scannedItem.detailedInformation = detailedInformation
@@ -159,6 +168,12 @@ class ParseBackendHandler: NSObject {
                             }
                             if let numberOfThaws = object.valueForKeyPath("numberOfThaws") as? Int {
                                 self.scannedItem.numberOfThaws = numberOfThaws
+                            }
+                            if let plateType = object.valueForKeyPath("plateType") as? String {
+                                self.scannedItem.plateType = plateType
+                            }
+                            if let plateStatus = object.valueForKeyPath("plateStatus") as? String {
+                                self.scannedItem.plateStatus = plateStatus
                             }
                         }
                         completion(true, "Success", self.scannedItem)

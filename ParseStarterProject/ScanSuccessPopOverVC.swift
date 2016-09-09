@@ -14,7 +14,7 @@ class ScanSuccessPopOverVC: UIViewController {
     @IBOutlet weak var doneView: UIView!
     var scannedItem : ScannedItem!
     @IBOutlet weak var barcodeLabel: UILabel!
-    @IBOutlet weak var plateNameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var libraryNameLabel: UILabel!
     @IBOutlet weak var projectNameLabel: UILabel!
     @IBOutlet weak var numberOfThawsLabel: UILabel!
@@ -33,10 +33,10 @@ class ScanSuccessPopOverVC: UIViewController {
         successfulView.layer.cornerRadius = 20
         if (scannedItem != nil) {
             barcodeLabel.text = scannedItem.barcode
-            plateNameLabel.text = scannedItem.name
+            nameLabel.text = scannedItem.name
             libraryNameLabel.text = scannedItem.library
             projectNameLabel.text = scannedItem.project
-            plateNameLabel.text = scannedItem.name
+            nameLabel.text = scannedItem.name
             numberOfThawsLabel.text = String(scannedItem.numberOfThaws)
             dateLastDefrostedLabel.text = scannedItem.dateLastDefrosted
             lastDefrostedByLabel.text = scannedItem.lastDefrostedBy

@@ -131,7 +131,6 @@ class ArchivePopOverViewController: UIViewController {
             self.containerViewHeightConstraint.constant = 430
             self.itemsDetailsHeightConstraint.constant = 360
             self.additionalInformationVerticalSpacingConstraint.constant = 75
-
             self.freezerLocationVerticalSpacingConstraint.constant = 75
             self.view.layoutIfNeeded()
         }
@@ -144,7 +143,7 @@ class ArchivePopOverViewController: UIViewController {
             self.plateStatus.alpha = 0
             self.expieryDate.alpha = 1
             self.nameTextField.placeholder = "Product Name"
-            self.containerViewHeightConstraint.constant = 315
+            self.containerViewHeightConstraint.constant = 320
             self.itemsDetailsHeightConstraint.constant = 250
             self.additionalInformationVerticalSpacingConstraint.constant = 5
             self.freezerLocationVerticalSpacingConstraint.constant = 5

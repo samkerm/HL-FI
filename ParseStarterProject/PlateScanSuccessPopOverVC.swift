@@ -14,7 +14,7 @@ class PlateScanSuccessPopOverVC: UIViewController {
     @IBOutlet weak var doneView: UIView!
     var scannedItem : ScannedItem!
     @IBOutlet weak var barcodeLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var plateNameLabel: UILabel!
     @IBOutlet weak var libraryNameLabel: UILabel!
     @IBOutlet weak var projectNameLabel: UILabel!
     @IBOutlet weak var numberOfThawsLabel: UILabel!
@@ -23,7 +23,8 @@ class PlateScanSuccessPopOverVC: UIViewController {
     @IBOutlet weak var creatorsNameLabel: UILabel!
     @IBOutlet weak var dateCreatedLabel: UILabel!
     @IBOutlet weak var detailedInformationLabel: UILabel!
-    
+    @IBOutlet weak var successfullViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var detailedInformationHeightConstraint: NSLayoutConstraint!
     @IBAction func doneButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -33,16 +34,34 @@ class PlateScanSuccessPopOverVC: UIViewController {
         successfulView.layer.cornerRadius = 20
         if (scannedItem != nil) {
             barcodeLabel.text = scannedItem.barcode
-            nameLabel.text = scannedItem.name
+            plateNameLabel.text = scannedItem.name
             libraryNameLabel.text = scannedItem.library
             projectNameLabel.text = scannedItem.project
-            nameLabel.text = scannedItem.name
             numberOfThawsLabel.text = String(scannedItem.numberOfThaws)
             dateLastDefrostedLabel.text = scannedItem.dateLastDefrosted
             lastDefrostedByLabel.text = scannedItem.lastDefrostedBy
             creatorsNameLabel.text = scannedItem.creatorFirstName + " " + scannedItem.creatorLastName
             dateCreatedLabel.text = scannedItem.dateCreated
             detailedInformationLabel.text = scannedItem.detailedInformation
+            adjustHeightForContent()
+        }
+    }
+    
+    func adjustHeightForContent() {
+        let initialConstraint = detailedInformationHeightConstraint.constant
+        var newConstraint : CGFloat
+        let numberOfCharacters = CGFloat((detailedInformationLabel.text?.characters.count)!)
+        let constant : CGFloat = numberOfCharacters / 2.5
+        let remainder : CGFloat = constant % 16
+        if remainder == 0 {
+            newConstraint = constant
+        } else {
+            newConstraint = constant + (16 - remainder)
+        }
+        let differenceInConstraints = newConstraint - initialConstraint
+        if differenceInConstraints < 0.0 {
+            detailedInformationHeightConstraint.constant += differenceInConstraints
+            successfullViewHeightConstraint.constant += differenceInConstraints
         }
     }
 

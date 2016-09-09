@@ -255,7 +255,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         parseBackendHandler.lookUpBarcode(barcodeText, completion: { (exists, error, returnedItem) in
             if exists {
                 self.scannedItem = returnedItem
-                self.performSegueWithIdentifier("ShowScanSuccessPopover", sender: self)
+                switch self.scannedItem.type {
+                case "Plate":
+                    self.performSegueWithIdentifier("ShowPlateScanSuccessPopover", sender: self)
+                default:
+                    self.performSegueWithIdentifier("ShowProductScanSuccessPopover", sender: self)
+                }
             } else {
                 self.showText(error)
             }
@@ -426,7 +431,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             if let destinationVC = segue.destinationViewController as? PlateScanSuccessPopOverVC {
                 destinationVC.scannedItem = self.scannedItem
             }
-        } else if segue.identifier == "ShowArchivePopover" {
+        } else if segue.identifier == "ShowProductScanSuccessPopover" {
+            if let destinationVC = segue.destinationViewController as? ProductScanSuccessViewController {
+                destinationVC.scannedItem = self.scannedItem
+            }
+        }else if segue.identifier == "ShowArchivePopover" {
             if let destinationVC = segue.destinationViewController as? ArchivePopOverViewController {
                 destinationVC.curentUser = self.curentUser
                 destinationVC.scannedBarcode = self.scannedBarcode

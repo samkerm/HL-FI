@@ -90,7 +90,6 @@
 			children = (
 				22B915AB1D66662400E32C65 /* SettingsTableViewController.swift */,
 				223D96FE1D679EFF00B720AD /* DeviceModeTableViewController.swift */,
-				223D97011D67BCEE00B720AD /* DeviceMode.swift */,
 			);
 			name = SettingsView;
 			sourceTree = "<group>";
@@ -158,6 +157,7 @@
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				2252251C1D69068D004D6362 /* ScannedItem.swift */,
 				2247C0FD1D7799A500BA932A /* CurentUser.swift */,
+				223D97011D67BCEE00B720AD /* DeviceMode.swift */,
 				226D28C11D5599020004FBD5 /* ParseBackendHandler.swift */,
 				22F5CD3B1D6F9E1A000E31A8 /* ScanView */,
 				22F5CD3A1D6F999B000E31A8 /* ListView */,

@@ -69,13 +69,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         addCaptureButton()
         drawTargetRectangle()
         initialInstructions()
-//        addQuickSwitch()
-        let leftPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(ScannerViewController.leftSlide))
-        leftPan.edges = .Left
-        self.view.addGestureRecognizer(leftPan)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
-        tap.numberOfTapsRequired = 1
-        self.view.addGestureRecognizer(tap)
+//        let leftPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(ScannerViewController.leftSlide))
+//        leftPan.edges = .Left
+//        self.view.addGestureRecognizer(leftPan)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
+//        tap.numberOfTapsRequired = 1
+//        self.view.addGestureRecognizer(tap)
     }
     
     func drawTargetRectangle() {
@@ -168,15 +167,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 self.dimmedView.removeFromSuperview()
         })
     }
-    
-    func addQuickSwitch() {
-        let quickSwitch = UISwitch(frame: CGRect(x: 10, y: view.frame.height - 60, width: 100, height: 50))
-        view.addSubview(quickSwitch)
-    }
+
 //------------------------------------------------------------------------------------------------------------
 //      MARK: FUNCTIONS
 //-------------------------------------------------------------------------------------------------------------
-    
+
     func tap(recognizer: UITapGestureRecognizer) {
         if recognizer.state == .Ended {
             self.dimmedView.removeFromSuperview()
@@ -184,11 +179,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
     }
     
-    func leftSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
-        if recognizer.state == .Recognized {
-            performSegueWithIdentifier("Show List", sender: self)
-        }
-    }
+//    func leftSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
+//        if recognizer.state == .Recognized {
+//            performSegueWithIdentifier("Show List", sender: self)
+//        }
+//    }
     
     func touchDown(){
         navigationController?.navigationBarHidden = true
@@ -227,7 +222,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         popUpInformation(code)
         scannedBarcode = code
     }
-    
 
 //-------------------------------------------------------------------------------------------------------------
 //      MARK: Handeling Alerts
@@ -307,81 +301,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 self.performSegueWithIdentifier("ShowArchivePopover", sender: self)
                 self.buttonReleased()
                 self.captureSession.startRunning()
-//                let ac = UIAlertController(title: barcodeText, message: message, preferredStyle: .Alert)
-//                ac.addAction(UIAlertAction(title: "No", style: .Default, handler: { (_) in
-//                    self.captureSession.startRunning()
-//                }))
-//                ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
-//                    self.captureSession.startRunning()
-//                    let plateName = ac.textFields![0]
-//                    let libraryName = ac.textFields![1]
-//                    let projectName = ac.textFields![2]
-//                    let additionalInfo = ac.textFields![3]
-//                    let dateFormatter = NSDateFormatter()
-//                    dateFormatter.dateFormat = "yyyy-MM-dd"
-//                    let strDate = dateFormatter.stringFromDate(NSDate())
-//                    
-//                    self.scannedItem = ScannedItem()
-//                    self.scannedItem.plateName = plateName.text!
-//                    self.scannedItem.library = libraryName.text!
-//                    self.scannedItem.project = projectName.text!
-//                    self.scannedItem.detailedInformation = additionalInfo.text!
-//                    self.scannedItem.dateCreated = strDate
-//                    self.scannedItem.barcode = barcodeText
-//                    self.scannedItem.creatorFirstName = self.curentUser.firstName
-//                    self.scannedItem.creatorLastName = self.curentUser.lastName
-//                    self.scannedItem.creatorUsername = self.curentUser.username
-//                    self.scannedItems.append(self.scannedItem)
-//                }))
-//                self.buttonReleased()
-//                ac.actions.last?.enabled = false
-//                ac.addTextFieldWithConfigurationHandler { (textField) in
-//                    textField.borderStyle = .RoundedRect
-//                    textField.clearButtonMode = .Always
-//                    textField.returnKeyType = .Next
-//                    textField.placeholder = "Plate Name (>4 characters)"
-//                    textField.keyboardAppearance = .Dark
-//                    textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
-//                }
-//                ac.addTextFieldWithConfigurationHandler { (textField) in
-//                    textField.borderStyle = .RoundedRect
-//                    textField.clearButtonMode = .Always
-//                    textField.returnKeyType = .Next
-//                    textField.placeholder = "Library Name (Optional)"
-//                    textField.keyboardAppearance = .Dark
-//                }
-//                ac.addTextFieldWithConfigurationHandler { (textField) in
-//                    textField.borderStyle = .RoundedRect
-//                    textField.clearButtonMode = .Always
-//                    textField.returnKeyType = .Next
-//                    textField.placeholder = "Project (>2 characters)"
-//                    textField.keyboardAppearance = .Dark
-//                    textField.addTarget(self, action: #selector(self.alertTextFieldDidChange), forControlEvents: .EditingChanged)
-//                }
-//                ac.addTextFieldWithConfigurationHandler { (textField) in
-//                    textField.borderStyle = .RoundedRect
-//                    textField.clearButtonMode = .Always
-//                    textField.placeholder = "Additional info"
-//                    textField.keyboardAppearance = .Dark
-//                }
-//                self.presentViewController(ac, animated: true, completion: nil)
-//                for textField: UIView in ac.textFields! {
-//                    let container : UIView = textField.superview!
-//                    let effectView : UIView = container.superview!.subviews[0]
-//                    container.backgroundColor = UIColor.clearColor()
-//                    effectView.removeFromSuperview()
-//                }
             }
         }
-    }
-    
-    func alertTextFieldDidChange()  {
-        let alertController = (self.presentedViewController as! UIAlertController)
-        let plateName = alertController.textFields![0]
-        let projectName = alertController.textFields![2]
-        let yes = alertController.actions.last
-        yes!.enabled = (plateName.text?.characters.count > 4 && projectName.text?.characters.count > 2)
-        
     }
     
     func showText(text : String) {
@@ -415,7 +336,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 //      MARK: Handeling Segue
 //-------------------------------------------------------------------------------------------------------------
 
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Show Settings" {
             if let destinationVC = segue.destinationViewController as? SettingsTableViewController {

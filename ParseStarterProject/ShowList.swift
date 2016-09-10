@@ -14,8 +14,8 @@ class ShowList: UIStoryboardSegue {
         let sourceViewController: UIViewController = (self.sourceViewController )
         let destinationController: UIViewController = (self.destinationViewController )
         let transition: CATransition = CATransition()
-        transition.duration = 0.45
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.duration = 0.35
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         transition.type = kCATransitionMoveIn
         transition.subtype = kCATransitionFromLeft
         //kCATransitionMoveIn; //, kCATransitionPush,   kCATransitionReveal, kCATransitionFade

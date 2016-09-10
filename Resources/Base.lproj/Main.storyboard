@@ -527,14 +527,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Scanner" id="EEl-I0-fai">
-                        <barButtonItem key="leftBarButtonItem" title="Items" id="yX3-Je-MGz" userLabel="List">
+                        <barButtonItem key="leftBarButtonItem" title="Items" id="b3Y-zm-oQM">
                             <connections>
-                                <segue destination="h8L-RV-BFZ" kind="custom" identifier="Show List" customClass="ShowList" customModule="HL_FI" customModuleProvider="target" id="uu8-gy-mCe"/>
+                                <segue destination="h8L-RV-BFZ" kind="custom" identifier="Show List" customClass="ShowList" customModule="HL_FI" customModuleProvider="target" id="Rri-sF-sbh"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="menu" id="jcI-J6-Uva" userLabel="Setting">
                             <connections>
-                                <segue destination="ZVq-Yy-joi" kind="show" identifier="Show Settings" id="Bkr-nh-lHv"/>
+                                <segue destination="ZVq-Yy-joi" kind="show" identifier="Show List" customClass="ShowList" customModule="HL_FI" customModuleProvider="target" id="Bkr-nh-lHv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -598,7 +598,7 @@
         <!--Details-->
         <scene sceneID="euc-F2-qrP">
             <objects>
-                <tableViewController storyboardIdentifier="List Details" id="hWB-1V-F3c" customClass="DetailsOfItemsTableViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Item Details" id="hWB-1V-F3c" customClass="DetailsOfItemsTableViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rUO-Up-MFW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

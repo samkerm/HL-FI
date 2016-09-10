@@ -34,6 +34,12 @@ class ListTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = add
     }
     func pop() {
+        let transition = CATransition()
+        transition.duration = 0.35
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        transition.type = kCATransitionMoveIn
+        transition.subtype = kCATransitionFromRight
+        navigationController?.view.layer.addAnimation(transition, forKey: nil)
         if let scannerCV = navigationController?.viewControllers[0] as? ScannerViewController {
             scannerCV.scannedItems = scannedItems
             navigationController?.popToRootViewControllerAnimated(true)
@@ -121,20 +127,8 @@ class ListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectedRow = indexPath.row
-        performSegueWithIdentifier("Scanned Items Details", sender: self)
+        let detailsOfItemsTableViewController = storyboard?.instantiateViewControllerWithIdentifier("Item Details") as! DetailsOfItemsTableViewController
+        detailsOfItemsTableViewController.scannedItem = self.scannedItems[selectedRow]
+        navigationController?.pushViewController(detailsOfItemsTableViewController, animated: true)
     }
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "Scanned Items Details" {
-            if let destinationVC = segue.destinationViewController as? DetailsOfItemsTableViewController {
-                destinationVC.scannedItem = self.scannedItems[selectedRow]
-            }
-        } else {
-            if let destinationVC = segue.destinationViewController as? ScannerViewController {
-                destinationVC.scannedItems = self.scannedItems
-            }
-        }
-    }
- 
-    
 }

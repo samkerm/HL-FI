@@ -96,11 +96,5 @@ class DeviceModeTableViewController: UITableViewController {
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let destinationVC = segue.destinationViewController as! SettingsTableViewController
-//        destinationVC.index = selectedRow
-//        destinationVC.tableView.reloadData()
-    }
 
 }

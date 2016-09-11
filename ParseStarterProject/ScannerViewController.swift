@@ -89,16 +89,24 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     func hideHamburgerMenu() {
         for subview in self.view.subviews {
             if subview.tag == 1001 {
+                let animationDuration = 0.4
+                let fillmode = kCAFillModeBackwards
                 let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
                 rotateAnimation.fromValue = 0.0
-                rotateAnimation.toValue = CGFloat(M_PI_2)
-                rotateAnimation.duration = 0.3
+                rotateAnimation.toValue = 6.0
                 let fadeAnimation = CABasicAnimation(keyPath: "opacity")
                 fadeAnimation.fromValue = 1
                 fadeAnimation.toValue = 0
-                fadeAnimation.duration = 0.3
-                subview.layer.addAnimation(rotateAnimation, forKey: nil)
-                subview.layer.addAnimation(fadeAnimation, forKey: nil)
+                let groupAnimation = CAAnimationGroup()
+                groupAnimation.animations = [rotateAnimation, fadeAnimation]
+                groupAnimation.duration = animationDuration
+                groupAnimation.fillMode = fillmode
+                subview.layer.addAnimation(groupAnimation, forKey: "menuRollUP")
+                UIView.animateWithDuration(animationDuration, animations: {
+                    subview.frame.origin.y += -40
+                    }, completion: { (_) in
+                        subview.removeFromSuperview()
+                })
             }
         }
     }
@@ -165,6 +173,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             }, completion: { (_) in
                 text.removeFromSuperview()
                 self.dimmedView.removeFromSuperview()
+                self.addHamburgerMenu()
+                if self.view.gestureRecognizers?.count == 3 {
+                    self.view.gestureRecognizers?.removeLast()
+                }
         })
     }
 

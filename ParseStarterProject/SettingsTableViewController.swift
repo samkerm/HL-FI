@@ -32,6 +32,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         tableView.reloadData()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func logOut() {

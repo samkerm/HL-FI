@@ -19,6 +19,8 @@ class ListTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         updateLeftBarButtonItem()
         navigationController?.hidesBarsOnTap = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()

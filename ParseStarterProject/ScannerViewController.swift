@@ -51,30 +51,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.blackColor()
-        captureSession = AVCaptureSession()
-        let videoCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        let videoInput: AVCaptureDeviceInput
-        do {
-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
-        } catch {
-            return
-        }
-        if (captureSession.canAddInput(videoInput)) {
-            captureSession.addInput(videoInput)
-        } else {
-            failed();
-            return;
-        }
+        addCaptureSession()
         addPreviewLayer()
         addCaptureButton()
         drawTargetRectangle()
         initialInstructions()
-//        let leftPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(ScannerViewController.leftSlide))
-//        leftPan.edges = .Left
-//        self.view.addGestureRecognizer(leftPan)
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
-//        tap.numberOfTapsRequired = 1
-//        self.view.addGestureRecognizer(tap)
+        addGuestures()
     }
     
     func drawTargetRectangle() {
@@ -82,9 +64,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         let rectangle = CGRect(x: 10, y: view.frame.height/2 - 40, width: view.frame.width - 20, height: 80)
         let pathS = UIBezierPath(rect: square)
         let shapeS = CAShapeLayer()
-        let hamburger = UIImage(named: "menu")
-        let hamburgerView = UIImageView(image: hamburger)
-        hamburgerView.frame = CGRect(x: self.view.bounds.width - hamburgerView.frame.width - 15, y: 30, width: hamburgerView.frame.width, height: hamburgerView.frame.height)
         shapeS.path = pathS.CGPath
         shapeS.lineWidth = 2
         shapeS.lineDashPattern = [4,10,1,2]
@@ -99,9 +78,30 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         shapeR.fillColor = UIColor.clearColor().CGColor
         view.layer.addSublayer(shapeS)
         view.layer.addSublayer(shapeR)
+    }
+    func addHamburgerMenu() {
+        let hamburger = UIImage(named: "menu")
+        let hamburgerView = UIImageView(image: hamburger)
+        hamburgerView.tag = 1001
+        hamburgerView.frame = CGRect(x: self.view.bounds.width - hamburgerView.frame.width - 15, y: 30, width: hamburgerView.frame.width, height: hamburgerView.frame.height)
         view.addSubview(hamburgerView)
     }
-    
+    func hideHamburgerMenu() {
+        for subview in self.view.subviews {
+            if subview.tag == 1001 {
+                let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+                rotateAnimation.fromValue = 0.0
+                rotateAnimation.toValue = CGFloat(M_PI_2)
+                rotateAnimation.duration = 0.3
+                let fadeAnimation = CABasicAnimation(keyPath: "opacity")
+                fadeAnimation.fromValue = 1
+                fadeAnimation.toValue = 0
+                fadeAnimation.duration = 0.3
+                subview.layer.addAnimation(rotateAnimation, forKey: nil)
+                subview.layer.addAnimation(fadeAnimation, forKey: nil)
+            }
+        }
+    }
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
@@ -171,19 +171,65 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 //------------------------------------------------------------------------------------------------------------
 //      MARK: FUNCTIONS
 //-------------------------------------------------------------------------------------------------------------
-
+    
+    func addCaptureSession() {
+        captureSession = AVCaptureSession()
+        let videoCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        let videoInput: AVCaptureDeviceInput
+        do {
+            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+        } catch {
+            return
+        }
+        if (captureSession.canAddInput(videoInput)) {
+            captureSession.addInput(videoInput)
+        } else {
+            failed();
+            return;
+        }
+    }
+    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+        captureSession.stopRunning()
+        if let metadataObject = metadataObjects.first {
+            let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            foundCode(readableObject.stringValue)
+        }
+    }
+    
+    func foundCode(code: String) {
+        popUpInformation(code)
+        scannedBarcode = code
+    }
+    func addGuestures() {
+        let leftPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(self.leftSlide(_:)))
+        leftPan.edges = .Left
+        self.view.addGestureRecognizer(leftPan)
+        let rightPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(rightSlide(_:)))
+        rightPan.edges = .Right
+        self.view.addGestureRecognizer(rightPan)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
+        tap.numberOfTapsRequired = 1
+        self.view.addGestureRecognizer(tap)
+    }
     func tap(recognizer: UITapGestureRecognizer) {
         if recognizer.state == .Ended {
             self.dimmedView.removeFromSuperview()
             self.view.removeGestureRecognizer(recognizer)
+            addHamburgerMenu()
         }
     }
     
-//    func leftSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
-//        if recognizer.state == .Recognized {
-//            performSegueWithIdentifier("Show List", sender: self)
-//        }
-//    }
+    func leftSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .Recognized && deviceModeIndex != 0 {
+            performSegueWithIdentifier("Show List", sender: self)
+        }
+    }
+    func rightSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .Recognized {
+            performSegueWithIdentifier("Show Settings", sender: self)
+        }
+    }
     
     func touchDown(){
         navigationController?.navigationBarHidden = true
@@ -207,20 +253,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         captureSession.removeOutput(metadataOutput)
         navigationController?.navigationBarHidden = true
     }
-    
-    
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
-        captureSession.stopRunning()
-        if let metadataObject = metadataObjects.first {
-            let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            foundCode(readableObject.stringValue)
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if navigationController?.navigationBar.hidden == true {
+            hideHamburgerMenu()
         }
-    }
-    
-    func foundCode(code: String) {
-        popUpInformation(code)
-        scannedBarcode = code
     }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -337,6 +373,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 //-------------------------------------------------------------------------------------------------------------
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         if segue.identifier == "Show Settings" {
             if let destinationVC = segue.destinationViewController as? SettingsTableViewController {
                 destinationVC.index = self.deviceModeIndex

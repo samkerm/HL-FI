@@ -137,51 +137,6 @@
             </objects>
             <point key="canvasLocation" x="-377" y="272"/>
         </scene>
-        <!--Side Menu View Controller-->
-        <scene sceneID="l8r-2p-EoF">
-            <objects>
-                <tableViewController storyboardIdentifier="SideMenu" id="drq-Ml-WWr" customClass="SideMenuViewController" customModule="HL_FI" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FB5-se-bX3">
-                        <rect key="frame" x="0.0" y="0.0" width="80" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="84" id="bAO-Gg-SBD">
-                                <rect key="frame" x="0.0" y="28" width="80" height="84"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bAO-Gg-SBD" id="Z7S-qF-XMX">
-                                    <rect key="frame" x="0.0" y="0.0" width="80" height="83"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67c-Nt-Xpk">
-                                            <rect key="frame" x="0.0" y="0.0" width="80" height="84"/>
-                                        </imageView>
-                                    </subviews>
-                                    <color key="backgroundColor" red="1" green="0.48221905570000001" blue="0.1105622424" alpha="1" colorSpace="calibratedRGB"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" restorationIdentifier="HeaderCell" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="HeaderCell" id="LRu-c3-zyU">
-                                <rect key="frame" x="0.0" y="112" width="80" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottom" tableViewCell="LRu-c3-zyU" id="r5l-0i-dJB">
-                                    <rect key="frame" x="0.0" y="0.0" width="80" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="drq-Ml-WWr" id="2r5-Ec-XoU"/>
-                            <outlet property="delegate" destination="drq-Ml-WWr" id="AGZ-m2-pLP"/>
-                        </connections>
-                    </tableView>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="80" height="568"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7UU-vU-GzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="221" y="1681"/>
-        </scene>
         <!--Plate Scan Success Pop OverVC-->
         <scene sceneID="VZY-ZQ-mzH">
             <objects>
@@ -511,7 +466,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sZn-OI-qxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1220" y="-327"/>
+            <point key="canvasLocation" x="1092" y="-327"/>
         </scene>
         <!--Camera-->
         <scene sceneID="tne-QT-ifu">
@@ -534,7 +489,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="menu" id="jcI-J6-Uva" userLabel="Setting">
                             <connections>
-                                <segue destination="ZVq-Yy-joi" kind="show" identifier="Show List" customClass="ShowList" customModule="HL_FI" customModuleProvider="target" id="Bkr-nh-lHv"/>
+                                <segue destination="ZVq-Yy-joi" kind="show" identifier="Show Settings" id="Bkr-nh-lHv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1040,7 +995,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NQg-1v-tBD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="868" y="-327"/>
+            <point key="canvasLocation" x="728" y="-327"/>
         </scene>
         <!--Product Scan Success View Controller-->
         <scene sceneID="ZOs-1k-JHE">
@@ -1352,7 +1307,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IPX-ez-2Sd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1569" y="-327"/>
+            <point key="canvasLocation" x="1465" y="-327"/>
         </scene>
     </scenes>
     <resources>

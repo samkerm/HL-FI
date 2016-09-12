@@ -34,6 +34,14 @@ class ListTableViewController: UITableViewController {
         }
         let add : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem(rawValue: 4)!, target: self, action: #selector (self.pop))
         navigationItem.rightBarButtonItem = add
+        let rightPan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(rightSlide(_:)))
+        rightPan.edges = .Right
+        self.view.addGestureRecognizer(rightPan)
+    }
+    func rightSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .Began {
+            self.pop()
+        }
     }
     func pop() {
         let transition = CATransition()

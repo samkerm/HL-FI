@@ -10,7 +10,6 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
 
-    var devicemodeDetail = "View mode"
     var index: Int = 0 {
         didSet {
             if let scannerVC = navigationController?.viewControllers[0] as? ScannerViewController {
@@ -19,15 +18,14 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
-    var deviceMode : DeviceMode!
     let parseBackendHandler = ParseBackendHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
         navigationController?.hidesBarsOnTap = false
-        let logOut = UIBarButtonItem(title: "Log Out", style: .Plain, target: self, action: #selector(self.logOut))
-        navigationItem.rightBarButtonItem = logOut
+//        let logOut = UIBarButtonItem(title: "Log Out", style: .Plain, target: self, action: #selector(self.logOut))
+//        navigationItem.rightBarButtonItem = logOut
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -36,14 +34,19 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func logOut() {
-        self.parseBackendHandler.logout({ (success, error) in
-            if success {
-                let Login = self.storyboard!.instantiateViewControllerWithIdentifier("LoginPage")
-                self.presentViewController(Login, animated: true, completion: nil)
-            } else {
-                print(error)
-            }
-        })
+        let alertC = UIAlertController(title: "Areyou sure you want to logout?", message: "", preferredStyle: .ActionSheet)
+        alertC.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
+            self.parseBackendHandler.logout({ (success, error) in
+                if success {
+                    let Login = self.storyboard!.instantiateViewControllerWithIdentifier("LoginPage")
+                    self.presentViewController(Login, animated: true, completion: nil)
+                } else {
+                    print(error)
+                }
+            })
+        }))
+        alertC.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
+        presentViewController(alertC, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,7 +58,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,17 +68,31 @@ class SettingsTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Settings Cell", forIndexPath: indexPath)
-        if indexPath.section == 0 {
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCellWithIdentifier("Settings Cell", forIndexPath: indexPath)
             cell.textLabel!.text = "Device mode"
             cell.detailTextLabel?.text = modesArray[index]
             cell.accessoryType = .DisclosureIndicator
-        } else  {
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCellWithIdentifier("Settings Cell", forIndexPath: indexPath)
             cell.textLabel?.text = "About"
             cell.accessoryType = .DetailButton
             cell.detailTextLabel?.text = ""
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCellWithIdentifier("Logout Cell", forIndexPath: indexPath)
+            let frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: cell.frame.height)
+            let logoutButton = UIButton()
+            logoutButton.frame = frame
+            logoutButton.setTitle("Logout", forState: .Normal)
+            logoutButton.setTitleColor(.lightGrayColor(), forState: .Highlighted)
+            logoutButton.addTarget(self, action: #selector(self.logOut), forControlEvents: .TouchUpInside)
+            cell.contentView.backgroundColor = .redColor()
+            cell.contentView.addSubview(logoutButton)
+            return cell
         }
-        return cell
     }
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {

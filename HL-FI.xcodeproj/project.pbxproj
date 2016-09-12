@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		220B644F1D70BC2F00885130 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220B644E1D70BC2F00885130 /* Launch Screen.storyboard */; };
 		223D96FF1D679EFF00B720AD /* DeviceModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D96FE1D679EFF00B720AD /* DeviceModeTableViewController.swift */; };
-		223D97021D67BCEE00B720AD /* DeviceMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D97011D67BCEE00B720AD /* DeviceMode.swift */; };
 		2247C0FE1D7799A500BA932A /* CurentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2247C0FD1D7799A500BA932A /* CurentUser.swift */; };
 		2252251D1D69068D004D6362 /* ScannedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2252251C1D69068D004D6362 /* ScannedItem.swift */; };
 		2252251F1D6967DE004D6362 /* DetailsOfItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2252251E1D6967DE004D6362 /* DetailsOfItemsTableViewController.swift */; };
@@ -38,7 +37,6 @@
 /* Begin PBXFileReference section */
 		220B644E1D70BC2F00885130 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		223D96FE1D679EFF00B720AD /* DeviceModeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModeTableViewController.swift; sourceTree = "<group>"; };
-		223D97011D67BCEE00B720AD /* DeviceMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMode.swift; sourceTree = "<group>"; };
 		2247C0FD1D7799A500BA932A /* CurentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurentUser.swift; sourceTree = "<group>"; };
 		2252251C1D69068D004D6362 /* ScannedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannedItem.swift; sourceTree = "<group>"; };
 		2252251E1D6967DE004D6362 /* DetailsOfItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsOfItemsTableViewController.swift; sourceTree = "<group>"; };
@@ -157,7 +155,6 @@
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				2252251C1D69068D004D6362 /* ScannedItem.swift */,
 				2247C0FD1D7799A500BA932A /* CurentUser.swift */,
-				223D97011D67BCEE00B720AD /* DeviceMode.swift */,
 				226D28C11D5599020004FBD5 /* ParseBackendHandler.swift */,
 				22F5CD3B1D6F9E1A000E31A8 /* ScanView */,
 				22F5CD3A1D6F999B000E31A8 /* ListView */,
@@ -279,7 +276,6 @@
 				22B915AC1D66662400E32C65 /* SettingsTableViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				22AF16E91D7FA2B200EBDC3C /* ArchivePopOverViewController.swift in Sources */,
-				223D97021D67BCEE00B720AD /* DeviceMode.swift in Sources */,
 				22B915AA1D65940900E32C65 /* ListTableViewController.swift in Sources */,
 				226583CE1D82388700B71C18 /* ProductScanSuccessViewController.swift in Sources */,
 			);

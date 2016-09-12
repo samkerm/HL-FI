@@ -35,8 +35,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         if (captureSession?.running == false) {
             captureSession.startRunning();
         }
-        navigationController?.setNavigationBarHidden(true, animated: true)
         navigationController?.hidesBarsOnTap = true
+        navigationController?.hidesBarsOnSwipe = false
+        navigationController?.barHideOnSwipeGestureRecognizer.enabled = false
         navigationItem.title = modesArray[deviceModeIndex]
         switch deviceModeIndex {
         case 0:
@@ -46,6 +47,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         default:
             navigationItem.leftBarButtonItem?.enabled = true
         }
+    }
+    override func viewDidDisappear(animated: Bool) {
+        hideHamburgerMenu()
     }
     
     override func viewDidLoad() {
@@ -83,8 +87,24 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         let hamburger = UIImage(named: "menu")
         let hamburgerView = UIImageView(image: hamburger)
         hamburgerView.tag = 1001
-        hamburgerView.frame = CGRect(x: self.view.bounds.width - hamburgerView.frame.width - 15, y: 30, width: hamburgerView.frame.width, height: hamburgerView.frame.height)
+        hamburgerView.frame = CGRect(x: self.view.bounds.width - hamburgerView.frame.width - 15, y: 0, width: hamburgerView.frame.width, height: hamburgerView.frame.height)
         view.addSubview(hamburgerView)
+        let animationDuration = 0.4
+        let fillmode = kCAFillModeBackwards
+        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotateAnimation.fromValue = 0.0
+        rotateAnimation.toValue = -6.0
+        let fadeAnimation = CABasicAnimation(keyPath: "opacity")
+        fadeAnimation.fromValue = 0
+        fadeAnimation.toValue = 1
+        let groupAnimation = CAAnimationGroup()
+        groupAnimation.animations = [rotateAnimation, fadeAnimation]
+        groupAnimation.duration = animationDuration
+        groupAnimation.fillMode = fillmode
+        hamburgerView.layer.addAnimation(groupAnimation, forKey: "menuRollUP")
+        UIView.animateWithDuration(animationDuration, animations: {
+            hamburgerView.frame.origin.y += 40
+            }, completion: nil)
     }
     func hideHamburgerMenu() {
         for subview in self.view.subviews {
@@ -173,7 +193,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             }, completion: { (_) in
                 text.removeFromSuperview()
                 self.dimmedView.removeFromSuperview()
-                self.addHamburgerMenu()
                 if self.view.gestureRecognizers?.count == 3 {
                     self.view.gestureRecognizers?.removeLast()
                 }
@@ -228,12 +247,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         if recognizer.state == .Ended {
             self.dimmedView.removeFromSuperview()
             self.view.removeGestureRecognizer(recognizer)
-            addHamburgerMenu()
         }
     }
     
     func leftSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
-        if recognizer.state == .Recognized && deviceModeIndex != 0 {
+        if deviceModeIndex != 0 && recognizer.state == .Began {
             performSegueWithIdentifier("Show List", sender: self)
         }
     }
@@ -265,9 +283,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         captureSession.removeOutput(metadataOutput)
         navigationController?.navigationBarHidden = true
     }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if navigationController?.navigationBar.hidden == true {
             hideHamburgerMenu()
+        } else {
+            addHamburgerMenu()
         }
     }
 

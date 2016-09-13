@@ -39,11 +39,13 @@ class ParseBackendHandler: NSObject {
     func loginWithUsernameAndPassword(username: String, password: String, complition : loginStatus) {
         PFUser.logInWithUsernameInBackground(username, password: password) {
             (user: PFUser?, error: NSError?) -> Void in
-            if user != nil {
+            self.curentUser = CurentUser()
+            if error == nil && user?.username != nil {
                 self.curentUser.username = user!.username!
                 self.curentUser.firstName = user?.objectForKey("firstName") as! String
                 self.curentUser.lastName = user?.objectForKey("lastName") as! String
                 complition(true, "", self.curentUser)
+ 
             } else {
                 let errorString = error!.userInfo["error"] as! String
                 complition(false, errorString, self.curentUser)

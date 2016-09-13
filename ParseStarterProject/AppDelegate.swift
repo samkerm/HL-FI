@@ -8,7 +8,6 @@
 */
 
 import UIKit
-
 import Parse
 
 // If you want to use any of the UI components, uncomment this line
@@ -18,7 +17,9 @@ import Parse
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+    var storyboard : UIStoryboard?
+    let parseBackendHandler = ParseBackendHandler()
+    var curentUser : CurentUser!
     //--------------------------------------
     // MARK: - UIApplicationDelegate
     //--------------------------------------
@@ -30,15 +31,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //--------------------------------------
         // MARK: - Appearance
         //--------------------------------------
-//        self.window?.tintColor = UIColor(red: 60/255, green: 93/255, blue: 99/255, alpha: 1.0)
+        self.window?.tintColor = UIColor(red: 60/255, green: 93/255, blue: 99/255, alpha: 1.0)
         let appearance = UINavigationBar.appearance()
         appearance.tintColor = .whiteColor()
         appearance.barTintColor = UIColor(red: 60/255, green: 93/255, blue: 99/255, alpha: 1.0)
         appearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.lightGrayColor()]
-        //--------------------------------------
-        // MARK: - UIApplicationDelegate
-        //--------------------------------------
         
+        //--------------------------------------
+        // MARK: - Parse
+        //--------------------------------------
+
+
+
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
         Parse.enableLocalDatastore()
@@ -113,6 +117,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //            application.registerForRemoteNotificationTypes(types)
         //        }
 
+        self.storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        if parseBackendHandler.checkCurentUserStatus({ (user) in
+            self.curentUser = user
+        }) {
+            self.window?.rootViewController = self.storyboard?.instantiateInitialViewController()
+            let navigationController = self.window?.rootViewController as! UINavigationController
+            let scannerVC = navigationController.viewControllers.first as! ScannerViewController
+            scannerVC.curentUser = self.curentUser
+        } else {
+            let rootViewController : UIViewController = (self.storyboard?.instantiateViewControllerWithIdentifier("LoginPage"))!
+            self.window?.rootViewController = rootViewController
+        }
+        
         return true
     }
 

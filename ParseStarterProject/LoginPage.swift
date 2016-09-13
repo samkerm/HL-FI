@@ -45,13 +45,13 @@ class LoginPage: UIViewController {
             }
         }
     }
-    override func viewDidAppear(animated: Bool) {
-        if parseBackendHandler.checkCurentUserStatus({ (curentUser) in
-            self.curentUser = curentUser
-        }) {
-            performSegueWithIdentifier("ScanView", sender: self)
-        }
-    }
+//    override func viewDidAppear(animated: Bool) {
+//        if parseBackendHandler.checkCurentUserStatus({ (curentUser) in
+//            self.curentUser = curentUser
+//        }) {
+//            performSegueWithIdentifier("ScanView", sender: self)
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

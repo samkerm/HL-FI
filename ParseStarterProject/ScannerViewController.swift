@@ -245,6 +245,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     func tap(recognizer: UITapGestureRecognizer) {
         if recognizer.state == .Ended {
+            hideHamburgerMenu()
             self.dimmedView.removeFromSuperview()
             self.view.removeGestureRecognizer(recognizer)
         }
@@ -285,10 +286,13 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if navigationController?.navigationBar.hidden == true {
-            hideHamburgerMenu()
-        } else {
-            addHamburgerMenu()
+        guard touches.count > 1 else {
+            if navigationController?.navigationBar.hidden == true {
+                hideHamburgerMenu()
+            } else {
+                addHamburgerMenu()
+            }
+            return
         }
     }
 
@@ -442,3 +446,4 @@ extension ScannerViewController : ArchivePopOverViewControllerDelegate {
         print(scannedItems)
     }
 }
+

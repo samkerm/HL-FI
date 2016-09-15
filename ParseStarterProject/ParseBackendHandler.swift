@@ -21,6 +21,7 @@ class ParseBackendHandler: NSObject {
     typealias signUpStatus = (Bool, String, CurentUser) -> Void
     typealias logOutStatus = (Bool, String) -> Void
     typealias scannedListUpdateStatus = (Bool, String, Int) -> Void
+    typealias removeStatus = (Bool, Int, Int) -> Void
     
     func checkCurentUserStatus(complition: curentUserStatus) -> Bool {
         curentUser = CurentUser()
@@ -219,6 +220,35 @@ class ParseBackendHandler: NSObject {
             })
         }
         return unsavedItems
+    }
+    func removeFromDatabase(barcode : String, completion : removeStatus) {
+        let query = PFQuery(className: "Inventory")
+        var PFObjectsFound = 0
+        var PFObjectsDeleted = 0
+        query.whereKey("barcode", equalTo: barcode)
+        query.findObjectsInBackgroundWithBlock { (objects, error) in
+            if error == nil {
+                if let objects = objects {
+                    PFObjectsFound = objects.count
+                    for object in objects {
+                        object.deleteInBackgroundWithBlock({ (deleted, error) in
+                            if error == nil {
+                                PFObjectsDeleted += 1
+                                if PFObjectsDeleted == PFObjectsFound {
+                                    completion(true, PFObjectsFound, PFObjectsDeleted)
+                                }
+                            }else {
+                                print(error)
+                                completion(false, PFObjectsFound, PFObjectsDeleted)
+                            }
+                        })
+                    }
+                }
+            }else {
+                print(error)
+                completion(false, PFObjectsFound, PFObjectsDeleted)
+            }
+        }
     }
     
     func logout(completion: logOutStatus) {

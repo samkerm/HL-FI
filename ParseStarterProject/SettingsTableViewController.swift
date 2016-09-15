@@ -17,7 +17,7 @@ class SettingsTableViewController: UITableViewController {
             }
         }
     }
-    let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
+    let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode", "Discharge mode"]
     let parseBackendHandler = ParseBackendHandler()
     
     override func viewDidLoad() {

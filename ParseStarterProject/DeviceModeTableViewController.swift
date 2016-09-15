@@ -10,7 +10,7 @@ import UIKit
 
 class DeviceModeTableViewController: UITableViewController {
 
-    let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
+    let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode", "Discharge mode"]
     var selectedRow : Int = 0
 
     override func didReceiveMemoryWarning() {
@@ -27,7 +27,7 @@ class DeviceModeTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return modesArray.count
     }
 
     

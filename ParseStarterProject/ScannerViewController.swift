@@ -18,7 +18,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     let parseBackendHandler = ParseBackendHandler()
     var captureButton = UIButton()
     var deviceModeIndex = 0
-    let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode"]
+    let modesArray : [String] = ["View mode", "Archive mode", "Defrost mode", "Discharge mode"]
     var scannedItem : ScannedItem!
     var scannedItems = [ScannedItem]()
     var curentUser = CurentUser()
@@ -40,12 +40,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         navigationController?.barHideOnSwipeGestureRecognizer.enabled = false
         navigationItem.title = modesArray[deviceModeIndex]
         switch deviceModeIndex {
-        case 0:
-            navigationItem.leftBarButtonItem?.enabled = false
-        case 1:
+        case 1,2:
             navigationItem.leftBarButtonItem?.enabled = true
         default:
-            navigationItem.leftBarButtonItem?.enabled = true
+            navigationItem.leftBarButtonItem?.enabled = false
         }
     }
     override func viewDidDisappear(animated: Bool) {
@@ -252,7 +250,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func leftSlide(recognizer: UIScreenEdgePanGestureRecognizer) {
-        if deviceModeIndex != 0 && recognizer.state == .Began {
+        if deviceModeIndex != 0 && deviceModeIndex != 3 && recognizer.state == .Began {
             performSegueWithIdentifier("Show List", sender: self)
         }
     }
@@ -313,8 +311,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             popUpViewInformation(barcodeText)
         case 1:
             PopUpArchiveAlert(barcodeText, message: "Would you like to add this to the archiving list?")
-        default:
+        case 2:
             popUpDefrostAlert(barcodeText, message: "Would you like to add this to the defrosting list?")
+        default:
+            popUpDischargeAlert(barcodeText, message: "Would you like to remove this item from database?")
         }
     }
     
@@ -368,8 +368,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 self.showText("Item already in database")
                 self.buttonReleased()
                 self.captureSession.startRunning()
-                print("oops")
-                
             } else if !exists {
                 self.performSegueWithIdentifier("ShowArchivePopover", sender: self)
                 self.buttonReleased()
@@ -378,9 +376,30 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
     }
     
+    func popUpDischargeAlert(barcode : String, message : String) {
+        let ac = UIAlertController(title: "Discharge?", message: message, preferredStyle: .Alert)
+        ac.addAction(UIAlertAction(title: "No", style: .Default, handler: { (_) in
+            self.buttonReleased()
+            self.captureSession.startRunning()
+        }))
+        ac.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
+            self.parseBackendHandler.removeFromDatabase(barcode, completion: { (success, found, deleted) in
+                if success {
+                    self.showText("SUCCESS!\nFound: \(found)\nDeleted: \(deleted)")
+                } else {
+                    self.showText("Failed!\nFound: \(found)\nDeleted: \(deleted)")
+                }
+            })
+            self.buttonReleased()
+            self.captureSession.startRunning()
+        }))
+        self.presentViewController(ac, animated: true, completion: nil)
+    }
+    
     func showText(text : String) {
         let label = UILabel()
         label.text = text
+        label.numberOfLines = 0
         label.textAlignment = .Center
         label.font = UIFont(name: "System-Regular", size: 17.0)
         label.textColor = .whiteColor()
@@ -397,7 +416,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         animation.duration = 0.3
         animation.beginTime = CACurrentMediaTime() + 0.3
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        UIView.animateWithDuration(1.5, delay: 0.5, options: .CurveEaseOut, animations: {
+        UIView.animateWithDuration(3, delay: 0.5, options: .CurveEaseOut, animations: {
             label.alpha = 0
             }, completion: { (_) in
                 label.removeFromSuperview()
@@ -443,7 +462,6 @@ extension ScannerViewController : ArchivePopOverViewControllerDelegate {
     func archiveItemReturned(value: ScannedItem) {
         self.scannedItem = value
         self.scannedItems.append(self.scannedItem)
-        print(scannedItems)
     }
 }
 

@@ -26,7 +26,7 @@ class LoginPage: UIViewController {
     var curentUser = CurentUser()
     
     @IBAction func login(sender: AnyObject) {
-        if !signUpState && !usernameTextField.text!.isEmpty && !passwordTextField.text!.isEmpty {
+        if !signUpState {
             parseBackendHandler.loginWithUsernameAndPassword(usernameTextField.text!, password: passwordTextField.text!, complition: { (success, error, curentUser) in
                 if success {
                     self.curentUser = curentUser

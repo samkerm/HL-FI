@@ -34,7 +34,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func logOut() {
-        let alertC = UIAlertController(title: "Areyou sure you want to logout?", message: "", preferredStyle: .ActionSheet)
+        let alertC = UIAlertController(title: "Are you sure you want to logout?", message: nil, preferredStyle: .ActionSheet)
         alertC.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (_) in
             self.parseBackendHandler.logout({ (success, error) in
                 if success {

@@ -35,13 +35,13 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIf-hX-EUE" customClass="LoginButton" customModule="HL_FI" customModuleProvider="target">
-                                <rect key="frame" x="105" y="173" width="100" height="50"/>
+                                <rect key="frame" x="80" y="173" width="150" height="50"/>
                                 <color key="backgroundColor" red="0.035294117649999998" green="0.47058823529999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="C0R-9Z-dTH"/>
+                                    <constraint firstAttribute="width" constant="150" id="C0R-9Z-dTH"/>
                                     <constraint firstAttribute="height" constant="50" id="Gh9-rx-Epe"/>
                                 </constraints>
-                                <state key="normal" title="Login">
+                                <state key="normal" title="Login/Sign up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

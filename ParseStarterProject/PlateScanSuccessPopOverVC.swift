@@ -25,6 +25,9 @@ class PlateScanSuccessPopOverVC: UIViewController {
     @IBOutlet weak var detailedInformationLabel: UILabel!
     @IBOutlet weak var successfullViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var detailedInformationHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var doneViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var successfulViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var doneViewVerticalConstraint: NSLayoutConstraint!
     @IBAction func doneButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -32,6 +35,8 @@ class PlateScanSuccessPopOverVC: UIViewController {
         super.viewDidLoad()
         doneView.layer.cornerRadius = 20
         successfulView.layer.cornerRadius = 20
+        adjustHeightForContent()
+        adjusTheFrames()
         if (scannedItem != nil) {
             barcodeLabel.text = scannedItem.barcode
             plateNameLabel.text = scannedItem.name
@@ -43,8 +48,12 @@ class PlateScanSuccessPopOverVC: UIViewController {
             creatorsNameLabel.text = scannedItem.creatorFirstName + " " + scannedItem.creatorLastName
             dateCreatedLabel.text = scannedItem.dateCreated
             detailedInformationLabel.text = scannedItem.detailedInformation
-            adjustHeightForContent()
         }
+    }
+    func adjusTheFrames() {
+        doneViewWidthConstraint.constant = (self.view.frame.size.width > 414) ? 362 : (view.frame.size.width - view.frame.size.width/8)
+        successfulViewWidthConstraint.constant = doneViewWidthConstraint.constant
+        doneViewVerticalConstraint.constant = self.view.frame.size.height/48
     }
     
     func adjustHeightForContent() {

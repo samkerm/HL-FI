@@ -24,11 +24,16 @@ class ProductScanSuccessViewController: UIViewController {
     @IBOutlet weak var expiryDateLabel: UILabel!
     @IBOutlet weak var detailedInformationHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var successfullViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var doneViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var doneViewVerticalConstraint: NSLayoutConstraint!
+    @IBOutlet weak var successfulViewWidthCostraint: NSLayoutConstraint!
     @IBAction func doneButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        adjusTheFrames()
+        adjustHeightForContent()
         doneView.layer.cornerRadius = 20
         successfulView.layer.cornerRadius = 20
         if (scannedItem != nil) {
@@ -41,8 +46,12 @@ class ProductScanSuccessViewController: UIViewController {
             dateCreatedLabel.text = scannedItem.dateCreated
             expiryDateLabel.text = scannedItem.expiryDate
             detailedInformationLabel.text = scannedItem.detailedInformation
-            adjustHeightForContent()
         }
+    }
+    func adjusTheFrames() {
+        doneViewWidthConstraint.constant = (self.view.frame.size.width > 414) ? 362 : (view.frame.size.width - view.frame.size.width/8)
+        successfulViewWidthCostraint.constant = doneViewWidthConstraint.constant
+        doneViewVerticalConstraint.constant = self.view.frame.size.height/48
     }
     
     func adjustHeightForContent() {

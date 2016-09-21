@@ -129,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let rootViewController : UIViewController = (self.storyboard?.instantiateViewControllerWithIdentifier("LoginPage"))!
             self.window?.rootViewController = rootViewController
         }
-        
+    
         return true
     }
 

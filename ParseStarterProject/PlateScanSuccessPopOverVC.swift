@@ -74,4 +74,16 @@ class PlateScanSuccessPopOverVC: UIViewController {
         super.init(coder: aDecoder)
         modalPresentationStyle = .Custom
     }
+    override func viewWillAppear(animated: Bool) {
+        self.view.backgroundColor = UIColor.clearColor()
+    }
+    override func viewDidAppear(animated: Bool) {
+        UIView.animateWithDuration(0.2, delay: 0.0, options: [], animations: {
+            self.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+            }, completion: nil)
+        view.layoutIfNeeded()
+    }
+    override func viewWillDisappear(animated: Bool) {
+        self.view.backgroundColor = UIColor.clearColor()
+    }
 }

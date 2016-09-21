@@ -80,7 +80,7 @@ class AnimatedMaskLabel: UIView {
       let maskLayer = CALayer()
       maskLayer.backgroundColor = UIColor.clearColor().CGColor
       maskLayer.frame = CGRectOffset(bounds, bounds.size.width, 0)
-      maskLayer.contents = image.CGImage
+      maskLayer.contents = image!.CGImage
       
       gradientLayer.mask = maskLayer
     }

@@ -39,6 +39,8 @@ class ArchivePopOverViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cancelButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var itemsDetailsHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var additionalInformationVerticalSpacingConstraint: NSLayoutConstraint!
     @IBOutlet weak var freezerLocationVerticalSpacingConstraint: NSLayoutConstraint!
@@ -93,6 +95,7 @@ class ArchivePopOverViewController: UIViewController {
         super.viewDidLoad()
         headerLabel.text = scannedBarcode
         expieryDate.alpha = 0
+        adjusTheFrames()
         setTextfieldDelegates()
         setUpDateTextFieldsInputView()
         setUpExpiryDateTextFieldsInputView()
@@ -107,6 +110,11 @@ class ArchivePopOverViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         modalPresentationStyle = .Custom
+    }
+    func adjusTheFrames() {
+        containerViewWidthConstraint.constant = (self.view.frame.size.width > 414) ? 362 : (view.frame.size.width - view.frame.size.width/8)
+        cancelButtonWidthConstraint.constant = containerViewWidthConstraint.constant/2 + 1
+        containerViewVerticalSpacingConstraint.constant = self.view.frame.size.height/48
     }
     func resetContent() {
         nameTextField.text = ""
@@ -244,7 +252,18 @@ class ArchivePopOverViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-   
+    override func viewWillAppear(animated: Bool) {
+        self.view.backgroundColor = UIColor.clearColor()
+    }
+    override func viewDidAppear(animated: Bool) {
+        UIView.animateWithDuration(0.2, delay: 0.0, options: [], animations: {
+            self.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+            }, completion: nil)
+        view.layoutIfNeeded()
+    }
+    override func viewWillDisappear(animated: Bool) {
+        self.view.backgroundColor = UIColor.clearColor()
+    }
 
     /*
     // MARK: - Navigation
@@ -327,7 +346,7 @@ extension ArchivePopOverViewController : UITextFieldDelegate {
     func textFieldDidEndEditing(textField: UITextField) {
         if textField == detailedInformationTextField && plateState{
             UIView.animateWithDuration(1.0, animations: {
-                self.containerViewVerticalSpacingConstraint.constant = 10
+                self.containerViewVerticalSpacingConstraint.constant = self.view.frame.size.height/48
                 self.view.layoutIfNeeded()
             })
         }
@@ -336,7 +355,14 @@ extension ArchivePopOverViewController : UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
         if textField == detailedInformationTextField && plateState{
             UIView.animateWithDuration(1.0, animations: {
-                self.containerViewVerticalSpacingConstraint.constant = -110
+                switch self.view.frame.size.height {
+                case 480:
+                    self.containerViewVerticalSpacingConstraint.constant = -110
+                case 568:
+                    self.containerViewVerticalSpacingConstraint.constant = -50
+                default:
+                    self.containerViewVerticalSpacingConstraint.constant = self.view.frame.size.height/48
+                }
                 self.view.layoutIfNeeded()
             })
         }
